@@ -91,6 +91,7 @@ def notify(name, store, url, price="", is_local=False):
     price_str = f" — **{price}**" if price else ""
     now = datetime.now().strftime("%I:%M %p")
     send_discord(
+        f"@everyone\n"
         f"**RESTOCK** [{now}] {location}\n"
         f"**{html.unescape(name)}**{price_str}\n"
         f"Store: {store}\n{url}"
@@ -291,6 +292,7 @@ def check_pokemoncenter(state, seed=False):
             if not seed and key not in state:
                 name = _slug_to_name(url)
                 send_discord(
+                    f"@everyone\n"
                     f"**NEW at Pokemon Center** 🎴\n"
                     f"**{name}**\n"
                     f"Just appeared in their catalog — may be going on sale soon!\n{url}"
@@ -400,6 +402,7 @@ def check_pokemoncenter_restock(state, seed=False):
         if not seed and status == "IN_STOCK" and prev != "IN_STOCK":
             name = _slug_to_name(url)
             send_discord(
+                f"@everyone\n"
                 f"**RESTOCK at Pokemon Center!**\n"
                 f"**{name}**\n"
                 f"Back in stock — buy directly at retail price!\n{url}"
