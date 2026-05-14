@@ -15,10 +15,10 @@ from curl_cffi import requests as cf
 
 warnings.filterwarnings("ignore")
 
-WEBHOOK_URL = os.environ.get("WEBHOOK_URL", "https://discord.com/api/webhooks/1497888304836640798/hbydxuJkfCTwqTWGqKfOu7ifqyN7pFPtTAT3xxGLzIcWgU7fg-Ie9yi5oo1tFB_01hzV")
+WEBHOOK_URL = os.environ["WEBHOOK_URL"]
 STATE_FILE = os.path.join(os.path.dirname(__file__), "seen_products.json")
 
-TARGET_API_KEY = os.environ.get("TARGET_API_KEY", "9f36aeafbe60771e321a7cc95a78140772ab3e96")
+TARGET_API_KEY = os.environ["TARGET_API_KEY"]
 TARGET_ZIP = "95122"
 
 # All 5 Target stores near 95122
