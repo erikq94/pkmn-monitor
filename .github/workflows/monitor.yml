@@ -1,0 +1,40 @@
+name: Pokemon Monitor
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: monitor
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run monitor
+        env:
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+          TARGET_API_KEY: ${{ secrets.TARGET_API_KEY }}
+        run: python pkmn_monitor.py
+
+      - name: Save state
+        run: |
+          git config user.name "Pokebot"
+          git config user.email "pokebot@users.noreply.github.com"
+          git add seen_products.json
+          git diff --staged --quiet || (git pull --rebase && git push)
