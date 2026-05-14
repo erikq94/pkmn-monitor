@@ -4,7 +4,7 @@ import json
 import os
 import sys
 import warnings
-from datetime import datetime
+from datetime import datetime, date
 
 import re
 import time
@@ -485,6 +485,26 @@ def run_status():
     print("Status sent to Discord!")
 
 
+# ── Token expiry reminder ─────────────────────────────────────────────────────
+
+GITHUB_TOKEN_EXPIRY = date(2026, 8, 11)
+
+def check_token_expiry(state):
+    today = date.today()
+    days_left = (GITHUB_TOKEN_EXPIRY - today).days
+    if days_left > 7:
+        return
+    last_warned = state.get("token_expiry_last_warned")
+    if last_warned == str(today):
+        return
+    send_discord(
+        f"⚠️ **GitHub token expires in {days_left} day{'s' if days_left != 1 else ''}** ({GITHUB_TOKEN_EXPIRY})\n"
+        "Renew it at: github.com → Settings → Developer settings → Personal access tokens\n"
+        "Then update cron-job.org with the new token."
+    )
+    state["token_expiry_last_warned"] = str(today)
+
+
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 def main():
@@ -508,6 +528,7 @@ def main():
         print("First run — seeding state without sending alerts...")
 
     state = load_state()
+    check_token_expiry(state)
     state = check_target(state, seed=seed)
     state = check_pokemoncenter(state, seed=seed)
     state = check_pokemoncenter_restock(state, seed=seed)
