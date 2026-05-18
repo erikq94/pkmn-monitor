@@ -485,6 +485,94 @@ def run_status():
     print("Status sent to Discord!")
 
 
+# ── Costco ────────────────────────────────────────────────────────────────────
+
+COSTCO_WATCH = [
+    # Mega Charizard X ex Ultra Premium Collection 2-pack (item 1997714)
+    "https://www.costco.com/pok%C3%A9mon-tcg-mega-charizard-x-ex-ultra-premium-collection-2-pack.product.1997714.html",
+    # Charizard ex Super-Premium Collection (item 4000313298)
+    "https://www.costco.com/pok%C3%A9mon-tcg:-charizard-ex-super-premium-collection.product.4000313298.html",
+    # Unova Heavy Hitters Premium Collection — add URL when announced
+]
+
+
+def _costco_stock_status(url):
+    """Returns 'IN_STOCK', 'OUT_OF_STOCK', or None if unknown."""
+    try:
+        r = cf.get(url, impersonate="chrome124", timeout=20)
+        if not r.ok:
+            return None
+        soup = BeautifulSoup(r.text, "html.parser")
+        text = soup.get_text(" ", strip=True)
+        # Akamai block — returns a tiny privacy page instead of product content
+        if len(text) < 200:
+            print(f"  [blocked by Akamai] {url[-50:]}")
+            return None
+        # JSON-LD structured data (most reliable)
+        for tag in soup.find_all("script", type="application/ld+json"):
+            try:
+                data = json.loads(tag.string or "")
+                if isinstance(data, list):
+                    data = data[0]
+                offers = data.get("offers", {})
+                if isinstance(offers, list):
+                    offers = offers[0]
+                avail = offers.get("availability", "")
+                if "InStock" in avail:
+                    return "IN_STOCK"
+                if "OutOfStock" in avail or "SoldOut" in avail:
+                    return "OUT_OF_STOCK"
+            except (json.JSONDecodeError, AttributeError, TypeError):
+                continue
+        if re.search(r"\bAdd to Cart\b", text, re.IGNORECASE):
+            return "IN_STOCK"
+        if re.search(r"\b(Out of Stock|Sold Out)\b", text, re.IGNORECASE):
+            return "OUT_OF_STOCK"
+        # oos-overlay: "hide" class means the overlay is hidden = item IS in stock
+        oos = soup.find(class_="oos-overlay")
+        if oos:
+            return "IN_STOCK" if "hide" in oos.get("class", []) else "OUT_OF_STOCK"
+        return None
+    except Exception:
+        return None
+
+
+def _costco_name(url):
+    slug = url.split("/")[-1].split(".product.")[0]
+    slug = re.sub(r"%[0-9a-fA-F]{2}", "", slug)
+    return slug.replace("-", " ").replace(":", "").title()
+
+
+def check_costco(state, seed=False):
+    print("Checking Costco watch list...")
+    new_alerts = 0
+    for url in COSTCO_WATCH:
+        key = f"costco_{url}"
+        status = _costco_stock_status(url)
+        if status is None:
+            print(f"  [unknown] {_costco_name(url)[:55]}")
+            time.sleep(1)
+            continue
+        prev = state.get(key)
+        if not seed and status == "IN_STOCK" and prev != "IN_STOCK":
+            name = _costco_name(url)
+            send_discord(
+                f"@everyone\n"
+                f"**RESTOCK at Costco!** 🎴\n"
+                f"**{name}**\n"
+                f"Available online now — also check the Costco app for local warehouse stock!\n{url}"
+            )
+            print(f"  [RESTOCK] {name[:60]}")
+            new_alerts += 1
+        else:
+            print(f"  [{status}] {_costco_name(url)[:55]}")
+        state[key] = status
+        time.sleep(1)
+    label = "seeded" if seed else f"{new_alerts} restocks found"
+    print(f"  {len(COSTCO_WATCH)} products checked, {label}")
+    return state
+
+
 # ── Token expiry reminder ─────────────────────────────────────────────────────
 
 GITHUB_TOKEN_EXPIRY = date(2026, 8, 11)
@@ -513,7 +601,7 @@ def main():
         ok = send_discord(
             "**Pokebot is online!**\n"
             f"Monitoring Pokemon cards near ZIP {TARGET_ZIP}\n"
-            "Checking: Target (booster packs + ETBs)"
+            "Checking: Target (booster packs + ETBs) + Pokemon Center + Costco"
         )
         print("Discord webhook works! Check your server." if ok else "Discord webhook FAILED")
         return
@@ -532,6 +620,7 @@ def main():
     state = check_target(state, seed=seed)
     state = check_pokemoncenter(state, seed=seed)
     state = check_pokemoncenter_restock(state, seed=seed)
+    state = check_costco(state, seed=seed)
     save_state(state)
     print("Done." if not seed else "Done. Run again to start receiving alerts.")
 
