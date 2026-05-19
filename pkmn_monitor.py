@@ -621,7 +621,7 @@ BESTBUY_WATCH = [
 
 
 def _bestbuy_stock_status(url):
-    """Returns 'IN_STOCK', 'OUT_OF_STOCK', 'THIRD_PARTY', or None if unknown."""
+    """Returns 'IN_STOCK', 'COMING_SOON', 'OUT_OF_STOCK', 'THIRD_PARTY', or None."""
     try:
         r = cf.get(url, impersonate="chrome124", timeout=20, allow_redirects=True)
         if not r.ok:
@@ -631,6 +631,9 @@ def _bestbuy_stock_status(url):
         if len(text) < 200:
             print(f"  [blocked] {url[-45:]}")
             return None
+        # "Coming Soon" check first — overrides JSON-LD InStock (BB pre-orders)
+        if re.search(r"\bComing Soon\b", text, re.IGNORECASE):
+            return "COMING_SOON"
         # Check seller + availability from JSON-LD in one pass
         for tag in soup.find_all("script", type="application/ld+json"):
             try:
@@ -651,13 +654,13 @@ def _bestbuy_stock_status(url):
                     return "OUT_OF_STOCK"
             except (json.JSONDecodeError, AttributeError, TypeError):
                 continue
-        # Text fallback: catch explicit third-party "Sold by X" where X isn't Best Buy
+        # Text fallbacks
         sold_by = re.search(r"Sold by\s+([^\n·|]+)", text, re.IGNORECASE)
         if sold_by and "best buy" not in sold_by.group(1).lower():
             return "THIRD_PARTY"
         if re.search(r"\bAdd to Cart\b", text, re.IGNORECASE):
             return "IN_STOCK"
-        if re.search(r"\b(Sold Out|Coming Soon|Unavailable|Out of Stock)\b", text, re.IGNORECASE):
+        if re.search(r"\b(Sold Out|Unavailable|Out of Stock)\b", text, re.IGNORECASE):
             return "OUT_OF_STOCK"
         return None
     except Exception:
@@ -686,7 +689,15 @@ def check_bestbuy(state, seed=False):
             print(f"  [skipped 3rd party] {name[:50]}")
             time.sleep(random.uniform(1, 3))
             continue
-        if not seed and status == "IN_STOCK" and prev != "IN_STOCK":
+        if not seed and status == "COMING_SOON" and prev != "COMING_SOON":
+            send_discord(
+                f"**Coming Soon at Best Buy** 🔵\n"
+                f"**{name}**\n"
+                f"Not available yet — page is live so keep an eye out!\n{url}"
+            )
+            print(f"  [COMING SOON] {name[:55]}")
+            new_alerts += 1
+        elif not seed and status == "IN_STOCK" and prev != "IN_STOCK":
             send_discord(
                 f"@everyone\n"
                 f"**RESTOCK at Best Buy!** 🔵\n"
