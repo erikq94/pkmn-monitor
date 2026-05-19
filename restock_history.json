@@ -1,4 +1,13 @@
 {
-  "restocks": [],
+  "restocks": [
+    {
+      "retailer": "Best Buy",
+      "name": "Scarlet Violet Prismatic Evolutions Elite Trainer Box",
+      "store": "Online",
+      "timestamp": "2026-05-19T17:11:16.824858",
+      "day": "Tuesday",
+      "hour": 17
+    }
+  ],
   "last_summary": "2026-05-19T06:11:39.656972"
 }
