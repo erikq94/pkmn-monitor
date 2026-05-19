@@ -750,7 +750,8 @@ def _walmart_stock_status(url):
             return None
         soup = BeautifulSoup(r.text, "html.parser")
         text = soup.get_text(" ", strip=True)
-        if len(text) < 200:
+        # Walmart real pages are 50k+ chars; anything under 5000 is a bot block
+        if len(text) < 5000:
             print(f"  [blocked] {url.split('/')[-1][:45]}")
             return None
         # Coming Soon check first
