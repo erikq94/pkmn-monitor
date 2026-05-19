@@ -631,9 +631,11 @@ def _bestbuy_stock_status(url):
         if len(text) < 200:
             print(f"  [blocked] {url[-45:]}")
             return None
-        # "Coming Soon" check first — overrides JSON-LD InStock (BB pre-orders)
+        # "Coming Soon" and "In Store Only" checks first — override JSON-LD InStock
         if re.search(r"\bComing Soon\b", text, re.IGNORECASE):
             return "COMING_SOON"
+        if re.search(r"\bIn[- ]Store Only\b", text, re.IGNORECASE):
+            return "IN_STORE_ONLY"
         # Check seller + availability from JSON-LD in one pass
         for tag in soup.find_all("script", type="application/ld+json"):
             try:
@@ -693,9 +695,19 @@ def check_bestbuy(state, seed=False):
             send_discord(
                 f"**Coming Soon at Best Buy** 🔵\n"
                 f"**{name}**\n"
-                f"Not available yet — page is live so keep an eye out!\n{url}"
+                f"Not available yet — page is live, watch for it!\n{url}"
             )
             print(f"  [COMING SOON] {name[:55]}")
+            new_alerts += 1
+        elif not seed and status == "IN_STORE_ONLY" and prev != "IN_STORE_ONLY":
+            send_discord(
+                f"**In Store Only — Best Buy** 🔵\n"
+                f"**{name}**\n"
+                f"Available in stores but not online.\n"
+                f"Check which store near 95122 has it:\n"
+                f"bestbuy.com → search product → click 'Check stores'\n{url}"
+            )
+            print(f"  [IN STORE ONLY] {name[:55]}")
             new_alerts += 1
         elif not seed and status == "IN_STOCK" and prev != "IN_STOCK":
             send_discord(
