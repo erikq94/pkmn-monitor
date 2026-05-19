@@ -4,6 +4,7 @@ import json
 import os
 import sys
 import warnings
+from collections import Counter, defaultdict
 from datetime import datetime, date
 
 import random
@@ -17,7 +18,9 @@ from curl_cffi import requests as cf
 warnings.filterwarnings("ignore")
 
 WEBHOOK_URL = os.environ["WEBHOOK_URL"]
-STATE_FILE = os.path.join(os.path.dirname(__file__), "seen_products.json")
+STATE_FILE        = os.path.join(os.path.dirname(__file__), "seen_products.json")
+HISTORY_FILE      = os.path.join(os.path.dirname(__file__), "restock_history.json")
+DYNAMIC_TCINS_FILE = os.path.join(os.path.dirname(__file__), "dynamic_tcins.json")
 
 TARGET_API_KEY = os.environ["TARGET_API_KEY"]
 TARGET_ZIP = "95122"
@@ -88,6 +91,84 @@ def save_state(state):
         json.dump(state, f, indent=2)
 
 
+# ── Restock history ───────────────────────────────────────────────────────────
+
+def load_history():
+    if os.path.exists(HISTORY_FILE):
+        with open(HISTORY_FILE) as f:
+            return json.load(f)
+    return {"restocks": [], "last_summary": None}
+
+
+def save_history(history):
+    with open(HISTORY_FILE, "w") as f:
+        json.dump(history, f, indent=2)
+
+
+def log_restock(history, retailer, name, store="Online"):
+    if history is None:
+        return
+    now = datetime.now()
+    history["restocks"].append({
+        "retailer": retailer,
+        "name": name[:80],
+        "store": store,
+        "timestamp": now.isoformat(),
+        "day": now.strftime("%A"),
+        "hour": now.hour,
+    })
+
+
+def send_pattern_summary(history):
+    """Send a Discord message showing restock time patterns from the last 30 days."""
+    restocks = history.get("restocks", [])
+    cutoff = datetime.now().timestamp() - 30 * 86400
+    recent = []
+    for r in restocks:
+        try:
+            if datetime.fromisoformat(r["timestamp"]).timestamp() > cutoff:
+                recent.append(r)
+        except (KeyError, ValueError):
+            continue
+
+    if not recent:
+        send_discord("📊 **Restock Patterns** — No restocks logged in the last 30 days.")
+        history["last_summary"] = datetime.now().isoformat()
+        return
+
+    groups = defaultdict(list)
+    for r in recent:
+        label = f"{r['retailer']} — {r.get('store', 'Online')}"
+        groups[label].append((r["day"], r["hour"]))
+
+    lines = [f"📊 **Restock Patterns — last 30 days** ({len(recent)} total restocks)"]
+    for location, times in sorted(groups.items()):
+        counts = Counter(times)
+        parts = []
+        for (day, hour), n in sorted(counts.items(), key=lambda x: -x[1]):
+            ampm = "am" if hour < 12 else "pm"
+            h = hour % 12 or 12
+            parts.append(f"{day[:3]} {h}{ampm}" + (f" ×{n}" if n > 1 else ""))
+        lines.append(f"**{location}**: {', '.join(parts)}")
+
+    send_discord("\n".join(lines))
+    history["last_summary"] = datetime.now().isoformat()
+
+
+# ── Dynamic TCIN list (auto-discovered from Target search) ────────────────────
+
+def load_dynamic_tcins():
+    if os.path.exists(DYNAMIC_TCINS_FILE):
+        with open(DYNAMIC_TCINS_FILE) as f:
+            return json.load(f)
+    return []
+
+
+def save_dynamic_tcins(tcins):
+    with open(DYNAMIC_TCINS_FILE, "w") as f:
+        json.dump(tcins, f, indent=2)
+
+
 def send_discord(message):
     try:
         r = requests.post(WEBHOOK_URL, json={"content": message, "username": "Pokebot"}, timeout=10)
@@ -144,6 +225,75 @@ def is_sold_by_target(buy_url):
         return True  # assume Target's if we can't check
 
 
+# ── Target discovery ─────────────────────────────────────────────────────────
+
+def discover_target_tcins(state, dynamic_tcins):
+    """Search Target's catalog for Pokemon TCG products not in our watch list."""
+    print("Scanning Target for new Pokemon TCG products...")
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36",
+        "Accept": "application/json",
+    }
+    all_known = set(TARGET_TCINS) | set(dynamic_tcins)
+    primary_store = next(iter(TARGET_STORES))
+    store_ids = "%2C".join(TARGET_STORES.keys())
+    new_found = []
+
+    offset = 0
+    count = 24
+    for _ in range(4):  # up to 4 pages = 96 products
+        url = (
+            f"https://redsky.target.com/redsky_aggregations/v1/web/plp_search_v2"
+            f"?key={TARGET_API_KEY}&channel=WEB&count={count}&offset={offset}"
+            f"&default_purchasability_filter=false&include_sponsored=false"
+            f"&keyword=pokemon+trading+card+game"
+            f"&pricing_store_id={primary_store}&store_ids={store_ids}"
+            f"&zip={TARGET_ZIP}&state=CA&latitude=37.290&longitude=-121.900"
+        )
+        try:
+            r = cf.get(url, headers=headers, impersonate="chrome120", timeout=20)
+            if not r.ok:
+                print(f"  Target search returned {r.status_code}")
+                break
+            data = r.json()
+            products = data.get("data", {}).get("search", {}).get("products", [])
+            if not products:
+                break
+            for p in products:
+                tcin = p.get("tcin", "")
+                name = html.unescape(
+                    p.get("item", {}).get("product_description", {}).get("title", "")
+                )
+                buy_url = p.get("item", {}).get("enrichment", {}).get("buy_url", "")
+                if not tcin or not is_card_product(name):
+                    continue
+                if tcin not in all_known and not state.get(f"discovered_{tcin}"):
+                    new_found.append((tcin, name, buy_url))
+                    state[f"discovered_{tcin}"] = True
+                    dynamic_tcins.append(tcin)
+                    all_known.add(tcin)
+            total = data.get("data", {}).get("search", {}).get("total_results", 0)
+            offset += count
+            if offset >= total:
+                break
+            time.sleep(random.uniform(1, 2))
+        except Exception as e:
+            print(f"  Target discovery error: {e}")
+            break
+
+    for tcin, name, buy_url in new_found:
+        send_discord(
+            f"🆕 **New Product at Target!**\n"
+            f"**{name}**\n"
+            f"Just appeared in Target's catalog — now being monitored.\n{buy_url}"
+        )
+        print(f"  [NEW TCIN] {tcin} — {name[:55]}")
+
+    label = f"{len(new_found)} new TCINs" if new_found else "no new TCINs"
+    print(f"  Target discovery: {label}")
+    return state, dynamic_tcins
+
+
 # ── Target ────────────────────────────────────────────────────────────────────
 
 def _fetch_fulfillment(tcins, store_id, headers):
@@ -163,7 +313,7 @@ def _fetch_fulfillment(tcins, store_id, headers):
     return []
 
 
-def check_target(state, seed=False):
+def check_target(state, seed=False, history=None):
     print("Checking Target...")
     headers = {
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 Chrome/120.0.0.0 Safari/537.36",
@@ -200,6 +350,7 @@ def check_target(state, seed=False):
                 time.sleep(random.uniform(0.5, 2))
                 if is_sold_by_target(buy_url):
                     notify(name, "Target", buy_url, is_local=False)
+                    log_restock(history, "Target", name, "Online")
                     new_alerts += 1
                 else:
                     print(f"  [skipped 3rd party] {name[:50]}")
@@ -230,6 +381,7 @@ def check_target(state, seed=False):
                     time.sleep(random.uniform(0.5, 2))
                     if is_sold_by_target(buy_url):
                         notify(name, f"Target {store_name}", buy_url, is_local=True)
+                        log_restock(history, "Target", name, store_name)
                         new_alerts += 1
                     else:
                         print(f"  [skipped 3rd party] {name[:50]}")
@@ -400,7 +552,7 @@ def _pc_stock_status(url):
         return None
 
 
-def check_pokemoncenter_restock(state, seed=False):
+def check_pokemoncenter_restock(state, seed=False, history=None):
     print("Checking Pokemon Center restock watch list...")
     new_alerts = 0
     for url in PC_RESTOCK_WATCH:
@@ -418,6 +570,7 @@ def check_pokemoncenter_restock(state, seed=False):
                 f"**{name}**\n"
                 f"Back in stock — buy directly at retail price!\n{url}"
             )
+            log_restock(history, "Pokemon Center", name)
             print(f"  [RESTOCK] {name[:60]}")
             new_alerts += 1
         state[key] = status
@@ -563,7 +716,7 @@ def _costco_name(url):
     return slug.replace("-", " ").replace(":", "").title()
 
 
-def check_costco(state, seed=False):
+def check_costco(state, seed=False, history=None):
     print("Checking Costco watch list...")
     new_alerts = 0
     for url in COSTCO_WATCH:
@@ -591,6 +744,7 @@ def check_costco(state, seed=False):
                 f"**{name}**\n"
                 f"Available online now — also check the Costco app for local warehouse stock!\n{url}"
             )
+            log_restock(history, "Costco", name)
             print(f"  [RESTOCK] {name[:60]}")
             new_alerts += 1
         else:
@@ -675,7 +829,7 @@ def _bestbuy_name(url):
     return slug.replace("-", " ").title()
 
 
-def check_bestbuy(state, seed=False):
+def check_bestbuy(state, seed=False, history=None):
     print("Checking Best Buy watch list...")
     new_alerts = 0
     for url in BESTBUY_WATCH:
@@ -716,6 +870,7 @@ def check_bestbuy(state, seed=False):
                 f"**{name}**\n"
                 f"In stock — sold directly by Best Buy at retail price!\n{url}"
             )
+            log_restock(history, "Best Buy", name)
             print(f"  [RESTOCK] {name[:60]}")
             new_alerts += 1
         else:
@@ -795,7 +950,7 @@ def _walmart_name(url):
     return slug.replace("-", " ").title()
 
 
-def check_walmart(state, seed=False):
+def check_walmart(state, seed=False, history=None):
     print("Checking Walmart watch list...")
     new_alerts = 0
     for url in WALMART_WATCH:
@@ -826,6 +981,7 @@ def check_walmart(state, seed=False):
                 f"**{name}**\n"
                 f"In stock — sold directly by Walmart at retail price!\n{url}"
             )
+            log_restock(history, "Walmart", name)
             print(f"  [RESTOCK] {name[:60]}")
             new_alerts += 1
         else:
@@ -879,14 +1035,36 @@ def main():
     if seed:
         print("First run — seeding state without sending alerts...")
 
+    history = load_history()
     state = load_state()
+
+    # Merge auto-discovered TCINs into the global watch list
+    dynamic_tcins = load_dynamic_tcins()
+    for tcin in dynamic_tcins:
+        if tcin not in TARGET_TCINS:
+            TARGET_TCINS.append(tcin)
+
     check_token_expiry(state)
-    state = check_target(state, seed=seed)
+
+    # Scan Target for new products not in our watch list
+    state, dynamic_tcins = discover_target_tcins(state, dynamic_tcins)
+    save_dynamic_tcins(dynamic_tcins)
+
+    state = check_target(state, seed=seed, history=history)
     state = check_pokemoncenter(state, seed=seed)
-    state = check_pokemoncenter_restock(state, seed=seed)
-    state = check_costco(state, seed=seed)
-    state = check_bestbuy(state, seed=seed)
-    state = check_walmart(state, seed=seed)
+    state = check_pokemoncenter_restock(state, seed=seed, history=history)
+    state = check_costco(state, seed=seed, history=history)
+    state = check_bestbuy(state, seed=seed, history=history)
+    state = check_walmart(state, seed=seed, history=history)
+
+    # Weekly restock pattern summary — fires once a week automatically
+    if not seed:
+        last = history.get("last_summary")
+        days_since = (datetime.now() - datetime.fromisoformat(last)).days if last else 999
+        if days_since >= 7:
+            send_pattern_summary(history)
+
+    save_history(history)
     save_state(state)
     print("Done." if not seed else "Done. Run again to start receiving alerts.")
 
