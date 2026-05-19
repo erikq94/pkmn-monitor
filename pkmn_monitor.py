@@ -621,7 +621,7 @@ BESTBUY_WATCH = [
 
 
 def _bestbuy_stock_status(url):
-    """Returns 'IN_STOCK', 'OUT_OF_STOCK', or None if unknown."""
+    """Returns 'IN_STOCK', 'OUT_OF_STOCK', 'THIRD_PARTY', or None if unknown."""
     try:
         r = cf.get(url, impersonate="chrome124", timeout=20, allow_redirects=True)
         if not r.ok:
@@ -631,6 +631,7 @@ def _bestbuy_stock_status(url):
         if len(text) < 200:
             print(f"  [blocked] {url[-45:]}")
             return None
+        # Check seller + availability from JSON-LD in one pass
         for tag in soup.find_all("script", type="application/ld+json"):
             try:
                 data = json.loads(tag.string or "")
@@ -639,6 +640,10 @@ def _bestbuy_stock_status(url):
                 offers = data.get("offers", {})
                 if isinstance(offers, list):
                     offers = offers[0]
+                # Seller check — Best Buy direct listings say "Best Buy"
+                seller = offers.get("seller", {}).get("name", "Best Buy")
+                if seller and "best buy" not in seller.lower():
+                    return "THIRD_PARTY"
                 avail = offers.get("availability", "")
                 if "InStock" in avail:
                     return "IN_STOCK"
@@ -646,6 +651,10 @@ def _bestbuy_stock_status(url):
                     return "OUT_OF_STOCK"
             except (json.JSONDecodeError, AttributeError, TypeError):
                 continue
+        # Text fallback: catch explicit third-party "Sold by X" where X isn't Best Buy
+        sold_by = re.search(r"Sold by\s+([^\n·|]+)", text, re.IGNORECASE)
+        if sold_by and "best buy" not in sold_by.group(1).lower():
+            return "THIRD_PARTY"
         if re.search(r"\bAdd to Cart\b", text, re.IGNORECASE):
             return "IN_STOCK"
         if re.search(r"\b(Sold Out|Coming Soon|Unavailable|Out of Stock)\b", text, re.IGNORECASE):
@@ -673,12 +682,16 @@ def check_bestbuy(state, seed=False):
             continue
         prev = state.get(key)
         name = _bestbuy_name(url)
+        if status == "THIRD_PARTY":
+            print(f"  [skipped 3rd party] {name[:50]}")
+            time.sleep(random.uniform(1, 3))
+            continue
         if not seed and status == "IN_STOCK" and prev != "IN_STOCK":
             send_discord(
                 f"@everyone\n"
                 f"**RESTOCK at Best Buy!** 🔵\n"
                 f"**{name}**\n"
-                f"In stock online at retail price!\n{url}"
+                f"In stock — sold directly by Best Buy at retail price!\n{url}"
             )
             print(f"  [RESTOCK] {name[:60]}")
             new_alerts += 1
