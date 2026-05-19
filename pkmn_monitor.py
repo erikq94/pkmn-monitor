@@ -6,6 +6,7 @@ import sys
 import warnings
 from datetime import datetime, date
 
+import random
 import re
 import time
 
@@ -40,8 +41,13 @@ TARGET_TCINS = [
     "94300069","1003298511","1007155449","1003298513",
     # Destined Rivals (new)
     "94300082","1006512287","1006512288","1004026208",
+    "1004021935",                        # Destined Rivals Display 2-pack
     # Journey Together (new)
     "1002957621","1002957625","1003007312",
+    # Black Bolt / White Flare (SV10.5 — Unova sets)
+    "1004842250",                        # BB+WF Art Set (2 packs)
+    "1004842207",                        # White Flare Booster Bundle (6 packs)
+    "1008355524",                        # Unova Heavy Hitters at Target
     # Mega Evolution — blisters & bundles (new)
     "94681766","94681782","94681786",
     "94884511",                          # Phantasmal Flames blister Sneasel
@@ -58,8 +64,12 @@ TARGET_TCINS = [
     # Mega Evolution ETBs (new)
     "94681776","94681784",               # ME1 ETBs Lucario & Gardevoir
     "95082118","1010148053",             # Ascended Heroes ETBs
+    "1009318827",                        # Ascended Heroes Booster Pack
     "1009871732",                        # Ascended Heroes PC ETB
     "95230445",                          # Perfect Order ETB
+    "1011318040",                        # Perfect Order ETB (solo listing)
+    "1010669655",                        # Perfect Order Booster Bundle 2-pack
+    "1010669398",                        # Perfect Order Art Set (4 packs)
     "95267143",                          # Chaos Rising ETB
     "94860231",                          # Phantasmal Flames ETB
     "1006188619",                        # ME1 ETB 2-pack set
@@ -112,6 +122,7 @@ _CARD_KEYWORDS = {
 _NON_CARD_KEYWORDS = {
     "action figure", "display case", "plush", "stuffed", "surprise attack",
     "articulated", "figurine", "buildable", "vinyl", "doll", "toy",
+    "binder", "portfolio", "card sleeve", "card protector",
 }
 
 def is_card_product(name):
@@ -186,7 +197,7 @@ def check_target(state, seed=False):
                 continue
 
             if not seed and ship_status == "IN_STOCK" and state.get(online_key) != "IN_STOCK":
-                time.sleep(0.3)
+                time.sleep(random.uniform(0.5, 2))
                 if is_sold_by_target(buy_url):
                     notify(name, "Target", buy_url, is_local=False)
                     new_alerts += 1
@@ -216,7 +227,7 @@ def check_target(state, seed=False):
                 in_stock_locally = store_qty > 0 or pickup == "AVAILABLE"
 
                 if not seed and in_stock_locally and not state.get(local_key):
-                    time.sleep(0.3)
+                    time.sleep(random.uniform(0.5, 2))
                     if is_sold_by_target(buy_url):
                         notify(name, f"Target {store_name}", buy_url, is_local=True)
                         new_alerts += 1
@@ -410,7 +421,7 @@ def check_pokemoncenter_restock(state, seed=False):
             print(f"  [RESTOCK] {name[:60]}")
             new_alerts += 1
         state[key] = status
-        time.sleep(0.5)
+        time.sleep(random.uniform(0.5, 2))
     label = "seeded" if seed else f"{new_alerts} restocks found"
     print(f"  {len(PC_RESTOCK_WATCH)} products checked, {label}")
     return state
@@ -488,22 +499,31 @@ def run_status():
 # ── Costco ────────────────────────────────────────────────────────────────────
 
 COSTCO_WATCH = [
+    # Pokéball 6-Pack Tin Bundle — 18 booster packs (item 4000449856)
+    "https://www.costco.com/pok%C3%A9mon-6-pack-poke-balls.product.4000449856.html",
+    # Unova Heavy Hitters Premium Collection 2-pack — 12 packs (item 1943158)
+    "https://www.costco.com/pok%C3%A9mon-unova-heavy-hitters-premium-collection.product.1943158.html",
     # Mega Charizard X ex Ultra Premium Collection 2-pack (item 1997714)
     "https://www.costco.com/pok%C3%A9mon-tcg-mega-charizard-x-ex-ultra-premium-collection-2-pack.product.1997714.html",
     # Charizard ex Super-Premium Collection (item 4000313298)
     "https://www.costco.com/pok%C3%A9mon-tcg:-charizard-ex-super-premium-collection.product.4000313298.html",
-    # Unova Heavy Hitters Premium Collection — add URL when announced
 ]
 
 
 def _costco_stock_status(url):
-    """Returns 'IN_STOCK', 'OUT_OF_STOCK', or None if unknown."""
+    """Returns 'IN_STOCK', 'OUT_OF_STOCK', 'QUEUE', or None if unknown."""
     try:
-        r = cf.get(url, impersonate="chrome124", timeout=20)
+        r = cf.get(url, impersonate="chrome124", timeout=20, allow_redirects=True)
         if not r.ok:
             return None
+        # Queue-it detection — Costco redirects high-demand drops to a virtual waiting room
+        final_url = str(r.url)
+        if "queue-it.net" in final_url or "queue-it.net" in r.text:
+            return "QUEUE"
         soup = BeautifulSoup(r.text, "html.parser")
         text = soup.get_text(" ", strip=True)
+        if "waiting room" in text.lower() or "virtual queue" in text.lower():
+            return "QUEUE"
         # Akamai block — returns a tiny privacy page instead of product content
         if len(text) < 200:
             print(f"  [blocked by Akamai] {url[-50:]}")
@@ -551,11 +571,20 @@ def check_costco(state, seed=False):
         status = _costco_stock_status(url)
         if status is None:
             print(f"  [unknown] {_costco_name(url)[:55]}")
-            time.sleep(1)
+            time.sleep(random.uniform(1, 3))
             continue
         prev = state.get(key)
-        if not seed and status == "IN_STOCK" and prev != "IN_STOCK":
-            name = _costco_name(url)
+        name = _costco_name(url)
+        if not seed and status == "QUEUE" and prev != "QUEUE":
+            send_discord(
+                f"@everyone\n"
+                f"🚨 **COSTCO QUEUE IS OPEN!** 🚨\n"
+                f"**{name}**\n"
+                f"Virtual waiting room is live — join NOW before it fills up!\n{url}"
+            )
+            print(f"  [QUEUE OPEN] {name[:60]}")
+            new_alerts += 1
+        elif not seed and status == "IN_STOCK" and prev != "IN_STOCK":
             send_discord(
                 f"@everyone\n"
                 f"**RESTOCK at Costco!** 🎴\n"
@@ -565,10 +594,10 @@ def check_costco(state, seed=False):
             print(f"  [RESTOCK] {name[:60]}")
             new_alerts += 1
         else:
-            print(f"  [{status}] {_costco_name(url)[:55]}")
+            print(f"  [{status}] {name[:55]}")
         state[key] = status
-        time.sleep(1)
-    label = "seeded" if seed else f"{new_alerts} restocks found"
+        time.sleep(random.uniform(1, 3))
+    label = "seeded" if seed else f"{new_alerts} alerts sent"
     print(f"  {len(COSTCO_WATCH)} products checked, {label}")
     return state
 
