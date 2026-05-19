@@ -727,6 +727,115 @@ def check_bestbuy(state, seed=False):
     return state
 
 
+# ── Walmart ───────────────────────────────────────────────────────────────────
+
+WALMART_WATCH = [
+    # ── Mega Evolution ────────────────────────────────────────────────────────
+    "https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734",
+    "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Perfect-Order-Booster-Bundle-6-Packs/19380764160",
+    # ── Black Bolt / White Flare (Unova) ──────────────────────────────────────
+    "https://www.walmart.com/ip/Pokemon-TCG-Scarlet-Violet-Black-Bolt-White-Flare-Booster-Bundles/17752173132",
+    "https://www.walmart.com/ip/Pokemon-TCG-Scarlet-Violet-Black-Bolt-White-Flare-Elite-Trainer-Box-ETB/17337259478",
+    # ── Destined Rivals ───────────────────────────────────────────────────────
+    "https://www.walmart.com/ip/Pokemon-TCG-Scarlet-Violet-Destined-Rivals-Booster-Bundle-6-Packs/16019713971",
+    "https://www.walmart.com/ip/TCG-Scarlet-Violet-Destined-Rivals-Booster-Bundle-6-Packs/15700422581",
+]
+
+
+def _walmart_stock_status(url):
+    """Returns 'IN_STOCK', 'OUT_OF_STOCK', 'COMING_SOON', 'THIRD_PARTY', or None."""
+    try:
+        r = cf.get(url, impersonate="chrome124", timeout=20, allow_redirects=True)
+        if not r.ok:
+            return None
+        soup = BeautifulSoup(r.text, "html.parser")
+        text = soup.get_text(" ", strip=True)
+        if len(text) < 200:
+            print(f"  [blocked] {url.split('/')[-1][:45]}")
+            return None
+        # Coming Soon check first
+        if re.search(r"\bComing Soon\b", text, re.IGNORECASE):
+            return "COMING_SOON"
+        # Seller check — Walmart direct shows "Sold by Walmart.com"
+        sold_by = re.search(r"Sold by\s+([^\n·|,]+)", text, re.IGNORECASE)
+        if sold_by and "walmart" not in sold_by.group(1).lower():
+            return "THIRD_PARTY"
+        # JSON-LD availability
+        for tag in soup.find_all("script", type="application/ld+json"):
+            try:
+                data = json.loads(tag.string or "")
+                if isinstance(data, list):
+                    data = data[0]
+                offers = data.get("offers", {})
+                if isinstance(offers, list):
+                    offers = offers[0]
+                seller = offers.get("seller", {}).get("name", "Walmart")
+                if seller and "walmart" not in seller.lower():
+                    return "THIRD_PARTY"
+                avail = offers.get("availability", "")
+                if "InStock" in avail:
+                    return "IN_STOCK"
+                if "OutOfStock" in avail or "SoldOut" in avail:
+                    return "OUT_OF_STOCK"
+            except (json.JSONDecodeError, AttributeError, TypeError):
+                continue
+        if re.search(r"\bAdd to Cart\b", text, re.IGNORECASE):
+            return "IN_STOCK"
+        if re.search(r"\b(Out of Stock|Sold Out|Unavailable)\b", text, re.IGNORECASE):
+            return "OUT_OF_STOCK"
+        return None
+    except Exception:
+        return None
+
+
+def _walmart_name(url):
+    slug = url.rstrip("/").split("/")[-2]
+    slug = re.sub(r"^(Pokemon|Pok-mon)-?(TCG|Trading-Card-Game)-?", "", slug, flags=re.IGNORECASE)
+    return slug.replace("-", " ").title()
+
+
+def check_walmart(state, seed=False):
+    print("Checking Walmart watch list...")
+    new_alerts = 0
+    for url in WALMART_WATCH:
+        key = f"walmart_{url}"
+        status = _walmart_stock_status(url)
+        if status is None:
+            print(f"  [unknown] {_walmart_name(url)[:55]}")
+            time.sleep(random.uniform(1, 3))
+            continue
+        prev = state.get(key)
+        name = _walmart_name(url)
+        if status == "THIRD_PARTY":
+            print(f"  [skipped 3rd party] {name[:50]}")
+            time.sleep(random.uniform(1, 3))
+            continue
+        if not seed and status == "COMING_SOON" and prev != "COMING_SOON":
+            send_discord(
+                f"**Coming Soon at Walmart** 🟡\n"
+                f"**{name}**\n"
+                f"Not available yet — page is live, watch for it!\n{url}"
+            )
+            print(f"  [COMING SOON] {name[:55]}")
+            new_alerts += 1
+        elif not seed and status == "IN_STOCK" and prev != "IN_STOCK":
+            send_discord(
+                f"@everyone\n"
+                f"**RESTOCK at Walmart!** 🟡\n"
+                f"**{name}**\n"
+                f"In stock — sold directly by Walmart at retail price!\n{url}"
+            )
+            print(f"  [RESTOCK] {name[:60]}")
+            new_alerts += 1
+        else:
+            print(f"  [{status}] {name[:55]}")
+        state[key] = status
+        time.sleep(random.uniform(1, 3))
+    label = "seeded" if seed else f"{new_alerts} alerts sent"
+    print(f"  {len(WALMART_WATCH)} products checked, {label}")
+    return state
+
+
 # ── Token expiry reminder ─────────────────────────────────────────────────────
 
 GITHUB_TOKEN_EXPIRY = date(2026, 8, 11)
@@ -776,6 +885,7 @@ def main():
     state = check_pokemoncenter_restock(state, seed=seed)
     state = check_costco(state, seed=seed)
     state = check_bestbuy(state, seed=seed)
+    state = check_walmart(state, seed=seed)
     save_state(state)
     print("Done." if not seed else "Done. Run again to start receiving alerts.")
 
