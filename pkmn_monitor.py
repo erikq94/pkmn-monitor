@@ -805,7 +805,13 @@ def _bestbuy_stock_status(url):
                     return "THIRD_PARTY"
                 avail = offers.get("availability", "")
                 if "InStock" in avail:
-                    return "IN_STOCK"
+                    # Best Buy's own pages always render a "Sold by" section in
+                    # server HTML (even just "Sold by Loading..."). Marketplace
+                    # listings skip it entirely — JSON-LD seller field is
+                    # unreliable for those, so don't trust InStock without it.
+                    if re.search(r"\bsold by\b", text, re.IGNORECASE):
+                        return "IN_STOCK"
+                    return None
                 if "OutOfStock" in avail or "SoldOut" in avail or "Discontinued" in avail:
                     return "OUT_OF_STOCK"
             except (json.JSONDecodeError, AttributeError, TypeError):
