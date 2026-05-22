@@ -1,14 +1,6 @@
 {
   "restocks": [
     {
-      "retailer": "Best Buy",
-      "name": "Scarlet Violet Prismatic Evolutions Elite Trainer Box",
-      "store": "Online",
-      "timestamp": "2026-05-19T17:11:16.824858",
-      "day": "Tuesday",
-      "hour": 17
-    },
-    {
       "retailer": "Target",
       "name": "Pok\u00e9mon Trading Card Game: Mega Evolution Chaos Rising Elite Trainer Box",
       "store": "Online",
