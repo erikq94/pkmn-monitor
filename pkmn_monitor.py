@@ -180,10 +180,9 @@ def send_discord(message):
 def notify(name, store, url, price="", is_local=False):
     location = "local store" if is_local else "online"
     price_str = f" — **{price}**" if price else ""
-    now = datetime.now().strftime("%I:%M %p")
     send_discord(
         f"@everyone\n"
-        f"**RESTOCK** [{now}] {location}\n"
+        f"**RESTOCK** {location}\n"
         f"**{html.unescape(name)}**{price_str}\n"
         f"Store: {store}\n{url}"
     )
@@ -648,8 +647,7 @@ def run_status():
             store_stock[store_name] = hits
 
     # Build Discord message
-    now = datetime.now().strftime("%I:%M %p")
-    lines = [f"**Target Status Report** [{now}]"]
+    lines = ["**Target Status Report**"]
 
     lines.append("\n**Online (ship to you):**")
     if online_available:
