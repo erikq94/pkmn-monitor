@@ -9,7 +9,9 @@ from datetime import datetime, date
 
 import random
 import re
+import threading
 import time
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import requests
 from bs4 import BeautifulSoup
@@ -105,18 +107,22 @@ def save_history(history):
         json.dump(history, f, indent=2)
 
 
+_history_lock = threading.Lock()
+
 def log_restock(history, retailer, name, store="Online"):
     if history is None:
         return
     now = datetime.now()
-    history["restocks"].append({
+    entry = {
         "retailer": retailer,
         "name": name[:80],
         "store": store,
         "timestamp": now.isoformat(),
         "day": now.strftime("%A"),
         "hour": now.hour,
-    })
+    }
+    with _history_lock:
+        history["restocks"].append(entry)
 
 
 def send_pattern_summary(history):
@@ -779,6 +785,13 @@ def check_costco(state, seed=False, history=None):
 
 # ── Best Buy ──────────────────────────────────────────────────────────────────
 
+# Best Buy stores near 95122 — store IDs from stores.bestbuy.com URL slugs
+BESTBUY_STORES = {
+    "1423": "San Jose Curtner",
+    "190":  "San Jose Almaden",
+    "851":  "San Jose Stevens Creek",
+}
+
 BESTBUY_WATCH = [
     # ── Mega Evolution ────────────────────────────────────────────────────────
     "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-chaos-rising-elite-trainer-box/JJG2TL34RT",
@@ -795,22 +808,52 @@ BESTBUY_WATCH = [
 ]
 
 
+def _bestbuy_sku_from_text(text):
+    m = re.search(r'\bSKU[:\s]+(\d{6,8})\b', text)
+    return m.group(1) if m else None
+
+
+def _bestbuy_store_status(sku, store_id):
+    """Checks Best Buy's tcfb button-state API for a specific store. Returns 'IN_STOCK' or 'OUT_OF_STOCK'."""
+    try:
+        path = [
+            "shop", "buttonstate", "v5", "item", "skus", int(sku),
+            "conditions", "NONE", "destinationZipCode", TARGET_ZIP,
+            "storeId", store_id, "context", "cyp", "addAll", "false"
+        ]
+        r = cf.get(
+            "https://www.bestbuy.com/api/tcfb/model.json",
+            params={"paths": json.dumps([path]), "method": "get"},
+            impersonate="chrome124", timeout=15
+        )
+        if not r.ok:
+            return None
+        m = re.search(r'"buttonState"\s*:\s*"([^"]+)"', r.text)
+        if not m:
+            return None
+        btn = m.group(1)
+        return "IN_STOCK" if btn == "ADD_TO_CART" else "OUT_OF_STOCK"
+    except Exception:
+        return None
+
+
 def _bestbuy_stock_status(url):
-    """Returns 'IN_STOCK', 'COMING_SOON', 'OUT_OF_STOCK', 'THIRD_PARTY', or None."""
+    """Returns (status, sku) where status is 'IN_STOCK', 'IN_STORE_ONLY', 'COMING_SOON', 'OUT_OF_STOCK', 'THIRD_PARTY', or None."""
     try:
         r = cf.get(url, impersonate="chrome124", timeout=20, allow_redirects=True)
         if not r.ok:
-            return None
+            return None, None
         soup = BeautifulSoup(r.text, "html.parser")
         text = soup.get_text(" ", strip=True)
         if len(text) < 200:
             print(f"  [blocked] {url[-45:]}")
-            return None
+            return None, None
+        sku = _bestbuy_sku_from_text(text)
         # "Coming Soon" and "In Store Only" checks first — override JSON-LD InStock
         if re.search(r"\bComing Soon\b", text, re.IGNORECASE):
-            return "COMING_SOON"
+            return "COMING_SOON", sku
         if re.search(r"\bIn[- ]Store Only\b", text, re.IGNORECASE):
-            return "IN_STORE_ONLY"
+            return "IN_STORE_ONLY", sku
         # Check seller + availability from JSON-LD in one pass
         for tag in soup.find_all("script", type="application/ld+json"):
             try:
@@ -823,7 +866,7 @@ def _bestbuy_stock_status(url):
                 # Seller check — Best Buy direct listings say "Best Buy"
                 seller = offers.get("seller", {}).get("name", "Best Buy")
                 if seller and "best buy" not in seller.lower():
-                    return "THIRD_PARTY"
+                    return "THIRD_PARTY", sku
                 avail = offers.get("availability", "")
                 if "InStock" in avail:
                     # Best Buy's own pages always render a "Sold by" section in
@@ -831,23 +874,23 @@ def _bestbuy_stock_status(url):
                     # listings skip it entirely — JSON-LD seller field is
                     # unreliable for those, so don't trust InStock without it.
                     if re.search(r"\bsold by\b", text, re.IGNORECASE):
-                        return "IN_STOCK"
-                    return None
+                        return "IN_STOCK", sku
+                    return None, sku
                 if "OutOfStock" in avail or "SoldOut" in avail or "Discontinued" in avail:
-                    return "OUT_OF_STOCK"
+                    return "OUT_OF_STOCK", sku
             except (json.JSONDecodeError, AttributeError, TypeError):
                 continue
         # Text fallbacks
         sold_by = re.search(r"Sold by\s+([^\n·|]+)", text, re.IGNORECASE)
         if sold_by and "best buy" not in sold_by.group(1).lower():
-            return "THIRD_PARTY"
+            return "THIRD_PARTY", sku
         if re.search(r"\bAdd to Cart\b", text, re.IGNORECASE):
-            return "IN_STOCK"
+            return "IN_STOCK", sku
         if re.search(r"\b(Sold Out|Unavailable|Out of Stock)\b", text, re.IGNORECASE):
-            return "OUT_OF_STOCK"
-        return None
+            return "OUT_OF_STOCK", sku
+        return None, sku
     except Exception:
-        return None
+        return None, None
 
 
 def _bestbuy_name(url):
@@ -861,7 +904,7 @@ def check_bestbuy(state, seed=False, history=None):
     new_alerts = 0
     for url in BESTBUY_WATCH:
         key = f"bestbuy_{url}"
-        status = _bestbuy_stock_status(url)
+        status, sku = _bestbuy_stock_status(url)
         if status is None:
             print(f"  [unknown] {_bestbuy_name(url)[:55]}")
             time.sleep(random.uniform(1, 3))
@@ -881,14 +924,33 @@ def check_bestbuy(state, seed=False, history=None):
             print(f"  [COMING SOON] {name[:55]}")
             new_alerts += 1
         elif not seed and status == "IN_STORE_ONLY" and prev != "IN_STORE_ONLY":
-            send_discord(
-                f"**In Store Only — Best Buy** 🔵\n"
-                f"**{name}**\n"
-                f"Available in stores but not online.\n"
-                f"Check which store near 95122 has it:\n"
-                f"bestbuy.com → search product → click 'Check stores'\n{url}"
-            )
-            print(f"  [IN STORE ONLY] {name[:55]}")
+            # Check each nearby store via tcfb API for real button state
+            in_stock_stores = []
+            if sku:
+                for store_id, store_name in BESTBUY_STORES.items():
+                    store_st = _bestbuy_store_status(sku, store_id)
+                    if store_st == "IN_STOCK":
+                        in_stock_stores.append(store_name)
+                    time.sleep(random.uniform(0.5, 1.5))
+            if in_stock_stores:
+                store_list = "\n".join(f"• {s}" for s in in_stock_stores)
+                send_discord(
+                    f"@everyone\n"
+                    f"**In Stock at Best Buy Stores!** 🔵\n"
+                    f"**{name}**\n"
+                    f"Available at:\n{store_list}\n{url}"
+                )
+                log_restock(history, "Best Buy", name, ", ".join(in_stock_stores))
+                print(f"  [IN STORE] {name[:45]} @ {', '.join(in_stock_stores)}")
+            else:
+                # No nearby stores confirmed — send a softer heads-up without @everyone
+                send_discord(
+                    f"**In Store Only — Best Buy** 🔵\n"
+                    f"**{name}**\n"
+                    f"Available in stores but none near 95122 confirmed right now.\n"
+                    f"Check bestbuy.com → search product → 'Check stores'\n{url}"
+                )
+                print(f"  [IN STORE ONLY — not nearby] {name[:45]}")
             new_alerts += 1
         elif not seed and status == "IN_STOCK" and prev != "IN_STOCK":
             send_discord(
@@ -1073,16 +1135,30 @@ def main():
 
     check_token_expiry(state)
 
-    # Scan Target for new products not in our watch list
+    # Scan Target for new products — runs first so newly found TCINs are
+    # included in the parallel check_target call below
     state, dynamic_tcins = discover_target_tcins(state, dynamic_tcins)
     save_dynamic_tcins(dynamic_tcins)
 
-    state = check_target(state, seed=seed, history=history)
-    state = check_pokemoncenter(state, seed=seed)
-    state = check_pokemoncenter_restock(state, seed=seed, history=history)
-    state = check_costco(state, seed=seed, history=history)
-    state = check_bestbuy(state, seed=seed, history=history)
-    state = check_walmart(state, seed=seed, history=history)
+    # Run all retailer checks in parallel — each gets its own state copy so
+    # reads don't race; writes go to separate key namespaces so merging is safe
+    checks = [
+        ("Target",           lambda: check_target(state.copy(), seed=seed, history=history)),
+        ("Pokemon Center",   lambda: check_pokemoncenter(state.copy(), seed=seed)),
+        ("PC Restock",       lambda: check_pokemoncenter_restock(state.copy(), seed=seed, history=history)),
+        ("Costco",           lambda: check_costco(state.copy(), seed=seed, history=history)),
+        ("Best Buy",         lambda: check_bestbuy(state.copy(), seed=seed, history=history)),
+        ("Walmart",          lambda: check_walmart(state.copy(), seed=seed, history=history)),
+    ]
+
+    with ThreadPoolExecutor(max_workers=6) as executor:
+        futures = {executor.submit(fn): name for name, fn in checks}
+        for future in as_completed(futures):
+            name = futures[future]
+            try:
+                state.update(future.result())
+            except Exception as e:
+                print(f"  {name} check failed: {e}")
 
     # Weekly restock pattern summary — fires once a week automatically
     if not seed:
