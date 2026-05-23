@@ -4,6 +4,11 @@ on:
   schedule:
     - cron: '*/5 * * * *'
   workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Run mode (leave blank for normal, or: bb-stores, status, seed)'
+        required: false
+        default: ''
 
 concurrency:
   group: monitor
@@ -30,7 +35,13 @@ jobs:
         env:
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
           TARGET_API_KEY: ${{ secrets.TARGET_API_KEY }}
-        run: python pkmn_monitor.py
+        run: |
+          MODE="${{ github.event.inputs.mode }}"
+          if [ -n "$MODE" ]; then
+            python pkmn_monitor.py --$MODE
+          else
+            python pkmn_monitor.py
+          fi
 
       - name: Save state
         run: |

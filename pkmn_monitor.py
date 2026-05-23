@@ -1102,6 +1102,45 @@ def check_token_expiry(state):
     state["token_expiry_last_warned"] = str(today)
 
 
+# ── Best Buy store scan ───────────────────────────────────────────────────────
+
+def run_bestbuy_store_check():
+    """Check every watched Best Buy product at all 3 nearby stores and report to Discord."""
+    print("Scanning Best Buy store inventory near 95122...")
+    lines = ["**Best Buy Store Inventory — 95122**"]
+    any_found = False
+
+    for url in BESTBUY_WATCH:
+        name = _bestbuy_name(url)
+        print(f"  {name[:55]}...")
+        _, sku = _bestbuy_stock_status(url)
+        if not sku:
+            lines.append(f"⚠️ **{name}** — couldn't read SKU")
+            time.sleep(random.uniform(1, 2))
+            continue
+        store_results = []
+        for store_id, store_name in BESTBUY_STORES.items():
+            st = _bestbuy_store_status(sku, store_id)
+            store_results.append((store_name, st))
+            time.sleep(random.uniform(0.5, 1))
+        in_stock = [s for s, st in store_results if st == "IN_STOCK"]
+        out = [s for s, st in store_results if st == "OUT_OF_STOCK"]
+        unknown = [s for s, st in store_results if st is None]
+        if in_stock:
+            store_list = ", ".join(in_stock)
+            lines.append(f"✅ **{name}**\n   In stock at: {store_list}")
+            any_found = True
+        else:
+            store_str = " | ".join(f"{s}: {'OOS' if st == 'OUT_OF_STOCK' else '?'}" for s, st in store_results)
+            lines.append(f"❌ **{name}** — {store_str}")
+        time.sleep(random.uniform(1, 2))
+
+    if not any_found:
+        lines.append("\nNo stock found at any nearby store right now.")
+    send_discord("\n".join(lines))
+    print("Done — results sent to Discord.")
+
+
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 def main():
@@ -1117,6 +1156,10 @@ def main():
 
     if "--status" in sys.argv:
         run_status()
+        return
+
+    if "--bb-stores" in sys.argv:
+        run_bestbuy_store_check()
         return
 
     first_run = not os.path.exists(STATE_FILE)
