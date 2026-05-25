@@ -39,6 +39,14 @@
       "timestamp": "2026-05-25T16:00:24.702430",
       "day": "Monday",
       "hour": 16
+    },
+    {
+      "retailer": "Best Buy",
+      "name": "Mega Evolution Elite Trainer Box Styles May Vary",
+      "store": "Online",
+      "timestamp": "2026-05-25T17:55:21.562664",
+      "day": "Monday",
+      "hour": 17
     }
   ],
   "last_summary": "2026-05-19T06:11:39.656972"
