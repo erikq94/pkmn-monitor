@@ -985,7 +985,7 @@ def check_bestbuy(state, seed=False, history=None):
 WALMART_WATCH = [
     # ── Mega Evolution ────────────────────────────────────────────────────────
     "https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734",
-    # Perfect Order bundle removed — confirmed 3rd party marketplace listing
+    "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Perfect-Order-Booster-Bundle-6-Packs/19380764160",
     # ── Black Bolt / White Flare (Unova) ──────────────────────────────────────
     "https://www.walmart.com/ip/Pokemon-TCG-Scarlet-Violet-Black-Bolt-White-Flare-Booster-Bundles/17752173132",
     "https://www.walmart.com/ip/Pokemon-TCG-Scarlet-Violet-Black-Bolt-White-Flare-Elite-Trainer-Box-ETB/17337259478",
