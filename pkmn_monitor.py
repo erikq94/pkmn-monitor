@@ -800,7 +800,7 @@ BESTBUY_WATCH = [
     "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-perfect-order-booster-bundle/JJG2TL3QK2",
     "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-ascended-heroes-booster-bundle/JJG2TL3JP8",
     "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-pitch-black-elite-trainer-box/JJG2TL8J45",
-    "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-elite-trainer-box-styles-may-vary/JJG2TL2LWZ",
+    # "styles may vary" removed — random variant, not specific enough to alert on
     # ── Scarlet & Violet ──────────────────────────────────────────────────────
     "https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-journey-together-booster-bundle-6-pk/JJG2TLCFST",
     "https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-prismatic-evolutions-elite-trainer-box/JJG2TLCW3L",
@@ -814,7 +814,7 @@ def _bestbuy_sku_from_text(text):
 
 
 def _bestbuy_store_status(sku, store_id):
-    """Checks Best Buy's tcfb button-state API for a specific store. Returns 'IN_STOCK' or 'OUT_OF_STOCK'."""
+    """Checks Best Buy's tcfb button-state API for a specific store. Returns 'IN_STOCK', 'INVITE', or 'OUT_OF_STOCK'."""
     try:
         path = [
             "shop", "buttonstate", "v5", "item", "skus", int(sku),
@@ -832,13 +832,17 @@ def _bestbuy_store_status(sku, store_id):
         if not m:
             return None
         btn = m.group(1)
-        return "IN_STOCK" if btn == "ADD_TO_CART" else "OUT_OF_STOCK"
+        if btn == "ADD_TO_CART":
+            return "IN_STOCK"
+        if btn == "PURCHASE_INVITATION":
+            return "INVITE"
+        return "OUT_OF_STOCK"
     except Exception:
         return None
 
 
 def _bestbuy_stock_status(url):
-    """Returns (status, sku) where status is 'IN_STOCK', 'IN_STORE_ONLY', 'COMING_SOON', 'OUT_OF_STOCK', 'THIRD_PARTY', or None."""
+    """Returns (status, sku) where status is 'IN_STOCK', 'INVITE', 'IN_STORE_ONLY', 'COMING_SOON', 'OUT_OF_STOCK', 'THIRD_PARTY', or None."""
     try:
         r = cf.get(url, impersonate="chrome124", timeout=20, allow_redirects=True)
         if not r.ok:
@@ -849,6 +853,9 @@ def _bestbuy_stock_status(url):
             print(f"  [blocked] {url[-45:]}")
             return None, None
         sku = _bestbuy_sku_from_text(text)
+        # Invite/drop detection — check before everything else, it's the highest priority
+        if re.search(r"\b(invitation required|get an invite|purchase invitation|invite only|access code required)\b", text, re.IGNORECASE):
+            return "INVITE", sku
         # "Coming Soon" and "In Store Only" checks first — override JSON-LD InStock
         if re.search(r"\bComing Soon\b", text, re.IGNORECASE):
             return "COMING_SOON", sku
@@ -915,7 +922,17 @@ def check_bestbuy(state, seed=False, history=None):
             print(f"  [skipped 3rd party] {name[:50]}")
             time.sleep(random.uniform(1, 3))
             continue
-        if not seed and status == "COMING_SOON" and prev != "COMING_SOON":
+        if not seed and status == "INVITE" and prev != "INVITE":
+            send_discord(
+                f"@everyone\n"
+                f"🎟️ **Best Buy Invite Drop is LIVE!** 🔵\n"
+                f"**{name}**\n"
+                f"Invitation required — act fast, these go quick!\n{url}"
+            )
+            log_restock(history, "Best Buy", name, "Invite Drop")
+            print(f"  [INVITE OPEN] {name[:55]}")
+            new_alerts += 1
+        elif not seed and status == "COMING_SOON" and prev != "COMING_SOON":
             send_discord(
                 f"**Coming Soon at Best Buy** 🔵\n"
                 f"**{name}**\n"
@@ -924,7 +941,7 @@ def check_bestbuy(state, seed=False, history=None):
             print(f"  [COMING SOON] {name[:55]}")
             new_alerts += 1
         elif not seed and status == "IN_STORE_ONLY" and prev != "IN_STORE_ONLY":
-            # Check each nearby store via tcfb API for real button state
+            # Check each nearby store — only alert if a nearby store actually confirms stock
             in_stock_stores = []
             if sku:
                 for store_id, store_name in BESTBUY_STORES.items():
@@ -935,23 +952,15 @@ def check_bestbuy(state, seed=False, history=None):
             if in_stock_stores:
                 store_list = "\n".join(f"• {s}" for s in in_stock_stores)
                 send_discord(
-                    f"@everyone\n"
-                    f"**In Stock at Best Buy Stores!** 🔵\n"
+                    f"**In Stock at Nearby Best Buy** 🔵\n"
                     f"**{name}**\n"
-                    f"Available at:\n{store_list}\n{url}"
+                    f"Available in store at:\n{store_list}\n{url}"
                 )
                 log_restock(history, "Best Buy", name, ", ".join(in_stock_stores))
                 print(f"  [IN STORE] {name[:45]} @ {', '.join(in_stock_stores)}")
+                new_alerts += 1
             else:
-                # No nearby stores confirmed — send a softer heads-up without @everyone
-                send_discord(
-                    f"**In Store Only — Best Buy** 🔵\n"
-                    f"**{name}**\n"
-                    f"Available in stores but none near 95122 confirmed right now.\n"
-                    f"Check bestbuy.com → search product → 'Check stores'\n{url}"
-                )
                 print(f"  [IN STORE ONLY — not nearby] {name[:45]}")
-            new_alerts += 1
         elif not seed and status == "IN_STOCK" and prev != "IN_STOCK":
             send_discord(
                 f"@everyone\n"
@@ -976,7 +985,7 @@ def check_bestbuy(state, seed=False, history=None):
 WALMART_WATCH = [
     # ── Mega Evolution ────────────────────────────────────────────────────────
     "https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734",
-    "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Perfect-Order-Booster-Bundle-6-Packs/19380764160",
+    # Perfect Order bundle removed — confirmed 3rd party marketplace listing
     # ── Black Bolt / White Flare (Unova) ──────────────────────────────────────
     "https://www.walmart.com/ip/Pokemon-TCG-Scarlet-Violet-Black-Bolt-White-Flare-Booster-Bundles/17752173132",
     "https://www.walmart.com/ip/Pokemon-TCG-Scarlet-Violet-Black-Bolt-White-Flare-Elite-Trainer-Box-ETB/17337259478",
