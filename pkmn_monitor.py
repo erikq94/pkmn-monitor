@@ -783,6 +783,125 @@ def check_costco(state, seed=False, history=None):
     return state
 
 
+# ── Sam's Club ───────────────────────────────────────────────────────────────
+
+SAMSCLUB_WATCH = [
+    # Prismatic Evolutions Super Premium Collection — drops May 26 10pm CST (Plus Members only, limit 2)
+    "https://www.samsclub.com/ip/19170800669",
+    # Surprise Box Booster Bundle
+    "https://www.samsclub.com/ip/pokemon-surprise-box-booster-bundle/18933156288",
+    # Binder + Poster Collection Booster Packs
+    "https://www.samsclub.com/ip/pokemon-binder-poster-collection-booster-packs/19167901990",
+]
+
+
+def _samsclub_stock_status(url):
+    """Returns 'IN_STOCK', 'COMING_SOON', 'OUT_OF_STOCK', 'QUEUE', or None."""
+    try:
+        r = cf.get(url, impersonate="chrome124", timeout=20, allow_redirects=True)
+        if not r.ok:
+            return None
+        # Queue-it detection — same as Costco
+        final_url = str(r.url)
+        if "queue-it.net" in final_url or "queue-it.net" in r.text:
+            return "QUEUE"
+        soup = BeautifulSoup(r.text, "html.parser")
+        text = soup.get_text(" ", strip=True)
+        if "waiting room" in text.lower() or "virtual queue" in text.lower():
+            return "QUEUE"
+        if len(text) < 500:
+            print(f"  [blocked] {url.split('/')[-1][:40]}")
+            return None
+        # Coming Soon check
+        if re.search(r"\bcoming soon\b", text, re.IGNORECASE):
+            return "COMING_SOON"
+        # JSON-LD structured data
+        for tag in soup.find_all("script", type="application/ld+json"):
+            try:
+                data = json.loads(tag.string or "")
+                if isinstance(data, list):
+                    data = data[0]
+                offers = data.get("offers", {})
+                if isinstance(offers, list):
+                    offers = offers[0]
+                avail = offers.get("availability", "")
+                if "InStock" in avail:
+                    return "IN_STOCK"
+                if "OutOfStock" in avail or "SoldOut" in avail:
+                    return "OUT_OF_STOCK"
+            except (json.JSONDecodeError, AttributeError, TypeError):
+                continue
+        if re.search(r"\bAdd to Cart\b", text, re.IGNORECASE):
+            return "IN_STOCK"
+        if re.search(r"\b(Out of Stock|Sold Out|Not available)\b", text, re.IGNORECASE):
+            return "OUT_OF_STOCK"
+        return None
+    except Exception:
+        return None
+
+
+def _samsclub_name(url):
+    parts = url.rstrip("/").split("/")
+    # URL may be /ip/slug/id or /ip/id — use slug if present
+    for part in reversed(parts):
+        if part.isdigit():
+            continue
+        if part == "ip":
+            break
+        slug = re.sub(r"^pokemon-?(tcg-|trading-card-game-)?", "", part, flags=re.IGNORECASE)
+        return slug.replace("-", " ").title()
+    return f"Sam's Club item {parts[-1]}"
+
+
+def check_samsclub(state, seed=False, history=None):
+    print("Checking Sam's Club watch list...")
+    new_alerts = 0
+    for url in SAMSCLUB_WATCH:
+        key = f"samsclub_{url}"
+        status = _samsclub_stock_status(url)
+        if status is None:
+            print(f"  [unknown] {_samsclub_name(url)[:55]}")
+            time.sleep(random.uniform(1, 3))
+            continue
+        prev = state.get(key)
+        name = _samsclub_name(url)
+        if not seed and status == "QUEUE" and prev != "QUEUE":
+            send_discord(
+                f"@everyone\n"
+                f"🚨 **SAM'S CLUB QUEUE IS OPEN!** 🚨\n"
+                f"**{name}**\n"
+                f"Virtual waiting room is live — join NOW!\n{url}"
+            )
+            log_restock(history, "Sam's Club", name, "Online")
+            print(f"  [QUEUE OPEN] {name[:60]}")
+            new_alerts += 1
+        elif not seed and status == "IN_STOCK" and prev != "IN_STOCK":
+            send_discord(
+                f"@everyone\n"
+                f"**RESTOCK at Sam's Club!** 🟠\n"
+                f"**{name}**\n"
+                f"In stock online — Plus Members, limit 2!\n{url}"
+            )
+            log_restock(history, "Sam's Club", name, "Online")
+            print(f"  [RESTOCK] {name[:60]}")
+            new_alerts += 1
+        elif not seed and status == "COMING_SOON" and prev != "COMING_SOON":
+            send_discord(
+                f"**Coming Soon at Sam's Club** 🟠\n"
+                f"**{name}**\n"
+                f"Page is live — dropping soon, stay ready!\n{url}"
+            )
+            print(f"  [COMING SOON] {name[:55]}")
+            new_alerts += 1
+        else:
+            print(f"  [{status}] {name[:55]}")
+        state[key] = status
+        time.sleep(random.uniform(1, 3))
+    label = "seeded" if seed else f"{new_alerts} alerts sent"
+    print(f"  {len(SAMSCLUB_WATCH)} products checked, {label}")
+    return state
+
+
 # ── Best Buy ──────────────────────────────────────────────────────────────────
 
 # Best Buy stores near 95122 — store IDs from stores.bestbuy.com URL slugs
@@ -1199,11 +1318,12 @@ def main():
         ("Pokemon Center",   lambda: check_pokemoncenter(state.copy(), seed=seed)),
         ("PC Restock",       lambda: check_pokemoncenter_restock(state.copy(), seed=seed, history=history)),
         ("Costco",           lambda: check_costco(state.copy(), seed=seed, history=history)),
+        ("Sam's Club",       lambda: check_samsclub(state.copy(), seed=seed, history=history)),
         ("Best Buy",         lambda: check_bestbuy(state.copy(), seed=seed, history=history)),
         ("Walmart",          lambda: check_walmart(state.copy(), seed=seed, history=history)),
     ]
 
-    with ThreadPoolExecutor(max_workers=6) as executor:
+    with ThreadPoolExecutor(max_workers=7) as executor:
         futures = {executor.submit(fn): name for name, fn in checks}
         for future in as_completed(futures):
             name = futures[future]
