@@ -5,7 +5,7 @@ import os
 import sys
 import warnings
 from collections import Counter, defaultdict
-from datetime import datetime, date
+from datetime import datetime, date, timezone
 
 import random
 import re
@@ -853,7 +853,53 @@ def _samsclub_name(url):
     return f"Sam's Club item {parts[-1]}"
 
 
+# Known drop times in UTC — GitHub Actions runner is UTC
+# 8:00 PM PDT = 03:00 UTC next day
+SAMSCLUB_DROPS = {
+    "https://www.samsclub.com/ip/19170800669": {
+        "drop_utc": datetime(2026, 5, 27, 3, 0, 0, tzinfo=timezone.utc),
+        "label": "8:00 PM Pacific",
+        "note": "Plus Members only, limit 2",
+    },
+}
+
+
+def _check_samsclub_reminders(state):
+    now = datetime.now(timezone.utc)
+    for url, info in SAMSCLUB_DROPS.items():
+        drop = info["drop_utc"]
+        name = _samsclub_name(url)
+        minutes_until = (drop - now).total_seconds() / 60
+
+        # ~15-minute warning: fire when between 10–20 min out (catches one 5-min cron tick)
+        if 10 <= minutes_until <= 20:
+            key = f"samsclub_reminder_15_{url}"
+            if not state.get(key):
+                send_discord(
+                    f"⏰ **Dropping in ~15 minutes — Sam's Club** 🟠\n"
+                    f"**{name}**\n"
+                    f"{info['label']} — {info['note']}\n{url}"
+                )
+                state[key] = True
+                print(f"  [REMINDER 15min] {name[:55]}")
+
+        # Drop alert: fire within 5 minutes of drop time (before or after)
+        if -5 <= minutes_until <= 5:
+            key = f"samsclub_reminder_now_{url}"
+            if not state.get(key):
+                send_discord(
+                    f"@everyone\n"
+                    f"🚨 **DROPPING NOW — Sam's Club!** 🟠\n"
+                    f"**{name}**\n"
+                    f"{info['label']} — {info['note']}\n{url}"
+                )
+                state[key] = True
+                print(f"  [DROPPING NOW] {name[:55]}")
+
+
 def check_samsclub(state, seed=False, history=None):
+    if not seed:
+        _check_samsclub_reminders(state)
     print("Checking Sam's Club watch list...")
     new_alerts = 0
     for url in SAMSCLUB_WATCH:
