@@ -1290,17 +1290,6 @@ def main():
         run_bestbuy_store_check()
         return
 
-    if "--announce-samsclub" in sys.argv:
-        send_discord(
-            "🟠 **Sam's Club added to Pokebot!**\n"
-            "Now monitoring Sam's Club for Pokemon TCG drops.\n\n"
-            "**Tonight's drop — Plus Members only, limit 2:**\n"
-            "Prismatic Evolutions Super Premium Collection\n"
-            "🕙 10 PM CST (8 PM Pacific)\n"
-            "https://www.samsclub.com/ip/19170800669"
-        )
-        print("Sam's Club announcement sent.")
-        return
 
     first_run = not os.path.exists(STATE_FILE)
     seed = first_run or "--seed" in sys.argv
