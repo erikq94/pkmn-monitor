@@ -55,6 +55,14 @@
       "timestamp": "2026-05-26T03:30:21.389134",
       "day": "Tuesday",
       "hour": 3
+    },
+    {
+      "retailer": "Walmart",
+      "name": "Mega Evolution Perfect Order Booster Bundle 6 Packs",
+      "store": "Online",
+      "timestamp": "2026-05-26T17:20:28.557298",
+      "day": "Tuesday",
+      "hour": 17
     }
   ],
   "last_summary": "2026-05-26T06:15:54.736796"
