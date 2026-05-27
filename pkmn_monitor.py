@@ -23,6 +23,7 @@ WEBHOOK_URL = os.environ["WEBHOOK_URL"]
 STATE_FILE        = os.path.join(os.path.dirname(__file__), "seen_products.json")
 HISTORY_FILE      = os.path.join(os.path.dirname(__file__), "restock_history.json")
 DYNAMIC_TCINS_FILE = os.path.join(os.path.dirname(__file__), "dynamic_tcins.json")
+WALMART_LOG_FILE  = os.path.join(os.path.dirname(__file__), "walmart_log.json")
 
 TARGET_API_KEY = os.environ["TARGET_API_KEY"]
 TARGET_ZIP = "95122"
@@ -1161,26 +1162,25 @@ WALMART_WATCH = [
 
 
 def _walmart_stock_status(url):
-    """Returns 'IN_STOCK', 'OUT_OF_STOCK', 'COMING_SOON', 'THIRD_PARTY', or None."""
+    """Returns (status, debug) where status is 'IN_STOCK', 'OUT_OF_STOCK', 'COMING_SOON', 'THIRD_PARTY', or None."""
+    debug = {"seller_text": None, "jsonld_seller": None, "jsonld_avail": None, "walmart_confirmed": False, "page_len": 0}
     try:
         r = cf.get(url, impersonate="chrome124", timeout=20, allow_redirects=True)
         if not r.ok:
-            return None
+            return None, debug
         soup = BeautifulSoup(r.text, "html.parser")
         text = soup.get_text(" ", strip=True)
-        # Walmart real pages are 50k+ chars; anything under 5000 is a bot block
+        debug["page_len"] = len(text)
         if len(text) < 5000:
             print(f"  [blocked] {url.split('/')[-1][:45]}")
-            return None
-        # Coming Soon check first
+            return None, debug
         if re.search(r"\bComing Soon\b", text, re.IGNORECASE):
-            return "COMING_SOON"
-        # Require a positive confirmation that Walmart is the seller.
-        # When Walmart's stock runs out, the page switches to marketplace sellers
-        # and the "Sold by Walmart.com" text disappears — without a positive match
-        # we can't trust the stock status, so return None rather than risk a false alert.
+            return "COMING_SOON", debug
         walmart_seller = bool(re.search(r"sold by\s+walmart", text, re.IGNORECASE))
-        # JSON-LD availability + seller check
+        sold_by_m = re.search(r"Sold by\s+([^\n·|,]{1,50})", text, re.IGNORECASE)
+        if sold_by_m:
+            debug["seller_text"] = sold_by_m.group(1).strip()
+        debug["walmart_confirmed"] = walmart_seller
         for tag in soup.find_all("script", type="application/ld+json"):
             try:
                 data = json.loads(tag.string or "")
@@ -1190,24 +1190,53 @@ def _walmart_stock_status(url):
                 if isinstance(offers, list):
                     offers = offers[0]
                 seller = offers.get("seller", {}).get("name", "")
+                avail = offers.get("availability", "").split("/")[-1]  # shorten URL
+                if seller:
+                    debug["jsonld_seller"] = seller
+                if avail:
+                    debug["jsonld_avail"] = avail
                 if seller and "walmart" not in seller.lower():
-                    return "THIRD_PARTY"
+                    return "THIRD_PARTY", debug
                 if seller and "walmart" in seller.lower():
                     walmart_seller = True
-                avail = offers.get("availability", "")
+                    debug["walmart_confirmed"] = True
                 if "InStock" in avail:
-                    return "IN_STOCK" if walmart_seller else None
+                    return ("IN_STOCK" if walmart_seller else None), debug
                 if "OutOfStock" in avail or "SoldOut" in avail:
-                    return "OUT_OF_STOCK"
+                    return "OUT_OF_STOCK", debug
             except (json.JSONDecodeError, AttributeError, TypeError):
                 continue
         if re.search(r"\bAdd to Cart\b", text, re.IGNORECASE):
-            return "IN_STOCK" if walmart_seller else None
+            return ("IN_STOCK" if walmart_seller else None), debug
         if re.search(r"\b(Out of Stock|Sold Out|Unavailable)\b", text, re.IGNORECASE):
-            return "OUT_OF_STOCK"
-        return None
+            return "OUT_OF_STOCK", debug
+        return None, debug
     except Exception:
-        return None
+        return None, debug
+
+
+def _append_walmart_log(name, url, status, debug):
+    try:
+        log = []
+        if os.path.exists(WALMART_LOG_FILE):
+            with open(WALMART_LOG_FILE) as f:
+                log = json.load(f)
+        log.append({
+            "ts": datetime.now().isoformat(timespec="seconds"),
+            "name": name[:60],
+            "status": str(status),
+            "seller_text": debug.get("seller_text"),
+            "jsonld_seller": debug.get("jsonld_seller"),
+            "jsonld_avail": debug.get("jsonld_avail"),
+            "walmart_confirmed": debug.get("walmart_confirmed"),
+            "page_len": debug.get("page_len"),
+            "url": url,
+        })
+        log = log[-200:]  # keep last 200 entries
+        with open(WALMART_LOG_FILE, "w") as f:
+            json.dump(log, f, indent=2)
+    except Exception as e:
+        print(f"  [walmart log error] {e}")
 
 
 def _walmart_name(url):
@@ -1221,13 +1250,14 @@ def check_walmart(state, seed=False, history=None):
     new_alerts = 0
     for url in WALMART_WATCH:
         key = f"walmart_{url}"
-        status = _walmart_stock_status(url)
+        status, debug = _walmart_stock_status(url)
+        name = _walmart_name(url)
+        _append_walmart_log(name, url, status, debug)
         if status is None:
-            print(f"  [unknown] {_walmart_name(url)[:55]}")
+            print(f"  [unknown] {name[:55]}")
             time.sleep(random.uniform(1, 3))
             continue
         prev = state.get(key)
-        name = _walmart_name(url)
         if status == "THIRD_PARTY":
             print(f"  [skipped 3rd party] {name[:50]}")
             time.sleep(random.uniform(1, 3))
@@ -1277,6 +1307,37 @@ def check_token_expiry(state):
         "Then update cron-job.org with the new token."
     )
     state["token_expiry_last_warned"] = str(today)
+
+
+# ── Walmart log viewer ───────────────────────────────────────────────────────
+
+def run_walmart_log():
+    """Send the last 5 Walmart log entries per product to Discord."""
+    if not os.path.exists(WALMART_LOG_FILE):
+        send_discord("No Walmart log yet — run the monitor first.")
+        return
+    with open(WALMART_LOG_FILE) as f:
+        log = json.load(f)
+
+    # Group by URL, keep last 5 per product
+    by_url = {}
+    for entry in log:
+        by_url.setdefault(entry["url"], []).append(entry)
+    lines = ["**Walmart Debug Log** (last 5 checks per product)"]
+    for url, entries in by_url.items():
+        recent = entries[-5:]
+        name = recent[-1]["name"]
+        lines.append(f"\n**{name}**")
+        for e in recent:
+            seller = e.get("seller_text") or e.get("jsonld_seller") or "—"
+            avail = e.get("jsonld_avail") or "—"
+            confirmed = "✅" if e.get("walmart_confirmed") else "❌"
+            lines.append(
+                f"`{e['ts']}` status=**{e['status']}** | "
+                f"seller={seller} | avail={avail} | walmart={confirmed}"
+            )
+    send_discord("\n".join(lines))
+    print("Walmart log sent to Discord.")
 
 
 # ── Best Buy store scan ───────────────────────────────────────────────────────
@@ -1337,6 +1398,10 @@ def main():
 
     if "--bb-stores" in sys.argv:
         run_bestbuy_store_check()
+        return
+
+    if "--walmart-log" in sys.argv:
+        run_walmart_log()
         return
 
 
