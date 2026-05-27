@@ -658,5 +658,71 @@
     "walmart_confirmed": false,
     "page_len": 220,
     "url": "https://www.walmart.com/ip/TCG-Scarlet-Violet-Destined-Rivals-Booster-Bundle-6-Packs/15700422581"
+  },
+  {
+    "ts": "2026-05-27T05:40:18",
+    "name": "Mega Evolution Ascended Heroes Elite Trainer Box",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": null,
+    "walmart_confirmed": false,
+    "page_len": 220,
+    "url": "https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734"
+  },
+  {
+    "ts": "2026-05-27T05:40:20",
+    "name": "Mega Evolution Perfect Order Booster Bundle 6 Packs",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": null,
+    "walmart_confirmed": false,
+    "page_len": 1607,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Perfect-Order-Booster-Bundle-6-Packs/19380764160"
+  },
+  {
+    "ts": "2026-05-27T05:40:22",
+    "name": "Scarlet Violet Black Bolt White Flare Booster Bundles",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": null,
+    "walmart_confirmed": false,
+    "page_len": 220,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Scarlet-Violet-Black-Bolt-White-Flare-Booster-Bundles/17752173132"
+  },
+  {
+    "ts": "2026-05-27T05:40:24",
+    "name": "Scarlet Violet Black Bolt White Flare Elite Trainer Box Etb",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": null,
+    "walmart_confirmed": false,
+    "page_len": 220,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Scarlet-Violet-Black-Bolt-White-Flare-Elite-Trainer-Box-ETB/17337259478"
+  },
+  {
+    "ts": "2026-05-27T05:40:25",
+    "name": "Scarlet Violet Destined Rivals Booster Bundle 6 Packs",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": null,
+    "walmart_confirmed": false,
+    "page_len": 220,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Scarlet-Violet-Destined-Rivals-Booster-Bundle-6-Packs/16019713971"
+  },
+  {
+    "ts": "2026-05-27T05:40:28",
+    "name": "Tcg Scarlet Violet Destined Rivals Booster Bundle 6 Packs",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": null,
+    "walmart_confirmed": false,
+    "page_len": 220,
+    "url": "https://www.walmart.com/ip/TCG-Scarlet-Violet-Destined-Rivals-Booster-Bundle-6-Packs/15700422581"
   }
 ]
