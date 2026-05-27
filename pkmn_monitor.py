@@ -1175,11 +1175,12 @@ def _walmart_stock_status(url):
         # Coming Soon check first
         if re.search(r"\bComing Soon\b", text, re.IGNORECASE):
             return "COMING_SOON"
-        # Seller check — Walmart direct shows "Sold by Walmart.com"
-        sold_by = re.search(r"Sold by\s+([^\n·|,]+)", text, re.IGNORECASE)
-        if sold_by and "walmart" not in sold_by.group(1).lower():
-            return "THIRD_PARTY"
-        # JSON-LD availability
+        # Require a positive confirmation that Walmart is the seller.
+        # When Walmart's stock runs out, the page switches to marketplace sellers
+        # and the "Sold by Walmart.com" text disappears — without a positive match
+        # we can't trust the stock status, so return None rather than risk a false alert.
+        walmart_seller = bool(re.search(r"sold by\s+walmart", text, re.IGNORECASE))
+        # JSON-LD availability + seller check
         for tag in soup.find_all("script", type="application/ld+json"):
             try:
                 data = json.loads(tag.string or "")
@@ -1188,18 +1189,20 @@ def _walmart_stock_status(url):
                 offers = data.get("offers", {})
                 if isinstance(offers, list):
                     offers = offers[0]
-                seller = offers.get("seller", {}).get("name", "Walmart")
+                seller = offers.get("seller", {}).get("name", "")
                 if seller and "walmart" not in seller.lower():
                     return "THIRD_PARTY"
+                if seller and "walmart" in seller.lower():
+                    walmart_seller = True
                 avail = offers.get("availability", "")
                 if "InStock" in avail:
-                    return "IN_STOCK"
+                    return "IN_STOCK" if walmart_seller else None
                 if "OutOfStock" in avail or "SoldOut" in avail:
                     return "OUT_OF_STOCK"
             except (json.JSONDecodeError, AttributeError, TypeError):
                 continue
         if re.search(r"\bAdd to Cart\b", text, re.IGNORECASE):
-            return "IN_STOCK"
+            return "IN_STOCK" if walmart_seller else None
         if re.search(r"\b(Out of Stock|Sold Out|Unavailable)\b", text, re.IGNORECASE):
             return "OUT_OF_STOCK"
         return None
