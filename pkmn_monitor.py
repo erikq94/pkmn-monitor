@@ -476,10 +476,9 @@ def check_pokemoncenter(state, seed=False, dynamic_pc_urls=None):
             if not seed and key not in state:
                 name = _slug_to_name(url)
                 send_discord(
-                    f"@everyone\n"
-                    f"**NEW at Pokemon Center** 🎴\n"
+                    f"🆕 **New at Pokemon Center** 🎴\n"
                     f"**{name}**\n"
-                    f"Just appeared in their catalog — now monitoring for restock!\n{url}"
+                    f"Just appeared in the catalog — now monitoring for restock!\n{url}"
                 )
                 print(f"  [NEW] {name[:60]}")
                 new_alerts += 1
