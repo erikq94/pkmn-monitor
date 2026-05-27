@@ -20,10 +20,11 @@ from curl_cffi import requests as cf
 warnings.filterwarnings("ignore")
 
 WEBHOOK_URL = os.environ["WEBHOOK_URL"]
-STATE_FILE        = os.path.join(os.path.dirname(__file__), "seen_products.json")
-HISTORY_FILE      = os.path.join(os.path.dirname(__file__), "restock_history.json")
-DYNAMIC_TCINS_FILE = os.path.join(os.path.dirname(__file__), "dynamic_tcins.json")
-WALMART_LOG_FILE  = os.path.join(os.path.dirname(__file__), "walmart_log.json")
+STATE_FILE          = os.path.join(os.path.dirname(__file__), "seen_products.json")
+HISTORY_FILE        = os.path.join(os.path.dirname(__file__), "restock_history.json")
+DYNAMIC_TCINS_FILE  = os.path.join(os.path.dirname(__file__), "dynamic_tcins.json")
+DYNAMIC_PC_URLS_FILE = os.path.join(os.path.dirname(__file__), "dynamic_pc_urls.json")
+WALMART_LOG_FILE    = os.path.join(os.path.dirname(__file__), "walmart_log.json")
 
 TARGET_API_KEY = os.environ["TARGET_API_KEY"]
 TARGET_ZIP = "95122"
@@ -174,6 +175,18 @@ def load_dynamic_tcins():
 def save_dynamic_tcins(tcins):
     with open(DYNAMIC_TCINS_FILE, "w") as f:
         json.dump(tcins, f, indent=2)
+
+
+def load_dynamic_pc_urls():
+    if os.path.exists(DYNAMIC_PC_URLS_FILE):
+        with open(DYNAMIC_PC_URLS_FILE) as f:
+            return json.load(f)
+    return []
+
+
+def save_dynamic_pc_urls(urls):
+    with open(DYNAMIC_PC_URLS_FILE, "w") as f:
+        json.dump(urls, f, indent=2)
 
 
 def send_discord(message):
@@ -442,7 +455,9 @@ def _slug_to_name(url):
     return slug.replace("-", " ").title()
 
 
-def check_pokemoncenter(state, seed=False):
+def check_pokemoncenter(state, seed=False, dynamic_pc_urls=None):
+    if dynamic_pc_urls is None:
+        dynamic_pc_urls = []
     print("Checking Pokemon Center sitemap...")
     try:
         r = cf.get(PC_SITEMAP_URL, impersonate="chrome120", timeout=20)
@@ -464,12 +479,16 @@ def check_pokemoncenter(state, seed=False):
                     f"@everyone\n"
                     f"**NEW at Pokemon Center** 🎴\n"
                     f"**{name}**\n"
-                    f"Just appeared in their catalog — may be going on sale soon!\n{url}"
+                    f"Just appeared in their catalog — now monitoring for restock!\n{url}"
                 )
                 print(f"  [NEW] {name[:60]}")
                 new_alerts += 1
+                # Auto-add to dynamic restock watch so stock is checked next run
+                if url not in PC_RESTOCK_WATCH and url not in dynamic_pc_urls:
+                    dynamic_pc_urls.append(url)
             state[key] = True
 
+        save_dynamic_pc_urls(dynamic_pc_urls)
         label = "seeded" if seed else f"{new_alerts} new products"
         print(f"  {len(card_urls)} TCG products in sitemap, {label}")
     except Exception as e:
@@ -581,10 +600,11 @@ def _pc_stock_status(url):
         return None
 
 
-def check_pokemoncenter_restock(state, seed=False, history=None):
+def check_pokemoncenter_restock(state, seed=False, history=None, dynamic_pc_urls=None):
+    all_urls = list(PC_RESTOCK_WATCH) + [u for u in (dynamic_pc_urls or []) if u not in PC_RESTOCK_WATCH]
     print("Checking Pokemon Center restock watch list...")
     new_alerts = 0
-    for url in PC_RESTOCK_WATCH:
+    for url in all_urls:
         key = f"pc_stock_{url}"
         status = _pc_stock_status(url)
         if status is None:
@@ -605,7 +625,7 @@ def check_pokemoncenter_restock(state, seed=False, history=None):
         state[key] = status
         time.sleep(random.uniform(0.5, 2))
     label = "seeded" if seed else f"{new_alerts} restocks found"
-    print(f"  {len(PC_RESTOCK_WATCH)} products checked, {label}")
+    print(f"  {len(all_urls)} products checked, {label}")
     return state
 
 
@@ -1419,6 +1439,9 @@ def main():
         if tcin not in TARGET_TCINS:
             TARGET_TCINS.append(tcin)
 
+    # Load auto-discovered Pokemon Center URLs
+    dynamic_pc_urls = load_dynamic_pc_urls()
+
     check_token_expiry(state)
 
     # Scan Target for new products — runs first so newly found TCINs are
@@ -1430,8 +1453,8 @@ def main():
     # reads don't race; writes go to separate key namespaces so merging is safe
     checks = [
         ("Target",           lambda: check_target(state.copy(), seed=seed, history=history)),
-        ("Pokemon Center",   lambda: check_pokemoncenter(state.copy(), seed=seed)),
-        ("PC Restock",       lambda: check_pokemoncenter_restock(state.copy(), seed=seed, history=history)),
+        ("Pokemon Center",   lambda: check_pokemoncenter(state.copy(), seed=seed, dynamic_pc_urls=dynamic_pc_urls)),
+        ("PC Restock",       lambda: check_pokemoncenter_restock(state.copy(), seed=seed, history=history, dynamic_pc_urls=list(dynamic_pc_urls))),
         ("Costco",           lambda: check_costco(state.copy(), seed=seed, history=history)),
         ("Sam's Club",       lambda: check_samsclub(state.copy(), seed=seed, history=history)),
         ("Best Buy",         lambda: check_bestbuy(state.copy(), seed=seed, history=history)),
