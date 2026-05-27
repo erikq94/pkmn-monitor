@@ -1110,12 +1110,10 @@ def check_bestbuy(state, seed=False, history=None):
             continue
         if not seed and status == "INVITE" and prev != "INVITE":
             send_discord(
-                f"@everyone\n"
-                f"🎟️ **Best Buy Invite Drop is LIVE!** 🔵\n"
+                f"🎟️ **Best Buy Invite Drop is LIVE** 🔵\n"
                 f"**{name}**\n"
-                f"Invitation required — act fast, these go quick!\n{url}"
+                f"Check your email or Best Buy app for an invite link.\n{url}"
             )
-            log_restock(history, "Best Buy", name, "Invite Drop")
             print(f"  [INVITE OPEN] {name[:55]}")
             new_alerts += 1
         elif not seed and status == "COMING_SOON" and prev != "COMING_SOON":
