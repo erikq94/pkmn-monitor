@@ -243,3 +243,9 @@ Checking online stock every 5 min. Only alerts when sold **directly by Walmart.c
 - [Black Bolt / White Flare — Elite Trainer Box](https://www.walmart.com/ip/Pokemon-TCG-Scarlet-Violet-Black-Bolt-White-Flare-Elite-Trainer-Box-ETB/17337259478)
 - [Destined Rivals — Booster Bundle 6pk](https://www.walmart.com/ip/Pokemon-TCG-Scarlet-Violet-Destined-Rivals-Booster-Bundle-6-Packs/16019713971)
 - [Destined Rivals — Booster Bundle 6pk (alt listing)](https://www.walmart.com/ip/TCG-Scarlet-Violet-Destined-Rivals-Booster-Bundle-6-Packs/15700422581)
+- [Chaos Rising — Elite Trainer Box](https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Chaos-Rising-Elite-Trainer-Box/19988614228) *(debug)*
+- [Chaos Rising — Booster Bundle](https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Chaos-Rising-Bundle/19986002628) *(debug)*
+- [Perfect Order — Elite Trainer Box](https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Perfect-Order-Elite-Trainer-Box/19402160990) *(debug)*
+- [Ascended Heroes — Booster Bundle 6pk](https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Ascended-Heroes-Booster-Bundle-6-Packs/18728422476) *(debug)*
+- [Phantasmal Flames — Elite Trainer Box](https://www.walmart.com/ip/POKEMON-ME2-PHANTASMAL-FLAMES-ELITE-TRAINER-BOX/17780209250) *(debug)*
+- [Phantasmal Flames — Booster Bundle](https://www.walmart.com/ip/POKEMON-ME2-PHANTASMAL-FLAMES-BOOSTER-BUNDLE/17785924366) *(debug)*

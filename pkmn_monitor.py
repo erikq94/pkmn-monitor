@@ -1175,7 +1175,25 @@ WALMART_WATCH = [
     # ── Destined Rivals ───────────────────────────────────────────────────────
     "https://www.walmart.com/ip/Pokemon-TCG-Scarlet-Violet-Destined-Rivals-Booster-Bundle-6-Packs/16019713971",
     "https://www.walmart.com/ip/TCG-Scarlet-Violet-Destined-Rivals-Booster-Bundle-6-Packs/15700422581",
+    # ── New — debug mode until confirmed sold by Walmart directly ─────────────
+    "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Chaos-Rising-Elite-Trainer-Box/19988614228",
+    "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Chaos-Rising-Bundle/19986002628",
+    "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Perfect-Order-Elite-Trainer-Box/19402160990",
+    "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Ascended-Heroes-Booster-Bundle-6-Packs/18728422476",
+    "https://www.walmart.com/ip/POKEMON-ME2-PHANTASMAL-FLAMES-ELITE-TRAINER-BOX/17780209250",
+    "https://www.walmart.com/ip/POKEMON-ME2-PHANTASMAL-FLAMES-BOOSTER-BUNDLE/17785924366",
 ]
+
+# URLs in debug mode — logged and sent as quiet messages, no @everyone alert.
+# Remove a URL from this set once you've confirmed it restocks from Walmart directly.
+WALMART_DEBUG = {
+    "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Chaos-Rising-Elite-Trainer-Box/19988614228",
+    "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Chaos-Rising-Bundle/19986002628",
+    "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Perfect-Order-Elite-Trainer-Box/19402160990",
+    "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Ascended-Heroes-Booster-Bundle-6-Packs/18728422476",
+    "https://www.walmart.com/ip/POKEMON-ME2-PHANTASMAL-FLAMES-ELITE-TRAINER-BOX/17780209250",
+    "https://www.walmart.com/ip/POKEMON-ME2-PHANTASMAL-FLAMES-BOOSTER-BUNDLE/17785924366",
+}
 
 
 def _walmart_stock_status(url):
@@ -1288,12 +1306,20 @@ def check_walmart(state, seed=False, history=None):
             print(f"  [COMING SOON] {name[:55]}")
             new_alerts += 1
         elif not seed and status == "IN_STOCK" and prev != "IN_STOCK":
-            send_discord(
-                f"@everyone\n"
-                f"**RESTOCK at Walmart!** 🟡\n"
-                f"**{name}**\n"
-                f"In stock — sold directly by Walmart at retail price!\n{url}"
-            )
+            if url in WALMART_DEBUG:
+                send_discord(
+                    f"🔍 **[DEBUG] Walmart — sold by Walmart, in stock**\n"
+                    f"**{name}**\n"
+                    f"Check walmart-log to confirm, then remove from WALMART_DEBUG to enable full alerts.\n{url}"
+                )
+                print(f"  [DEBUG IN_STOCK] {name[:55]}")
+            else:
+                send_discord(
+                    f"@everyone\n"
+                    f"**RESTOCK at Walmart!** 🟡\n"
+                    f"**{name}**\n"
+                    f"In stock — sold directly by Walmart at retail price!\n{url}"
+                )
             log_restock(history, "Walmart", name)
             print(f"  [RESTOCK] {name[:60]}")
             new_alerts += 1
