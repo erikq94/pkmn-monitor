@@ -901,5 +901,6 @@
   "bestbuy_https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-prismatic-evolutions-elite-trainer-box/JJG2TLCW3L": "IN_STORE_ONLY",
   "samsclub_reminder_15_https://www.samsclub.com/ip/19170800669": true,
   "samsclub_reminder_now_https://www.samsclub.com/ip/19170800669": true,
-  "walmart_https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Chaos-Rising-Elite-Trainer-Box/19988614228": "OUT_OF_STOCK"
+  "walmart_https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Chaos-Rising-Elite-Trainer-Box/19988614228": "OUT_OF_STOCK",
+  "costco_https://www.costco.com/pok%C3%A9mon-unova-heavy-hitters-premium-collection.product.1943158.html": "QUEUE"
 }
