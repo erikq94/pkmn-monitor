@@ -353,6 +353,7 @@ def check_target(state, seed=False, history=None):
                 "name": html.unescape(p.get("item", {}).get("product_description", {}).get("title", "")),
                 "buy_url": p.get("item", {}).get("enrichment", {}).get("buy_url", ""),
                 "ship_status": p.get("fulfillment", {}).get("shipping_options", {}).get("availability_status", ""),
+                "sold_out": p.get("fulfillment", {}).get("sold_out"),
             }
 
         new_alerts = 0
@@ -360,7 +361,9 @@ def check_target(state, seed=False, history=None):
         # ── Online / ship-to-you (one check, works nationally) ──
         for tcin, prod in product_map.items():
             name, buy_url, ship_status = prod["name"], prod["buy_url"], prod["ship_status"]
+            sold_out = prod["sold_out"]
             online_key = f"target_online_{tcin}"
+            sold_out_key = f"target_sold_out_{tcin}"
 
             if not is_card_product(name):
                 continue
@@ -374,7 +377,18 @@ def check_target(state, seed=False, history=None):
                 else:
                     print(f"  [skipped 3rd party] {name[:50]}")
 
+            # sold_out False → early restock signal (fires only on True→False transition)
+            if not seed and state.get(sold_out_key) is True and sold_out is False:
+                send_discord(
+                    f"👀 **Target restock signal** — inventory unlocking\n"
+                    f"**{name}**\n"
+                    f"sold_out flipped False — drop likely within minutes\n{buy_url}"
+                )
+                print(f"  [sold_out signal] {name[:55]}")
+
             state[online_key] = ship_status
+            if sold_out is not None:
+                state[sold_out_key] = sold_out
 
         # ── Local store availability — check all 5 nearby stores ──
         for store_id, store_name in TARGET_STORES.items():
@@ -453,6 +467,36 @@ def _slug_to_name(url):
     slug = url.rstrip("/").split("/")[-1]
     slug = re.sub(r"^pokemon-tcg-", "", slug)
     return slug.replace("-", " ").title()
+
+
+def check_pokemoncenter_site_queue(state, seed=False):
+    """Probes the PC homepage for Incapsula/Imperva waiting room signals.
+    Fires a site-wide @everyone alert the moment the queue opens — before any product can be checked."""
+    key = "pc_site_queue"
+    try:
+        r = cf.get("https://www.pokemoncenter.com/", impersonate="chrome120", timeout=15, allow_redirects=True)
+        text = r.text
+        is_queue = (
+            "_Incapsula_Resource" in text
+            or "queue-it.net" in text
+            or "waiting room" in text.lower()
+            or "virtual queue" in text.lower()
+        )
+        prev = state.get(key)
+        if not seed and is_queue and prev != "QUEUE":
+            send_discord(
+                f"@everyone\n"
+                f"🚨 **POKEMON CENTER QUEUE IS OPEN!** 🚨\n"
+                f"The entire site has a virtual waiting room — join NOW before your position gets worse!\n"
+                f"https://www.pokemoncenter.com/"
+            )
+            print("  [PC SITE QUEUE] Waiting room detected on homepage — alert sent")
+        elif not is_queue and prev == "QUEUE":
+            print("  [PC SITE QUEUE] Queue cleared")
+        state[key] = "QUEUE" if is_queue else "OPEN"
+    except Exception as e:
+        print(f"  PC site queue probe failed: {e}")
+    return state
 
 
 def check_pokemoncenter(state, seed=False, dynamic_pc_urls=None):
@@ -566,12 +610,21 @@ PC_RESTOCK_WATCH = [
 
 
 def _pc_stock_status(url):
-    """Returns 'IN_STOCK', 'OUT_OF_STOCK', or None if unknown."""
+    """Returns 'IN_STOCK', 'OUT_OF_STOCK', 'QUEUE', or None if unknown."""
     try:
-        r = cf.get(url, impersonate="chrome120", timeout=15)
+        r = cf.get(url, impersonate="chrome120", timeout=15, allow_redirects=True)
         if not r.ok:
             return None
+        final_url = str(r.url)
+        # Incapsula/Imperva waiting room — gates the entire PC site during high-traffic drops
+        if "_Incapsula_Resource" in r.text or "incapsula" in r.text.lower():
+            return "QUEUE"
+        if "queue-it.net" in final_url or "queue-it.net" in r.text:
+            return "QUEUE"
         soup = BeautifulSoup(r.text, "html.parser")
+        text_quick = soup.get_text(" ", strip=True)
+        if "waiting room" in text_quick.lower() or "virtual queue" in text_quick.lower():
+            return "QUEUE"
         # JSON-LD structured data is in the raw HTML (not JS-rendered)
         for tag in soup.find_all("script", type="application/ld+json"):
             try:
@@ -610,8 +663,17 @@ def check_pokemoncenter_restock(state, seed=False, history=None, dynamic_pc_urls
             time.sleep(0.5)
             continue
         prev = state.get(key)
-        if not seed and status == "IN_STOCK" and prev != "IN_STOCK":
-            name = _slug_to_name(url)
+        name = _slug_to_name(url)
+        if not seed and status == "QUEUE" and prev != "QUEUE":
+            send_discord(
+                f"@everyone\n"
+                f"🚨 **POKEMON CENTER QUEUE IS OPEN!** 🚨\n"
+                f"**{name}**\n"
+                f"Virtual waiting room is live — join NOW!\n{url}"
+            )
+            print(f"  [QUEUE OPEN] {name[:60]}")
+            new_alerts += 1
+        elif not seed and status == "IN_STOCK" and prev != "IN_STOCK":
             send_discord(
                 f"@everyone\n"
                 f"**RESTOCK at Pokemon Center!**\n"
@@ -1476,6 +1538,7 @@ def main():
     # reads don't race; writes go to separate key namespaces so merging is safe
     checks = [
         ("Target",           lambda: check_target(state.copy(), seed=seed, history=history)),
+        ("PC Site Queue",    lambda: check_pokemoncenter_site_queue(state.copy(), seed=seed)),
         ("Pokemon Center",   lambda: check_pokemoncenter(state.copy(), seed=seed, dynamic_pc_urls=dynamic_pc_urls)),
         ("PC Restock",       lambda: check_pokemoncenter_restock(state.copy(), seed=seed, history=history, dynamic_pc_urls=list(dynamic_pc_urls))),
         ("Costco",           lambda: check_costco(state.copy(), seed=seed, history=history)),
@@ -1484,7 +1547,7 @@ def main():
         ("Walmart",          lambda: check_walmart(state.copy(), seed=seed, history=history)),
     ]
 
-    with ThreadPoolExecutor(max_workers=7) as executor:
+    with ThreadPoolExecutor(max_workers=8) as executor:
         futures = {executor.submit(fn): name for name, fn in checks}
         for future in as_completed(futures):
             name = futures[future]
