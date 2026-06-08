@@ -663,6 +663,46 @@
       "timestamp": "2026-06-05T08:30:20.280475",
       "day": "Friday",
       "hour": 8
+    },
+    {
+      "retailer": "Target",
+      "name": "Pokemon TCG SV7 Scarlet & Violet Stellar Miracle Enhanced Expansion Box (Japanes",
+      "store": "Online",
+      "timestamp": "2026-06-08T21:00:23.550744",
+      "day": "Monday",
+      "hour": 21
+    },
+    {
+      "retailer": "Target",
+      "name": "Pokemon TCG: Mega Evolution - Perfect Order Pokemon Center Elite Trainer Box",
+      "store": "Online",
+      "timestamp": "2026-06-08T21:00:25.724397",
+      "day": "Monday",
+      "hour": 21
+    },
+    {
+      "retailer": "Target",
+      "name": "Pokemon TCG: Mega Evolution - Ascended Heroes - Premium Poster Collection - Mega",
+      "store": "Online",
+      "timestamp": "2026-06-08T21:00:28.438402",
+      "day": "Monday",
+      "hour": 21
+    },
+    {
+      "retailer": "Target",
+      "name": "Pokemon TCG: Masks of Ogerpon Premium Collection (2-Pack)",
+      "store": "Online",
+      "timestamp": "2026-06-08T21:00:31.311845",
+      "day": "Monday",
+      "hour": 21
+    },
+    {
+      "retailer": "Target",
+      "name": "Pokemon ME2.5 Ascended Heroes Booster Pack",
+      "store": "Online",
+      "timestamp": "2026-06-08T21:00:33.355254",
+      "day": "Monday",
+      "hour": 21
     }
   ],
   "last_summary": "2026-06-02T06:20:51.460448"
