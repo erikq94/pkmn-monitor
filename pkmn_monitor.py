@@ -25,6 +25,7 @@ HISTORY_FILE        = os.path.join(os.path.dirname(__file__), "restock_history.j
 DYNAMIC_TCINS_FILE  = os.path.join(os.path.dirname(__file__), "dynamic_tcins.json")
 DYNAMIC_PC_URLS_FILE = os.path.join(os.path.dirname(__file__), "dynamic_pc_urls.json")
 WALMART_LOG_FILE    = os.path.join(os.path.dirname(__file__), "walmart_log.json")
+DYNAMIC_MC_URLS_FILE = os.path.join(os.path.dirname(__file__), "dynamic_mc_urls.json")
 
 TARGET_API_KEY = os.environ["TARGET_API_KEY"]
 TARGET_ZIP = "95122"
@@ -1394,6 +1395,201 @@ def check_walmart(state, seed=False, history=None):
     return state
 
 
+# ── Micro Center ─────────────────────────────────────────────────────────────
+
+MICROCENTER_STORE_ID   = "045"
+MICROCENTER_STORE_NAME = "Santa Clara"
+
+MICROCENTER_SEARCH_URL = (
+    "https://www.microcenter.com/search/search_results.aspx"
+    "?fq=category:Tabletop+Games%7C646,Subcategory:Trading+Card+Game,brand:Pok%C3%A9mon"
+    f"&storeID={MICROCENTER_STORE_ID}"
+)
+
+MICROCENTER_WATCH = [
+    "https://www.microcenter.com/product/706055/nintendo-pokemon-mega-evolution-ascended-heroes-elite-trainer-box",
+    "https://www.microcenter.com/product/709059/nintendo-pokemon-mega-evolution-perfect-order-booster-display-box",
+    "https://www.microcenter.com/product/706781/nintendo-pokemon-day-2026-collection",
+]
+
+
+def load_dynamic_mc_urls():
+    if os.path.exists(DYNAMIC_MC_URLS_FILE):
+        with open(DYNAMIC_MC_URLS_FILE) as f:
+            return json.load(f)
+    return []
+
+
+def save_dynamic_mc_urls(urls):
+    with open(DYNAMIC_MC_URLS_FILE, "w") as f:
+        json.dump(urls, f, indent=2)
+
+
+def _microcenter_name(url):
+    slug = url.rstrip("/").split("/")[-1]
+    slug = re.sub(r"^nintendo-pokemon-?(tcg-)?", "", slug, flags=re.IGNORECASE)
+    return slug.replace("-", " ").title()
+
+
+def _microcenter_stock_status(url):
+    """Returns (online_status, store_status, inv_count) — statuses are 'IN_STOCK', 'OUT_OF_STOCK', or None; inv_count is int or None."""
+    store_url = f"{url}?storeid={MICROCENTER_STORE_ID}" if "?" not in url else f"{url}&storeid={MICROCENTER_STORE_ID}"
+    try:
+        r = cf.get(store_url, impersonate="chrome124", timeout=20, allow_redirects=True)
+        if not r.ok:
+            return None, None, None
+        soup = BeautifulSoup(r.text, "html.parser")
+        text = soup.get_text(" ", strip=True)
+        if len(text) < 500:
+            print(f"  [blocked] {url[-45:]}")
+            return None, None, None
+
+        # In-store stock from the inventory panel (reflects storeid= in URL)
+        store_status = None
+        inv_count = None
+        inv_panel = soup.find(id="pnlInventory")
+        if inv_panel:
+            inv_text = inv_panel.get_text(" ", strip=True)
+            count_m = re.search(r"(\d+)\s+in\s+stock", inv_text, re.IGNORECASE)
+            if count_m:
+                inv_count = int(count_m.group(1))
+                store_status = "IN_STOCK"
+            elif re.search(r"\bin\s+stock\b", inv_text, re.IGNORECASE):
+                inv_count = 1
+                store_status = "IN_STOCK"
+            elif re.search(r"\bsold out\b", inv_text, re.IGNORECASE):
+                inv_count = 0
+                store_status = "OUT_OF_STOCK"
+
+        # "In Store Only" means not shippable online
+        in_store_only = bool(re.search(r"\bIn[- ]Store Only\b", text, re.IGNORECASE))
+
+        online_status = None
+        if not in_store_only:
+            for tag in soup.find_all("script", type="application/ld+json"):
+                try:
+                    data = json.loads(tag.string or "")
+                    if isinstance(data, list):
+                        data = data[0]
+                    offers = data.get("offers", {})
+                    if isinstance(offers, list):
+                        offers = offers[0]
+                    avail = offers.get("availability", "")
+                    if "InStock" in avail:
+                        online_status = "IN_STOCK"
+                    elif "OutOfStock" in avail or "SoldOut" in avail:
+                        online_status = "OUT_OF_STOCK"
+                    if online_status:
+                        break
+                except (json.JSONDecodeError, AttributeError, TypeError):
+                    continue
+            if online_status is None:
+                if re.search(r"\bAdd to Cart\b", text, re.IGNORECASE):
+                    online_status = "IN_STOCK"
+                elif re.search(r"\b(Out of Stock|Sold Out|Not Available)\b", text, re.IGNORECASE):
+                    online_status = "OUT_OF_STOCK"
+
+        return online_status, store_status, inv_count
+    except Exception:
+        return None, None, None
+
+
+def discover_microcenter_products(state, dynamic_mc_urls):
+    """Scrape Micro Center's Pokemon TCG search page for new products."""
+    print("Scanning Micro Center for new Pokemon TCG products...")
+    all_known = set(MICROCENTER_WATCH) | set(dynamic_mc_urls)
+    try:
+        r = cf.get(MICROCENTER_SEARCH_URL, impersonate="chrome124", timeout=20)
+        if not r.ok:
+            print(f"  Micro Center search returned {r.status_code}")
+            return state, dynamic_mc_urls
+        soup = BeautifulSoup(r.text, "html.parser")
+        new_found = []
+        seen_ids = set()
+        for a in soup.find_all("a", href=re.compile(r"/product/\d+/")):
+            href = a.get("href", "")
+            m = re.search(r"/product/(\d+)/([^?#\"']+)", href)
+            if not m:
+                continue
+            prod_id, slug = m.group(1), m.group(2).rstrip("/")
+            if prod_id in seen_ids:
+                continue
+            seen_ids.add(prod_id)
+            full_url = f"https://www.microcenter.com/product/{prod_id}/{slug}"
+            disc_key = f"mc_discovered_{prod_id}"
+            if full_url not in all_known and not state.get(disc_key):
+                name = re.sub(r"^nintendo-pokemon-?(tcg-)?", "", slug, flags=re.IGNORECASE).replace("-", " ").title()
+                if not is_card_product(name):
+                    continue
+                new_found.append((name, full_url))
+                state[disc_key] = True
+                dynamic_mc_urls.append(full_url)
+                all_known.add(full_url)
+        for name, url in new_found:
+            send_discord(
+                f"🆕 **New Product at Micro Center!**\n"
+                f"**{name}**\n"
+                f"Just appeared in their Pokemon TCG catalog — now monitoring!\n{url}"
+            )
+            print(f"  [NEW MC] {name[:55]}")
+        label = f"{len(new_found)} new products" if new_found else "no new products"
+        print(f"  Micro Center discovery: {label}")
+    except Exception as e:
+        print(f"  Micro Center discovery error: {e}")
+    return state, dynamic_mc_urls
+
+
+def check_microcenter(state, seed=False, history=None):
+    print("Checking Micro Center watch list...")
+    new_alerts = 0
+    for url in list(MICROCENTER_WATCH):
+        name = _microcenter_name(url)
+        online_status, store_status, inv_count = _microcenter_stock_status(url)
+        online_key = f"mc_online_{url}"
+        store_key  = f"mc_store_{url}"
+        inv_key    = f"mc_inv_{url}"
+        prev_online = state.get(online_key)
+        prev_store  = state.get(store_key)
+        prev_inv    = state.get(inv_key)  # last known count (int or None)
+
+        if online_status is None and store_status is None:
+            print(f"  [unknown] {name[:55]}")
+            time.sleep(random.uniform(1, 3))
+            continue
+
+        if not seed and online_status == "IN_STOCK" and prev_online != "IN_STOCK":
+            notify(name, "Micro Center", url, is_local=False)
+            log_restock(history, "Micro Center", name, "Online")
+            new_alerts += 1
+        elif not seed and store_status == "IN_STOCK" and prev_store != "IN_STOCK":
+            notify(name, f"Micro Center {MICROCENTER_STORE_NAME}", url, is_local=True)
+            log_restock(history, "Micro Center", name, MICROCENTER_STORE_NAME)
+            new_alerts += 1
+        elif not seed and inv_count and inv_count > 0 and (prev_inv is None or prev_inv == 0):
+            # Inventory count moved from zero — quiet heads up, no @everyone
+            send_discord(
+                f"👀 **Micro Center inventory signal** — {MICROCENTER_STORE_NAME}\n"
+                f"**{name}**\n"
+                f"{inv_count} unit(s) appeared in store — drop may be incoming!\n{url}"
+            )
+            print(f"  [inv signal] {name[:50]} — count={inv_count}")
+            new_alerts += 1
+        else:
+            print(f"  [online={online_status or '?'} store={store_status or '?'} inv={inv_count}] {name[:35]}")
+
+        if online_status is not None:
+            state[online_key] = online_status
+        if store_status is not None:
+            state[store_key] = store_status
+        if inv_count is not None:
+            state[inv_key] = inv_count
+        time.sleep(random.uniform(1, 3))
+
+    label = "seeded" if seed else f"{new_alerts} alerts sent"
+    print(f"  {len(MICROCENTER_WATCH)} products checked, {label}")
+    return state
+
+
 # ── Token expiry reminder ─────────────────────────────────────────────────────
 
 GITHUB_TOKEN_EXPIRY = date(2026, 8, 11)
@@ -1445,6 +1641,26 @@ def run_walmart_log():
     print("Walmart log sent to Discord.")
 
 
+# ── Micro Center announce ────────────────────────────────────────────────────
+
+def run_mc_announce():
+    """Post a one-time Discord message announcing Micro Center monitoring."""
+    lines = [
+        f"🟢 **Pokebot now monitoring Micro Center — {MICROCENTER_STORE_NAME}!**\n",
+        "Watching for Pokemon TCG restocks both online and in-store at retail price.\n",
+        "**Products currently tracked:**",
+    ]
+    for url in MICROCENTER_WATCH:
+        name = _microcenter_name(url)
+        lines.append(f"• [{name}]({url})")
+    lines.append(
+        "\nNew products are auto-discovered each run — "
+        "anything new in their TCG catalog will show up here automatically."
+    )
+    send_discord("\n".join(lines))
+    print("Micro Center announcement sent to Discord.")
+
+
 # ── Best Buy store scan ───────────────────────────────────────────────────────
 
 def run_bestbuy_store_check():
@@ -1492,7 +1708,7 @@ def main():
         ok = send_discord(
             "**Pokebot is online!**\n"
             f"Monitoring Pokemon cards near ZIP {TARGET_ZIP}\n"
-            "Checking: Target + Pokemon Center + Costco + Best Buy"
+            "Checking: Target + Pokemon Center + Costco + Best Buy + Micro Center"
         )
         print("Discord webhook works! Check your server." if ok else "Discord webhook FAILED")
         return
@@ -1507,6 +1723,10 @@ def main():
 
     if "--walmart-log" in sys.argv:
         run_walmart_log()
+        return
+
+    if "--mc-announce" in sys.argv:
+        run_mc_announce()
         return
 
 
@@ -1527,12 +1747,22 @@ def main():
     # Load auto-discovered Pokemon Center URLs
     dynamic_pc_urls = load_dynamic_pc_urls()
 
+    # Load auto-discovered Micro Center URLs and merge into watch list
+    dynamic_mc_urls = load_dynamic_mc_urls()
+    for url in dynamic_mc_urls:
+        if url not in MICROCENTER_WATCH:
+            MICROCENTER_WATCH.append(url)
+
     check_token_expiry(state)
 
     # Scan Target for new products — runs first so newly found TCINs are
     # included in the parallel check_target call below
     state, dynamic_tcins = discover_target_tcins(state, dynamic_tcins)
     save_dynamic_tcins(dynamic_tcins)
+
+    # Scan Micro Center for new products
+    state, dynamic_mc_urls = discover_microcenter_products(state, dynamic_mc_urls)
+    save_dynamic_mc_urls(dynamic_mc_urls)
 
     # Run all retailer checks in parallel — each gets its own state copy so
     # reads don't race; writes go to separate key namespaces so merging is safe
@@ -1545,9 +1775,10 @@ def main():
         ("Sam's Club",       lambda: check_samsclub(state.copy(), seed=seed, history=history)),
         ("Best Buy",         lambda: check_bestbuy(state.copy(), seed=seed, history=history)),
         ("Walmart",          lambda: check_walmart(state.copy(), seed=seed, history=history)),
+        ("Micro Center",     lambda: check_microcenter(state.copy(), seed=seed, history=history)),
     ]
 
-    with ThreadPoolExecutor(max_workers=8) as executor:
+    with ThreadPoolExecutor(max_workers=9) as executor:
         futures = {executor.submit(fn): name for name, fn in checks}
         for future in as_completed(futures):
             name = futures[future]
