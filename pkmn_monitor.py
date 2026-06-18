@@ -112,10 +112,14 @@ def save_history(history):
 
 _history_lock = threading.Lock()
 
-def log_restock(history, retailer, name, store="Online"):
+def log_restock(history, retailer, name, store="Online", qty=None):
     if history is None:
         return
     now = datetime.now()
+    try:
+        qty = int(qty) if qty is not None else None
+    except (TypeError, ValueError):
+        qty = None
     entry = {
         "retailer": retailer,
         "name": name[:80],
@@ -123,6 +127,7 @@ def log_restock(history, retailer, name, store="Online"):
         "timestamp": now.isoformat(),
         "day": now.strftime("%A"),
         "hour": now.hour,
+        "qty": qty,
     }
     with _history_lock:
         history["restocks"].append(entry)
@@ -146,9 +151,12 @@ def send_pattern_summary(history):
         return
 
     groups = defaultdict(list)
+    qtys = defaultdict(list)
     for r in recent:
         label = f"{r['retailer']} — {r.get('store', 'Online')}"
         groups[label].append((r["day"], r["hour"]))
+        if isinstance(r.get("qty"), int) and r["qty"] > 0:
+            qtys[label].append(r["qty"])
 
     lines = [f"📊 **Restock Patterns — last 30 days** ({len(recent)} total restocks)"]
     for location, times in sorted(groups.items()):
@@ -158,7 +166,12 @@ def send_pattern_summary(history):
             ampm = "am" if hour < 12 else "pm"
             h = hour % 12 or 12
             parts.append(f"{day[:3]} {h}{ampm}" + (f" ×{n}" if n > 1 else ""))
-        lines.append(f"**{location}**: {', '.join(parts)}")
+        line = f"**{location}**: {', '.join(parts)}"
+        location_qtys = qtys.get(location)
+        if location_qtys:
+            avg = round(sum(location_qtys) / len(location_qtys))
+            line += f" — typically ~{avg} units (range {min(location_qtys)}–{max(location_qtys)})"
+        lines.append(line)
 
     send_discord("\n".join(lines))
     history["last_summary"] = datetime.now().isoformat()
@@ -401,7 +414,7 @@ def check_target(state, seed=False, history=None):
                 time.sleep(random.uniform(0.5, 2))
                 if is_sold_by_target(buy_url):
                     notify(name, "Target", buy_url, is_local=False, qty=prod.get("ship_qty"))
-                    log_restock(history, "Target", name, "Online")
+                    log_restock(history, "Target", name, "Online", qty=prod.get("ship_qty"))
                     new_alerts += 1
                 else:
                     print(f"  [skipped 3rd party] {name[:50]}")
@@ -443,7 +456,7 @@ def check_target(state, seed=False, history=None):
                     time.sleep(random.uniform(0.5, 2))
                     if is_sold_by_target(buy_url):
                         notify(name, f"Target {store_name}", buy_url, is_local=True, qty=int(store_qty) if store_qty else None)
-                        log_restock(history, "Target", name, store_name)
+                        log_restock(history, "Target", name, store_name, qty=int(store_qty) if store_qty else None)
                         new_alerts += 1
                     else:
                         print(f"  [skipped 3rd party] {name[:50]}")
@@ -1415,7 +1428,7 @@ def check_walmart(state, seed=False, history=None):
                     f"{qty_line(debug.get('qty_left'))}"
                     f"In stock — sold directly by Walmart at retail price!\n{url}"
                 )
-            log_restock(history, "Walmart", name)
+            log_restock(history, "Walmart", name, qty=debug.get("qty_left"))
             print(f"  [RESTOCK] {name[:60]}")
             new_alerts += 1
         else:
@@ -1595,7 +1608,7 @@ def check_microcenter(state, seed=False, history=None):
             new_alerts += 1
         elif not seed and store_status == "IN_STOCK" and prev_store != "IN_STOCK":
             notify(name, f"Micro Center {MICROCENTER_STORE_NAME}", url, is_local=True, qty=inv_count)
-            log_restock(history, "Micro Center", name, MICROCENTER_STORE_NAME)
+            log_restock(history, "Micro Center", name, MICROCENTER_STORE_NAME, qty=inv_count)
             new_alerts += 1
         elif not seed and inv_count and inv_count > 0 and (prev_inv is None or prev_inv == 0):
             # Inventory count moved from zero — quiet heads up, no @everyone
