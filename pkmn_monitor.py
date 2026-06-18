@@ -198,16 +198,43 @@ def send_discord(message):
         return False
 
 
-def notify(name, store, url, price="", is_local=False):
+def qty_line(qty):
+    """Formats a stock-quantity line for alerts. Returns '' when qty is unknown."""
+    if qty is None:
+        return ""
+    try:
+        n = int(qty)
+    except (TypeError, ValueError):
+        return ""
+    if n <= 0:
+        return ""
+    if n <= 5:
+        return f"🔴 **Only {n} left** — grab it fast!\n"
+    if n <= 20:
+        return f"🟡 **{n} available**\n"
+    return f"🟢 **{n}+ available**\n"
+
+
+_QTY_LEFT_RE = re.compile(r"only\s+(\d+)\s+left", re.IGNORECASE)
+
+def _qty_left(text):
+    """Extracts a low-stock 'Only N left' count from page text, or None."""
+    m = _QTY_LEFT_RE.search(text)
+    return int(m.group(1)) if m else None
+
+
+def notify(name, store, url, price="", is_local=False, qty=None):
     location = "local store" if is_local else "online"
     price_str = f" — **{price}**" if price else ""
     send_discord(
         f"@everyone\n"
         f"**RESTOCK** {location}\n"
         f"**{html.unescape(name)}**{price_str}\n"
+        f"{qty_line(qty)}"
         f"Store: {store}\n{url}"
     )
-    print(f"  [ALERT] {name[:55]} @ {store} ({location})")
+    qty_log = f" [qty={qty}]" if qty is not None else ""
+    print(f"  [ALERT] {name[:55]} @ {store} ({location}){qty_log}")
 
 
 PAGE_HEADERS = {
@@ -354,6 +381,7 @@ def check_target(state, seed=False, history=None):
                 "name": html.unescape(p.get("item", {}).get("product_description", {}).get("title", "")),
                 "buy_url": p.get("item", {}).get("enrichment", {}).get("buy_url", ""),
                 "ship_status": p.get("fulfillment", {}).get("shipping_options", {}).get("availability_status", ""),
+                "ship_qty": p.get("fulfillment", {}).get("shipping_options", {}).get("available_to_promise_quantity"),
                 "sold_out": p.get("fulfillment", {}).get("sold_out"),
             }
 
@@ -372,7 +400,7 @@ def check_target(state, seed=False, history=None):
             if not seed and ship_status == "IN_STOCK" and state.get(online_key) != "IN_STOCK":
                 time.sleep(random.uniform(0.5, 2))
                 if is_sold_by_target(buy_url):
-                    notify(name, "Target", buy_url, is_local=False)
+                    notify(name, "Target", buy_url, is_local=False, qty=prod.get("ship_qty"))
                     log_restock(history, "Target", name, "Online")
                     new_alerts += 1
                 else:
@@ -414,7 +442,7 @@ def check_target(state, seed=False, history=None):
                 if not seed and in_stock_locally and not state.get(local_key):
                     time.sleep(random.uniform(0.5, 2))
                     if is_sold_by_target(buy_url):
-                        notify(name, f"Target {store_name}", buy_url, is_local=True)
+                        notify(name, f"Target {store_name}", buy_url, is_local=True, qty=int(store_qty) if store_qty else None)
                         log_restock(history, "Target", name, store_name)
                         new_alerts += 1
                     else:
@@ -714,7 +742,8 @@ def run_status():
             if not is_card_product(name):
                 continue
             buy_url = p.get("item", {}).get("enrichment", {}).get("buy_url", "")
-            online_available.append((name, buy_url))
+            ship_qty = p.get("fulfillment", {}).get("shipping_options", {}).get("available_to_promise_quantity")
+            online_available.append((name, buy_url, ship_qty))
 
     # Local store check
     store_stock = {}
@@ -740,8 +769,9 @@ def run_status():
 
     lines.append("\n**Online (ship to you):**")
     if online_available:
-        for name, url in online_available:
-            lines.append(f"✅ [{name[:60]}]({url})")
+        for name, url, ship_qty in online_available:
+            qty_str = f" (qty: {ship_qty})" if ship_qty else ""
+            lines.append(f"✅ [{name[:60]}]({url}){qty_str}")
     else:
         lines.append("❌ No cards sold by Target directly right now")
 
@@ -1261,7 +1291,7 @@ WALMART_DEBUG = {
 
 def _walmart_stock_status(url):
     """Returns (status, debug) where status is 'IN_STOCK', 'OUT_OF_STOCK', 'COMING_SOON', 'THIRD_PARTY', or None."""
-    debug = {"seller_text": None, "jsonld_seller": None, "jsonld_avail": None, "walmart_confirmed": False, "page_len": 0}
+    debug = {"seller_text": None, "jsonld_seller": None, "jsonld_avail": None, "walmart_confirmed": False, "page_len": 0, "qty_left": None}
     try:
         r = cf.get(url, impersonate="chrome124", timeout=20, allow_redirects=True)
         if not r.ok:
@@ -1269,6 +1299,7 @@ def _walmart_stock_status(url):
         soup = BeautifulSoup(r.text, "html.parser")
         text = soup.get_text(" ", strip=True)
         debug["page_len"] = len(text)
+        debug["qty_left"] = _qty_left(text)
         if len(text) < 5000:
             print(f"  [blocked] {url.split('/')[-1][:45]}")
             return None, debug
@@ -1381,6 +1412,7 @@ def check_walmart(state, seed=False, history=None):
                     f"@everyone\n"
                     f"**RESTOCK at Walmart!** 🟡\n"
                     f"**{name}**\n"
+                    f"{qty_line(debug.get('qty_left'))}"
                     f"In stock — sold directly by Walmart at retail price!\n{url}"
                 )
             log_restock(history, "Walmart", name)
@@ -1562,7 +1594,7 @@ def check_microcenter(state, seed=False, history=None):
             log_restock(history, "Micro Center", name, "Online")
             new_alerts += 1
         elif not seed and store_status == "IN_STOCK" and prev_store != "IN_STOCK":
-            notify(name, f"Micro Center {MICROCENTER_STORE_NAME}", url, is_local=True)
+            notify(name, f"Micro Center {MICROCENTER_STORE_NAME}", url, is_local=True, qty=inv_count)
             log_restock(history, "Micro Center", name, MICROCENTER_STORE_NAME)
             new_alerts += 1
         elif not seed and inv_count and inv_count > 0 and (prev_inv is None or prev_inv == 0):
