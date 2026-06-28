@@ -847,6 +847,15 @@
       "timestamp": "2026-06-09T07:15:19.961040",
       "day": "Tuesday",
       "hour": 7
+    },
+    {
+      "retailer": "Best Buy",
+      "name": "Mega Evolution Chaos Rising Booster Bundle",
+      "store": "Online",
+      "timestamp": "2026-06-28T22:35:21.959995",
+      "day": "Sunday",
+      "hour": 22,
+      "qty": null
     }
   ],
   "last_summary": "2026-06-23T06:26:32.690830"
