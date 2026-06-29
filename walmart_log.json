@@ -1,137 +1,5 @@
 [
   {
-    "ts": "2026-06-29T00:10:32",
-    "name": "Scarlet Violet Destined Rivals Booster Bundle 6 Packs",
-    "status": "None",
-    "seller_text": null,
-    "jsonld_seller": null,
-    "jsonld_avail": null,
-    "walmart_confirmed": false,
-    "page_len": 220,
-    "url": "https://www.walmart.com/ip/Pokemon-TCG-Scarlet-Violet-Destined-Rivals-Booster-Bundle-6-Packs/16019713971"
-  },
-  {
-    "ts": "2026-06-29T00:10:34",
-    "name": "Tcg Scarlet Violet Destined Rivals Booster Bundle 6 Packs",
-    "status": "None",
-    "seller_text": null,
-    "jsonld_seller": null,
-    "jsonld_avail": null,
-    "walmart_confirmed": false,
-    "page_len": 220,
-    "url": "https://www.walmart.com/ip/TCG-Scarlet-Violet-Destined-Rivals-Booster-Bundle-6-Packs/15700422581"
-  },
-  {
-    "ts": "2026-06-29T00:10:36",
-    "name": "Mega Evolution Chaos Rising Elite Trainer Box",
-    "status": "None",
-    "seller_text": null,
-    "jsonld_seller": null,
-    "jsonld_avail": null,
-    "walmart_confirmed": false,
-    "page_len": 1651,
-    "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Chaos-Rising-Elite-Trainer-Box/19988614228"
-  },
-  {
-    "ts": "2026-06-29T00:10:39",
-    "name": "Mega Evolution Chaos Rising Bundle",
-    "status": "None",
-    "seller_text": null,
-    "jsonld_seller": null,
-    "jsonld_avail": null,
-    "walmart_confirmed": false,
-    "page_len": 1626,
-    "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Chaos-Rising-Bundle/19986002628"
-  },
-  {
-    "ts": "2026-06-29T00:10:41",
-    "name": "Mega Evolution Perfect Order Elite Trainer Box",
-    "status": "None",
-    "seller_text": null,
-    "jsonld_seller": null,
-    "jsonld_avail": null,
-    "walmart_confirmed": false,
-    "page_len": 220,
-    "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Perfect-Order-Elite-Trainer-Box/19402160990"
-  },
-  {
-    "ts": "2026-06-29T00:10:43",
-    "name": "Mega Evolution Ascended Heroes Booster Bundle 6 Packs",
-    "status": "None",
-    "seller_text": null,
-    "jsonld_seller": null,
-    "jsonld_avail": null,
-    "walmart_confirmed": false,
-    "page_len": 220,
-    "url": "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Ascended-Heroes-Booster-Bundle-6-Packs/18728422476"
-  },
-  {
-    "ts": "2026-06-29T00:10:45",
-    "name": "Pokemon Me2 Phantasmal Flames Elite Trainer Box",
-    "status": "None",
-    "seller_text": null,
-    "jsonld_seller": null,
-    "jsonld_avail": null,
-    "walmart_confirmed": false,
-    "page_len": 220,
-    "url": "https://www.walmart.com/ip/POKEMON-ME2-PHANTASMAL-FLAMES-ELITE-TRAINER-BOX/17780209250"
-  },
-  {
-    "ts": "2026-06-29T00:10:48",
-    "name": "Pokemon Me2 Phantasmal Flames Booster Bundle",
-    "status": "None",
-    "seller_text": null,
-    "jsonld_seller": null,
-    "jsonld_avail": null,
-    "walmart_confirmed": false,
-    "page_len": 220,
-    "url": "https://www.walmart.com/ip/POKEMON-ME2-PHANTASMAL-FLAMES-BOOSTER-BUNDLE/17785924366"
-  },
-  {
-    "ts": "2026-06-29T00:15:17",
-    "name": "Mega Evolution Ascended Heroes Elite Trainer Box",
-    "status": "None",
-    "seller_text": null,
-    "jsonld_seller": null,
-    "jsonld_avail": null,
-    "walmart_confirmed": false,
-    "page_len": 220,
-    "url": "https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734"
-  },
-  {
-    "ts": "2026-06-29T00:15:19",
-    "name": "Mega Evolution Perfect Order Booster Bundle 6 Packs",
-    "status": "None",
-    "seller_text": null,
-    "jsonld_seller": null,
-    "jsonld_avail": null,
-    "walmart_confirmed": false,
-    "page_len": 220,
-    "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Perfect-Order-Booster-Bundle-6-Packs/19380764160"
-  },
-  {
-    "ts": "2026-06-29T00:15:21",
-    "name": "Scarlet Violet Black Bolt White Flare Booster Bundles",
-    "status": "None",
-    "seller_text": null,
-    "jsonld_seller": null,
-    "jsonld_avail": null,
-    "walmart_confirmed": false,
-    "page_len": 220,
-    "url": "https://www.walmart.com/ip/Pokemon-TCG-Scarlet-Violet-Black-Bolt-White-Flare-Booster-Bundles/17752173132"
-  },
-  {
-    "ts": "2026-06-29T00:15:23",
-    "name": "Scarlet Violet Black Bolt White Flare Elite Trainer Box Etb",
-    "status": "None",
-    "seller_text": null,
-    "jsonld_seller": null,
-    "jsonld_avail": null,
-    "walmart_confirmed": false,
-    "page_len": 220,
-    "url": "https://www.walmart.com/ip/Pokemon-TCG-Scarlet-Violet-Black-Bolt-White-Flare-Elite-Trainer-Box-ETB/17337259478"
-  },
-  {
     "ts": "2026-06-29T00:15:25",
     "name": "Scarlet Violet Destined Rivals Booster Bundle 6 Packs",
     "status": "None",
@@ -2197,6 +2065,138 @@
     "jsonld_avail": null,
     "walmart_confirmed": false,
     "page_len": 1642,
+    "url": "https://www.walmart.com/ip/POKEMON-ME2-PHANTASMAL-FLAMES-BOOSTER-BUNDLE/17785924366"
+  },
+  {
+    "ts": "2026-06-29T01:33:56",
+    "name": "Mega Evolution Ascended Heroes Elite Trainer Box",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": null,
+    "walmart_confirmed": false,
+    "page_len": 220,
+    "url": "https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734"
+  },
+  {
+    "ts": "2026-06-29T01:33:58",
+    "name": "Mega Evolution Perfect Order Booster Bundle 6 Packs",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": null,
+    "walmart_confirmed": false,
+    "page_len": 220,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Perfect-Order-Booster-Bundle-6-Packs/19380764160"
+  },
+  {
+    "ts": "2026-06-29T01:34:01",
+    "name": "Scarlet Violet Black Bolt White Flare Booster Bundles",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": null,
+    "walmart_confirmed": false,
+    "page_len": 220,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Scarlet-Violet-Black-Bolt-White-Flare-Booster-Bundles/17752173132"
+  },
+  {
+    "ts": "2026-06-29T01:34:04",
+    "name": "Scarlet Violet Black Bolt White Flare Elite Trainer Box Etb",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": null,
+    "walmart_confirmed": false,
+    "page_len": 220,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Scarlet-Violet-Black-Bolt-White-Flare-Elite-Trainer-Box-ETB/17337259478"
+  },
+  {
+    "ts": "2026-06-29T01:34:05",
+    "name": "Scarlet Violet Destined Rivals Booster Bundle 6 Packs",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": null,
+    "walmart_confirmed": false,
+    "page_len": 220,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Scarlet-Violet-Destined-Rivals-Booster-Bundle-6-Packs/16019713971"
+  },
+  {
+    "ts": "2026-06-29T01:34:07",
+    "name": "Tcg Scarlet Violet Destined Rivals Booster Bundle 6 Packs",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": null,
+    "walmart_confirmed": false,
+    "page_len": 220,
+    "url": "https://www.walmart.com/ip/TCG-Scarlet-Violet-Destined-Rivals-Booster-Bundle-6-Packs/15700422581"
+  },
+  {
+    "ts": "2026-06-29T01:34:10",
+    "name": "Mega Evolution Chaos Rising Elite Trainer Box",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": null,
+    "walmart_confirmed": false,
+    "page_len": 220,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Chaos-Rising-Elite-Trainer-Box/19988614228"
+  },
+  {
+    "ts": "2026-06-29T01:34:12",
+    "name": "Mega Evolution Chaos Rising Bundle",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": null,
+    "walmart_confirmed": false,
+    "page_len": 220,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Chaos-Rising-Bundle/19986002628"
+  },
+  {
+    "ts": "2026-06-29T01:34:14",
+    "name": "Mega Evolution Perfect Order Elite Trainer Box",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": null,
+    "walmart_confirmed": false,
+    "page_len": 220,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Perfect-Order-Elite-Trainer-Box/19402160990"
+  },
+  {
+    "ts": "2026-06-29T01:34:16",
+    "name": "Mega Evolution Ascended Heroes Booster Bundle 6 Packs",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": null,
+    "walmart_confirmed": false,
+    "page_len": 220,
+    "url": "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Ascended-Heroes-Booster-Bundle-6-Packs/18728422476"
+  },
+  {
+    "ts": "2026-06-29T01:34:19",
+    "name": "Pokemon Me2 Phantasmal Flames Elite Trainer Box",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": null,
+    "walmart_confirmed": false,
+    "page_len": 220,
+    "url": "https://www.walmart.com/ip/POKEMON-ME2-PHANTASMAL-FLAMES-ELITE-TRAINER-BOX/17780209250"
+  },
+  {
+    "ts": "2026-06-29T01:34:22",
+    "name": "Pokemon Me2 Phantasmal Flames Booster Bundle",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": null,
+    "walmart_confirmed": false,
+    "page_len": 220,
     "url": "https://www.walmart.com/ip/POKEMON-ME2-PHANTASMAL-FLAMES-BOOSTER-BUNDLE/17785924366"
   }
 ]
