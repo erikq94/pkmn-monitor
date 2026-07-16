@@ -1051,5 +1051,6 @@
   "walmart_https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Perfect-Order-Elite-Trainer-Box/19402160990": "OUT_OF_STOCK",
   "target_sold_out_1010148053": false,
   "target_sold_out_1011318040": false,
-  "pc_https://www.pokemoncenter.com/product/10-10447-111/pokemon-tcg-30th-celebration-pokemon-center-elite-trainer-box": true
+  "pc_https://www.pokemoncenter.com/product/10-10447-111/pokemon-tcg-30th-celebration-pokemon-center-elite-trainer-box": true,
+  "pc_stock_https://www.pokemoncenter.com/product/10-10447-111/pokemon-tcg-30th-celebration-pokemon-center-elite-trainer-box": "QUEUE"
 }
