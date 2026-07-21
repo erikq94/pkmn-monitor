@@ -1055,5 +1055,7 @@
   "pc_stock_https://www.pokemoncenter.com/product/10-10447-111/pokemon-tcg-30th-celebration-pokemon-center-elite-trainer-box": "QUEUE",
   "walmart_https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734": "OUT_OF_STOCK",
   "pc_https://www.pokemoncenter.com/product/10-10465-176/pokemon-tcg-30th-celebration-mini-tins-10-pack": true,
-  "pc_https://www.pokemoncenter.com/product/10-10451-115/pokemon-tcg-30th-celebration-booster-bundle-6-packs": true
+  "pc_https://www.pokemoncenter.com/product/10-10451-115/pokemon-tcg-30th-celebration-booster-bundle-6-packs": true,
+  "pc_stock_https://www.pokemoncenter.com/product/10-10465-176/pokemon-tcg-30th-celebration-mini-tins-10-pack": "QUEUE",
+  "pc_stock_https://www.pokemoncenter.com/product/10-10451-115/pokemon-tcg-30th-celebration-booster-bundle-6-packs": "QUEUE"
 }
