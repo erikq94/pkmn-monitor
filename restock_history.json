@@ -982,6 +982,15 @@
       "day": "Wednesday",
       "hour": 2,
       "qty": null
+    },
+    {
+      "retailer": "Sam's Club",
+      "name": "Sam's Club item 19170800669",
+      "store": "Online",
+      "timestamp": "2026-07-22T02:20:15.361260",
+      "day": "Wednesday",
+      "hour": 2,
+      "qty": null
     }
   ],
   "last_summary": "2026-07-21T06:36:34.090017"
