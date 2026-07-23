@@ -1057,5 +1057,7 @@
   "pc_https://www.pokemoncenter.com/product/10-10465-176/pokemon-tcg-30th-celebration-mini-tins-10-pack": true,
   "pc_https://www.pokemoncenter.com/product/10-10451-115/pokemon-tcg-30th-celebration-booster-bundle-6-packs": true,
   "pc_stock_https://www.pokemoncenter.com/product/10-10465-176/pokemon-tcg-30th-celebration-mini-tins-10-pack": "QUEUE",
-  "pc_stock_https://www.pokemoncenter.com/product/10-10451-115/pokemon-tcg-30th-celebration-booster-bundle-6-packs": "QUEUE"
+  "pc_stock_https://www.pokemoncenter.com/product/10-10451-115/pokemon-tcg-30th-celebration-booster-bundle-6-packs": "QUEUE",
+  "pc_https://www.pokemoncenter.com/product/10-10437-102/pokemon-tcg-scarlet-and-violet-151-mini-tin-arcanine-and-omanyte": true,
+  "pc_https://www.pokemoncenter.com/product/10-10437-107/pokemon-tcg-scarlet-and-violet-151-mini-tin-gengar-and-poliwag": true
 }
