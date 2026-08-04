@@ -5,7 +5,7 @@ import os
 import sys
 import warnings
 from collections import Counter, defaultdict
-from datetime import datetime, date, timezone
+from datetime import datetime, date, timedelta, timezone
 
 import random
 import re
@@ -282,7 +282,7 @@ def is_sold_by_target(buy_url):
             return False
         return True
     except Exception:
-        return True  # assume Target's if we can't check
+        return False  # couldn't verify — don't risk alerting on a 3rd-party listing
 
 
 # ── Target discovery ─────────────────────────────────────────────────────────
@@ -1304,7 +1304,7 @@ WALMART_DEBUG = {
 
 def _walmart_stock_status(url):
     """Returns (status, debug) where status is 'IN_STOCK', 'OUT_OF_STOCK', 'COMING_SOON', 'THIRD_PARTY', or None."""
-    debug = {"seller_text": None, "jsonld_seller": None, "jsonld_avail": None, "walmart_confirmed": False, "page_len": 0, "qty_left": None}
+    debug = {"seller_text": None, "jsonld_seller": None, "jsonld_avail": None, "walmart_confirmed": False, "page_len": 0, "qty_left": None, "price": None}
     try:
         r = cf.get(url, impersonate="chrome124", timeout=20, allow_redirects=True)
         if not r.ok:
@@ -1337,6 +1337,12 @@ def _walmart_stock_status(url):
                     debug["jsonld_seller"] = seller
                 if avail:
                     debug["jsonld_avail"] = avail
+                price = offers.get("price")
+                if price is not None:
+                    try:
+                        debug["price"] = float(price)
+                    except (TypeError, ValueError):
+                        debug["price"] = price
                 if seller and "walmart" not in seller.lower():
                     return "THIRD_PARTY", debug
                 if seller and "walmart" in seller.lower():
@@ -1357,7 +1363,10 @@ def _walmart_stock_status(url):
         return None, debug
 
 
-def _append_walmart_log(name, url, status, debug):
+WALMART_LOG_RETENTION_DAYS = 90
+
+
+def _append_walmart_log(name, url, status, debug, duration_minutes=None):
     try:
         log = []
         if os.path.exists(WALMART_LOG_FILE):
@@ -1371,10 +1380,14 @@ def _append_walmart_log(name, url, status, debug):
             "jsonld_seller": debug.get("jsonld_seller"),
             "jsonld_avail": debug.get("jsonld_avail"),
             "walmart_confirmed": debug.get("walmart_confirmed"),
+            "price": debug.get("price"),
+            "qty_left": debug.get("qty_left"),
+            "duration_minutes": duration_minutes,
             "page_len": debug.get("page_len"),
             "url": url,
         })
-        log = log[-200:]  # keep last 200 entries
+        cutoff = (datetime.now() - timedelta(days=WALMART_LOG_RETENTION_DAYS)).isoformat(timespec="seconds")
+        log = [e for e in log if e.get("ts", "") >= cutoff]
         with open(WALMART_LOG_FILE, "w") as f:
             json.dump(log, f, indent=2)
     except Exception as e:
@@ -1390,16 +1403,46 @@ def _walmart_name(url):
 def check_walmart(state, seed=False, history=None):
     print("Checking Walmart watch list...")
     new_alerts = 0
+    now = datetime.now()
     for url in WALMART_WATCH:
         key = f"walmart_{url}"
         status, debug = _walmart_stock_status(url)
         name = _walmart_name(url)
-        _append_walmart_log(name, url, status, debug)
+        prev = state.get(key)
+
+        # How long an item stayed IN_STOCK before it changed — the key stat for
+        # judging whether polling cadence is fast enough to build a checkout bot on.
+        duration_minutes = None
+        instock_since_key = f"walmart_instock_since_{url}"
+        if prev == "IN_STOCK" and status != "IN_STOCK":
+            since = state.get(instock_since_key)
+            if since:
+                duration_minutes = round((now - datetime.fromisoformat(since)).total_seconds() / 60, 1)
+            state.pop(instock_since_key, None)
+        if status == "IN_STOCK" and prev != "IN_STOCK":
+            state[instock_since_key] = now.isoformat()
+
+        # Log every status/price/qty change immediately, plus an hourly heartbeat
+        # even when nothing changed — keeps months of history without every
+        # 5-minute check bloating the (git-committed) log file.
+        last_logged_key = f"walmart_last_logged_{url}"
+        last_logged = state.get(last_logged_key)
+        stale = not last_logged or (now - datetime.fromisoformat(last_logged)).total_seconds() >= 3300
+        changed = (
+            status != prev
+            or debug.get("price") != state.get(f"walmart_last_price_{url}")
+            or debug.get("qty_left") != state.get(f"walmart_last_qty_{url}")
+        )
+        if changed or stale:
+            _append_walmart_log(name, url, status, debug, duration_minutes=duration_minutes)
+            state[last_logged_key] = now.isoformat()
+            state[f"walmart_last_price_{url}"] = debug.get("price")
+            state[f"walmart_last_qty_{url}"] = debug.get("qty_left")
+
         if status is None:
             print(f"  [unknown] {name[:55]}")
             time.sleep(random.uniform(1, 3))
             continue
-        prev = state.get(key)
         if status == "THIRD_PARTY":
             print(f"  [skipped 3rd party] {name[:50]}")
             time.sleep(random.uniform(1, 3))
@@ -1678,9 +1721,14 @@ def run_walmart_log():
             seller = e.get("seller_text") or e.get("jsonld_seller") or "—"
             avail = e.get("jsonld_avail") or "—"
             confirmed = "✅" if e.get("walmart_confirmed") else "❌"
+            price = f"${e['price']:.2f}" if e.get("price") is not None else "—"
+            qty = e.get("qty_left")
+            qty_str = f"{qty} left" if qty is not None else "—"
+            dur = f" | in_stock_for={e['duration_minutes']}min" if e.get("duration_minutes") is not None else ""
             lines.append(
                 f"`{e['ts']}` status=**{e['status']}** | "
-                f"seller={seller} | avail={avail} | walmart={confirmed}"
+                f"seller={seller} | avail={avail} | walmart={confirmed} | "
+                f"price={price} | qty={qty_str}{dur}"
             )
     send_discord("\n".join(lines))
     print("Walmart log sent to Discord.")
