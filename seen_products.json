@@ -1061,5 +1061,6 @@
   "pc_https://www.pokemoncenter.com/product/10-10437-102/pokemon-tcg-scarlet-and-violet-151-mini-tin-arcanine-and-omanyte": true,
   "pc_https://www.pokemoncenter.com/product/10-10437-107/pokemon-tcg-scarlet-and-violet-151-mini-tin-gengar-and-poliwag": true,
   "pc_stock_https://www.pokemoncenter.com/product/10-10437-102/pokemon-tcg-scarlet-and-violet-151-mini-tin-arcanine-and-omanyte": "QUEUE",
-  "pc_stock_https://www.pokemoncenter.com/product/10-10437-107/pokemon-tcg-scarlet-and-violet-151-mini-tin-gengar-and-poliwag": "QUEUE"
+  "pc_stock_https://www.pokemoncenter.com/product/10-10437-107/pokemon-tcg-scarlet-and-violet-151-mini-tin-gengar-and-poliwag": "QUEUE",
+  "token_expiry_last_warned": "2026-08-04"
 }
