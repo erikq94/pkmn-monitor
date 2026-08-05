@@ -228,12 +228,98 @@ def qty_line(qty):
     return f"🟢 **{n}+ available**\n"
 
 
+# For retailers where the only quantity signal we can scrape is a low-stock
+# warning ("Only N left"), its absence isn't proof of a specific count — we
+# don't know the retailer's own threshold for showing it. Say what we
+# actually observed (no warning) rather than invent a number.
+NO_LOW_STOCK_WARNING = "🟢 In stock — no low-stock warning shown, likely well-stocked\n"
+
+
 _QTY_LEFT_RE = re.compile(r"only\s+(\d+)\s+left", re.IGNORECASE)
 
 def _qty_left(text):
     """Extracts a low-stock 'Only N left' count from page text, or None."""
     m = _QTY_LEFT_RE.search(text)
     return int(m.group(1)) if m else None
+
+
+# Best-effort scrape for an announced release/drop date on COMING_SOON pages.
+# Frequently won't match — retailers don't always print one — that's fine,
+# it's purely extra data when it's there, never required for alert logic.
+_RELEASE_DATE_RE = re.compile(
+    r"\b(?:available|releases?|coming|arrives?|launch(?:es|ing)?|drops?)\s+(?:on\s+|in\s+)?"
+    r"((?:January|February|March|April|May|June|July|August|September|October|November|December)"
+    r"\s+\d{1,2}(?:st|nd|rd|th)?(?:,?\s*\d{4})?)",
+    re.IGNORECASE,
+)
+
+def _release_date_text(text):
+    m = _RELEASE_DATE_RE.search(text)
+    return m.group(1) if m else None
+
+
+# ── Per-retailer stock logging ─────────────────────────────────────────────
+# Every checker can log price/qty/status on every check without bloating the
+# file: an entry is only written when something actually changed, or once an
+# hour as a heartbeat if nothing did. Dedup state lives under its own key
+# (not the alert-logic "prev" key) so an unknown/blocked read doesn't get
+# compared against a stale real status and force a log line every 5 minutes.
+STOCK_LOG_HEARTBEAT_SECONDS = 3300  # ~55 min
+
+
+def _should_log_stock(state, dedup_key, status, price=None, qty=None):
+    now = datetime.now()
+    last_status_key = f"{dedup_key}__log_status"
+    last_logged_key = f"{dedup_key}__log_ts"
+    last_price_key = f"{dedup_key}__log_price"
+    last_qty_key = f"{dedup_key}__log_qty"
+
+    last_logged = state.get(last_logged_key)
+    stale = not last_logged or (now - datetime.fromisoformat(last_logged)).total_seconds() >= STOCK_LOG_HEARTBEAT_SECONDS
+    changed = (
+        status != state.get(last_status_key)
+        or price != state.get(last_price_key)
+        or qty != state.get(last_qty_key)
+    )
+    if changed or stale:
+        state[last_status_key] = status
+        state[last_logged_key] = now.isoformat()
+        state[last_price_key] = price
+        state[last_qty_key] = qty
+        return True
+    return False
+
+
+STOCK_LOG_FILE = os.path.join(os.path.dirname(__file__), "stock_log.json")
+STOCK_LOG_RETENTION_DAYS = 90
+
+
+def _append_stock_log(retailer, name, url, status, store="Online", price=None, qty=None, seller=None,
+                       duration_minutes=None, release_date=None):
+    try:
+        log = []
+        if os.path.exists(STOCK_LOG_FILE):
+            with open(STOCK_LOG_FILE) as f:
+                log = json.load(f)
+        log.append({
+            "ts": datetime.now().isoformat(timespec="seconds"),
+            "retailer": retailer,
+            "name": name[:60],
+            "store": store,
+            "status": str(status),
+            "price": price,
+            "qty": qty,
+            "seller": seller,
+            "duration_minutes": duration_minutes,
+            "release_date": release_date,
+            "url": url,
+        })
+        cutoff = (datetime.now() - timedelta(days=STOCK_LOG_RETENTION_DAYS)).isoformat(timespec="seconds")
+        log = [e for e in log if e.get("ts", "") >= cutoff]
+        with open(STOCK_LOG_FILE, "w") as f:
+            json.dump(log, f, indent=2)
+    except Exception as e:
+        print(f"  [stock log error] {e}")
 
 
 def notify(name, store, url, price="", is_local=False, qty=None):
@@ -396,6 +482,7 @@ def check_target(state, seed=False, history=None):
                 "ship_status": p.get("fulfillment", {}).get("shipping_options", {}).get("availability_status", ""),
                 "ship_qty": p.get("fulfillment", {}).get("shipping_options", {}).get("available_to_promise_quantity"),
                 "sold_out": p.get("fulfillment", {}).get("sold_out"),
+                "price": p.get("price", {}).get("current_retail"),
             }
 
         new_alerts = 0
@@ -418,6 +505,9 @@ def check_target(state, seed=False, history=None):
                     new_alerts += 1
                 else:
                     print(f"  [skipped 3rd party] {name[:50]}")
+
+            if _should_log_stock(state, f"target_online_{tcin}", ship_status, prod.get("price"), prod.get("ship_qty")):
+                _append_stock_log("Target", name, buy_url, ship_status, price=prod.get("price"), qty=prod.get("ship_qty"))
 
             # sold_out False → early restock signal (fires only on True→False transition)
             if not seed and state.get(sold_out_key) is True and sold_out is False:
@@ -460,6 +550,11 @@ def check_target(state, seed=False, history=None):
                         new_alerts += 1
                     else:
                         print(f"  [skipped 3rd party] {name[:50]}")
+
+                local_status = "IN_STOCK" if in_stock_locally else "OUT_OF_STOCK"
+                local_qty = int(store_qty) if store_qty else None
+                if _should_log_stock(state, f"target_local_{store_id}_{tcin}", local_status, None, local_qty):
+                    _append_stock_log("Target", name, buy_url, local_status, store=store_name, qty=local_qty)
 
                 state[local_key] = in_stock_locally
 
@@ -652,21 +747,23 @@ PC_RESTOCK_WATCH = [
 
 
 def _pc_stock_status(url):
-    """Returns 'IN_STOCK', 'OUT_OF_STOCK', 'QUEUE', or None if unknown."""
+    """Returns (status, debug) where status is 'IN_STOCK', 'OUT_OF_STOCK', 'QUEUE', or None if unknown."""
+    debug = {"price": None, "qty_left": None}
     try:
         r = cf.get(url, impersonate="chrome120", timeout=15, allow_redirects=True)
         if not r.ok:
-            return None
+            return None, debug
         final_url = str(r.url)
         # Incapsula/Imperva waiting room — gates the entire PC site during high-traffic drops
         if "_Incapsula_Resource" in r.text or "incapsula" in r.text.lower():
-            return "QUEUE"
+            return "QUEUE", debug
         if "queue-it.net" in final_url or "queue-it.net" in r.text:
-            return "QUEUE"
+            return "QUEUE", debug
         soup = BeautifulSoup(r.text, "html.parser")
         text_quick = soup.get_text(" ", strip=True)
         if "waiting room" in text_quick.lower() or "virtual queue" in text_quick.lower():
-            return "QUEUE"
+            return "QUEUE", debug
+        debug["qty_left"] = _qty_left(text_quick)
         # JSON-LD structured data is in the raw HTML (not JS-rendered)
         for tag in soup.find_all("script", type="application/ld+json"):
             try:
@@ -676,22 +773,28 @@ def _pc_stock_status(url):
                 offers = data.get("offers", {})
                 if isinstance(offers, list):
                     offers = offers[0]
+                price = offers.get("price")
+                if price is not None:
+                    try:
+                        debug["price"] = float(price)
+                    except (TypeError, ValueError):
+                        debug["price"] = price
                 avail = offers.get("availability", "")
                 if "InStock" in avail:
-                    return "IN_STOCK"
+                    return "IN_STOCK", debug
                 if "OutOfStock" in avail or "SoldOut" in avail or "Discontinued" in avail:
-                    return "OUT_OF_STOCK"
+                    return "OUT_OF_STOCK", debug
             except (json.JSONDecodeError, AttributeError, TypeError):
                 continue
         # Fallback: plain text signals
         text = soup.get_text(" ", strip=True)
         if re.search(r"\bAdd to Cart\b", text, re.IGNORECASE):
-            return "IN_STOCK"
+            return "IN_STOCK", debug
         if re.search(r"\b(Out of Stock|Sold Out|Notify Me)\b", text, re.IGNORECASE):
-            return "OUT_OF_STOCK"
-        return None
+            return "OUT_OF_STOCK", debug
+        return None, debug
     except Exception:
-        return None
+        return None, debug
 
 
 def check_pokemoncenter_restock(state, seed=False, history=None, dynamic_pc_urls=None):
@@ -700,12 +803,16 @@ def check_pokemoncenter_restock(state, seed=False, history=None, dynamic_pc_urls
     new_alerts = 0
     for url in all_urls:
         key = f"pc_stock_{url}"
-        status = _pc_stock_status(url)
+        status, debug = _pc_stock_status(url)
+        name = _slug_to_name(url)
+
+        if _should_log_stock(state, f"pc_{url}", status, debug.get("price"), debug.get("qty_left")):
+            _append_stock_log("Pokemon Center", name, url, status, price=debug.get("price"), qty=debug.get("qty_left"))
+
         if status is None:
             time.sleep(0.5)
             continue
         prev = state.get(key)
-        name = _slug_to_name(url)
         if not seed and status == "QUEUE" and prev != "QUEUE":
             send_discord(
                 f"@everyone\n"
@@ -720,9 +827,10 @@ def check_pokemoncenter_restock(state, seed=False, history=None, dynamic_pc_urls
                 f"@everyone\n"
                 f"**RESTOCK at Pokemon Center!**\n"
                 f"**{name}**\n"
+                f"{qty_line(debug.get('qty_left')) or NO_LOW_STOCK_WARNING}"
                 f"Back in stock — buy directly at retail price!\n{url}"
             )
-            log_restock(history, "Pokemon Center", name)
+            log_restock(history, "Pokemon Center", name, qty=debug.get("qty_left"))
             print(f"  [RESTOCK] {name[:60]}")
             new_alerts += 1
         state[key] = status
@@ -817,23 +925,25 @@ COSTCO_WATCH = [
 
 
 def _costco_stock_status(url):
-    """Returns 'IN_STOCK', 'OUT_OF_STOCK', 'QUEUE', or None if unknown."""
+    """Returns (status, debug) where status is 'IN_STOCK', 'OUT_OF_STOCK', 'QUEUE', or None if unknown."""
+    debug = {"price": None, "qty_left": None}
     try:
         r = cf.get(url, impersonate="chrome124", timeout=20, allow_redirects=True)
         if not r.ok:
-            return None
+            return None, debug
         # Queue-it detection — Costco redirects high-demand drops to a virtual waiting room
         final_url = str(r.url)
         if "queue-it.net" in final_url or "queue-it.net" in r.text:
-            return "QUEUE"
+            return "QUEUE", debug
         soup = BeautifulSoup(r.text, "html.parser")
         text = soup.get_text(" ", strip=True)
         if "waiting room" in text.lower() or "virtual queue" in text.lower():
-            return "QUEUE"
+            return "QUEUE", debug
         # Akamai block — returns a tiny privacy page instead of product content
         if len(text) < 200:
             print(f"  [blocked by Akamai] {url[-50:]}")
-            return None
+            return None, debug
+        debug["qty_left"] = _qty_left(text)
         # JSON-LD structured data (most reliable)
         for tag in soup.find_all("script", type="application/ld+json"):
             try:
@@ -843,24 +953,30 @@ def _costco_stock_status(url):
                 offers = data.get("offers", {})
                 if isinstance(offers, list):
                     offers = offers[0]
+                price = offers.get("price")
+                if price is not None:
+                    try:
+                        debug["price"] = float(price)
+                    except (TypeError, ValueError):
+                        debug["price"] = price
                 avail = offers.get("availability", "")
                 if "InStock" in avail:
-                    return "IN_STOCK"
+                    return "IN_STOCK", debug
                 if "OutOfStock" in avail or "SoldOut" in avail:
-                    return "OUT_OF_STOCK"
+                    return "OUT_OF_STOCK", debug
             except (json.JSONDecodeError, AttributeError, TypeError):
                 continue
         if re.search(r"\bAdd to Cart\b", text, re.IGNORECASE):
-            return "IN_STOCK"
+            return "IN_STOCK", debug
         if re.search(r"\b(Out of Stock|Sold Out)\b", text, re.IGNORECASE):
-            return "OUT_OF_STOCK"
+            return "OUT_OF_STOCK", debug
         # oos-overlay: "hide" class means the overlay is hidden = item IS in stock
         oos = soup.find(class_="oos-overlay")
         if oos:
-            return "IN_STOCK" if "hide" in oos.get("class", []) else "OUT_OF_STOCK"
-        return None
+            return ("IN_STOCK" if "hide" in oos.get("class", []) else "OUT_OF_STOCK"), debug
+        return None, debug
     except Exception:
-        return None
+        return None, debug
 
 
 def _costco_name(url):
@@ -874,13 +990,17 @@ def check_costco(state, seed=False, history=None):
     new_alerts = 0
     for url in COSTCO_WATCH:
         key = f"costco_{url}"
-        status = _costco_stock_status(url)
+        status, debug = _costco_stock_status(url)
+        name = _costco_name(url)
+
+        if _should_log_stock(state, f"costco_{url}", status, debug.get("price"), debug.get("qty_left")):
+            _append_stock_log("Costco", name, url, status, price=debug.get("price"), qty=debug.get("qty_left"))
+
         if status is None:
-            print(f"  [unknown] {_costco_name(url)[:55]}")
+            print(f"  [unknown] {name[:55]}")
             time.sleep(random.uniform(1, 3))
             continue
         prev = state.get(key)
-        name = _costco_name(url)
         if not seed and status == "QUEUE" and prev != "QUEUE":
             send_discord(
                 f"@everyone\n"
@@ -895,9 +1015,10 @@ def check_costco(state, seed=False, history=None):
                 f"@everyone\n"
                 f"**RESTOCK at Costco!** 🎴\n"
                 f"**{name}**\n"
+                f"{qty_line(debug.get('qty_left')) or NO_LOW_STOCK_WARNING}"
                 f"Available online now — also check the Costco app for local warehouse stock!\n{url}"
             )
-            log_restock(history, "Costco", name)
+            log_restock(history, "Costco", name, qty=debug.get("qty_left"))
             print(f"  [RESTOCK] {name[:60]}")
             new_alerts += 1
         else:
@@ -922,25 +1043,28 @@ SAMSCLUB_WATCH = [
 
 
 def _samsclub_stock_status(url):
-    """Returns 'IN_STOCK', 'COMING_SOON', 'OUT_OF_STOCK', 'QUEUE', or None."""
+    """Returns (status, debug) where status is 'IN_STOCK', 'COMING_SOON', 'OUT_OF_STOCK', 'QUEUE', or None."""
+    debug = {"price": None, "qty_left": None, "release_date": None}
     try:
         r = cf.get(url, impersonate="chrome124", timeout=20, allow_redirects=True)
         if not r.ok:
-            return None
+            return None, debug
         # Queue-it detection — same as Costco
         final_url = str(r.url)
         if "queue-it.net" in final_url or "queue-it.net" in r.text:
-            return "QUEUE"
+            return "QUEUE", debug
         soup = BeautifulSoup(r.text, "html.parser")
         text = soup.get_text(" ", strip=True)
         if "waiting room" in text.lower() or "virtual queue" in text.lower():
-            return "QUEUE"
+            return "QUEUE", debug
         if len(text) < 500:
             print(f"  [blocked] {url.split('/')[-1][:40]}")
-            return None
+            return None, debug
+        debug["qty_left"] = _qty_left(text)
         # Coming Soon check
         if re.search(r"\bcoming soon\b", text, re.IGNORECASE):
-            return "COMING_SOON"
+            debug["release_date"] = _release_date_text(text)
+            return "COMING_SOON", debug
         # JSON-LD structured data
         for tag in soup.find_all("script", type="application/ld+json"):
             try:
@@ -950,20 +1074,26 @@ def _samsclub_stock_status(url):
                 offers = data.get("offers", {})
                 if isinstance(offers, list):
                     offers = offers[0]
+                price = offers.get("price")
+                if price is not None:
+                    try:
+                        debug["price"] = float(price)
+                    except (TypeError, ValueError):
+                        debug["price"] = price
                 avail = offers.get("availability", "")
                 if "InStock" in avail:
-                    return "IN_STOCK"
+                    return "IN_STOCK", debug
                 if "OutOfStock" in avail or "SoldOut" in avail:
-                    return "OUT_OF_STOCK"
+                    return "OUT_OF_STOCK", debug
             except (json.JSONDecodeError, AttributeError, TypeError):
                 continue
         if re.search(r"\bAdd to Cart\b", text, re.IGNORECASE):
-            return "IN_STOCK"
+            return "IN_STOCK", debug
         if re.search(r"\b(Out of Stock|Sold Out|Not available)\b", text, re.IGNORECASE):
-            return "OUT_OF_STOCK"
-        return None
+            return "OUT_OF_STOCK", debug
+        return None, debug
     except Exception:
-        return None
+        return None, debug
 
 
 def _samsclub_name(url):
@@ -1030,13 +1160,18 @@ def check_samsclub(state, seed=False, history=None):
     new_alerts = 0
     for url in SAMSCLUB_WATCH:
         key = f"samsclub_{url}"
-        status = _samsclub_stock_status(url)
+        status, debug = _samsclub_stock_status(url)
+        name = _samsclub_name(url)
+
+        if _should_log_stock(state, f"samsclub_{url}", status, debug.get("price"), debug.get("qty_left")):
+            _append_stock_log("Sam's Club", name, url, status, price=debug.get("price"), qty=debug.get("qty_left"),
+                               release_date=debug.get("release_date"))
+
         if status is None:
-            print(f"  [unknown] {_samsclub_name(url)[:55]}")
+            print(f"  [unknown] {name[:55]}")
             time.sleep(random.uniform(1, 3))
             continue
         prev = state.get(key)
-        name = _samsclub_name(url)
         if not seed and status == "QUEUE" and prev != "QUEUE":
             send_discord(
                 f"@everyone\n"
@@ -1052,15 +1187,18 @@ def check_samsclub(state, seed=False, history=None):
                 f"@everyone\n"
                 f"**RESTOCK at Sam's Club!** 🟠\n"
                 f"**{name}**\n"
+                f"{qty_line(debug.get('qty_left')) or NO_LOW_STOCK_WARNING}"
                 f"In stock online — Plus Members, limit 2!\n{url}"
             )
-            log_restock(history, "Sam's Club", name, "Online")
+            log_restock(history, "Sam's Club", name, "Online", qty=debug.get("qty_left"))
             print(f"  [RESTOCK] {name[:60]}")
             new_alerts += 1
         elif not seed and status == "COMING_SOON" and prev != "COMING_SOON":
+            date_line = f"Release date spotted: **{debug['release_date']}**\n" if debug.get("release_date") else ""
             send_discord(
                 f"**Coming Soon at Sam's Club** 🟠\n"
                 f"**{name}**\n"
+                f"{date_line}"
                 f"Page is live — dropping soon, stay ready!\n{url}"
             )
             print(f"  [COMING SOON] {name[:55]}")
@@ -1133,25 +1271,28 @@ def _bestbuy_store_status(sku, store_id):
 
 
 def _bestbuy_stock_status(url):
-    """Returns (status, sku) where status is 'IN_STOCK', 'INVITE', 'IN_STORE_ONLY', 'COMING_SOON', 'OUT_OF_STOCK', 'THIRD_PARTY', or None."""
+    """Returns (status, sku, debug) where status is 'IN_STOCK', 'INVITE', 'IN_STORE_ONLY', 'COMING_SOON', 'OUT_OF_STOCK', 'THIRD_PARTY', or None."""
+    debug = {"price": None, "qty_left": None, "seller": None, "release_date": None}
     try:
         r = cf.get(url, impersonate="chrome124", timeout=20, allow_redirects=True)
         if not r.ok:
-            return None, None
+            return None, None, debug
         soup = BeautifulSoup(r.text, "html.parser")
         text = soup.get_text(" ", strip=True)
         if len(text) < 200:
             print(f"  [blocked] {url[-45:]}")
-            return None, None
+            return None, None, debug
+        debug["qty_left"] = _qty_left(text)
         sku = _bestbuy_sku_from_text(text)
         # Invite/drop detection — check before everything else, it's the highest priority
         if re.search(r"\b(invitation required|get an invite|purchase invitation|invite only|access code required)\b", text, re.IGNORECASE):
-            return "INVITE", sku
+            return "INVITE", sku, debug
         # "Coming Soon" and "In Store Only" checks first — override JSON-LD InStock
         if re.search(r"\bComing Soon\b", text, re.IGNORECASE):
-            return "COMING_SOON", sku
+            debug["release_date"] = _release_date_text(text)
+            return "COMING_SOON", sku, debug
         if re.search(r"\bIn[- ]Store Only\b", text, re.IGNORECASE):
-            return "IN_STORE_ONLY", sku
+            return "IN_STORE_ONLY", sku, debug
         # Check seller + availability from JSON-LD in one pass
         for tag in soup.find_all("script", type="application/ld+json"):
             try:
@@ -1161,10 +1302,17 @@ def _bestbuy_stock_status(url):
                 offers = data.get("offers", {})
                 if isinstance(offers, list):
                     offers = offers[0]
+                price = offers.get("price")
+                if price is not None:
+                    try:
+                        debug["price"] = float(price)
+                    except (TypeError, ValueError):
+                        debug["price"] = price
                 # Seller check — Best Buy direct listings say "Best Buy"
                 seller = offers.get("seller", {}).get("name", "Best Buy")
+                debug["seller"] = seller
                 if seller and "best buy" not in seller.lower():
-                    return "THIRD_PARTY", sku
+                    return "THIRD_PARTY", sku, debug
                 avail = offers.get("availability", "")
                 if "InStock" in avail:
                     # Best Buy's own pages always render a "Sold by" section in
@@ -1172,23 +1320,25 @@ def _bestbuy_stock_status(url):
                     # listings skip it entirely — JSON-LD seller field is
                     # unreliable for those, so don't trust InStock without it.
                     if re.search(r"\bsold by\b", text, re.IGNORECASE):
-                        return "IN_STOCK", sku
-                    return None, sku
+                        return "IN_STOCK", sku, debug
+                    return None, sku, debug
                 if "OutOfStock" in avail or "SoldOut" in avail or "Discontinued" in avail:
-                    return "OUT_OF_STOCK", sku
+                    return "OUT_OF_STOCK", sku, debug
             except (json.JSONDecodeError, AttributeError, TypeError):
                 continue
         # Text fallbacks
         sold_by = re.search(r"Sold by\s+([^\n·|]+)", text, re.IGNORECASE)
+        if sold_by:
+            debug["seller"] = sold_by.group(1).strip()
         if sold_by and "best buy" not in sold_by.group(1).lower():
-            return "THIRD_PARTY", sku
+            return "THIRD_PARTY", sku, debug
         if re.search(r"\bAdd to Cart\b", text, re.IGNORECASE):
-            return "IN_STOCK", sku
+            return "IN_STOCK", sku, debug
         if re.search(r"\b(Sold Out|Unavailable|Out of Stock)\b", text, re.IGNORECASE):
-            return "OUT_OF_STOCK", sku
-        return None, sku
+            return "OUT_OF_STOCK", sku, debug
+        return None, sku, debug
     except Exception:
-        return None, None
+        return None, None, debug
 
 
 def _bestbuy_name(url):
@@ -1202,13 +1352,19 @@ def check_bestbuy(state, seed=False, history=None):
     new_alerts = 0
     for url in BESTBUY_WATCH:
         key = f"bestbuy_{url}"
-        status, sku = _bestbuy_stock_status(url)
+        status, sku, debug = _bestbuy_stock_status(url)
+        name = _bestbuy_name(url)
+
+        if _should_log_stock(state, f"bestbuy_{url}", status, debug.get("price"), debug.get("qty_left")):
+            _append_stock_log("Best Buy", name, url, status, price=debug.get("price"),
+                               qty=debug.get("qty_left"), seller=debug.get("seller"),
+                               release_date=debug.get("release_date"))
+
         if status is None:
-            print(f"  [unknown] {_bestbuy_name(url)[:55]}")
+            print(f"  [unknown] {name[:55]}")
             time.sleep(random.uniform(1, 3))
             continue
         prev = state.get(key)
-        name = _bestbuy_name(url)
         if status == "THIRD_PARTY":
             print(f"  [skipped 3rd party] {name[:50]}")
             time.sleep(random.uniform(1, 3))
@@ -1222,9 +1378,11 @@ def check_bestbuy(state, seed=False, history=None):
             print(f"  [INVITE OPEN] {name[:55]}")
             new_alerts += 1
         elif not seed and status == "COMING_SOON" and prev != "COMING_SOON":
+            date_line = f"Release date spotted: **{debug['release_date']}**\n" if debug.get("release_date") else ""
             send_discord(
                 f"**Coming Soon at Best Buy** 🔵\n"
                 f"**{name}**\n"
+                f"{date_line}"
                 f"Not available yet — page is live, watch for it!\n{url}"
             )
             print(f"  [COMING SOON] {name[:55]}")
@@ -1255,6 +1413,7 @@ def check_bestbuy(state, seed=False, history=None):
                 f"@everyone\n"
                 f"**RESTOCK at Best Buy!** 🔵\n"
                 f"**{name}**\n"
+                f"{qty_line(debug.get('qty_left')) or NO_LOW_STOCK_WARNING}"
                 f"In stock — sold directly by Best Buy at retail price!\n{url}"
             )
             log_restock(history, "Best Buy", name)
@@ -1304,7 +1463,7 @@ WALMART_DEBUG = {
 
 def _walmart_stock_status(url):
     """Returns (status, debug) where status is 'IN_STOCK', 'OUT_OF_STOCK', 'COMING_SOON', 'THIRD_PARTY', or None."""
-    debug = {"seller_text": None, "jsonld_seller": None, "jsonld_avail": None, "walmart_confirmed": False, "page_len": 0, "qty_left": None, "price": None}
+    debug = {"seller_text": None, "jsonld_seller": None, "jsonld_avail": None, "walmart_confirmed": False, "page_len": 0, "qty_left": None, "price": None, "release_date": None}
     try:
         r = cf.get(url, impersonate="chrome124", timeout=20, allow_redirects=True)
         if not r.ok:
@@ -1317,6 +1476,7 @@ def _walmart_stock_status(url):
             print(f"  [blocked] {url.split('/')[-1][:45]}")
             return None, debug
         if re.search(r"\bComing Soon\b", text, re.IGNORECASE):
+            debug["release_date"] = _release_date_text(text)
             return "COMING_SOON", debug
         walmart_seller = bool(re.search(r"sold by\s+walmart", text, re.IGNORECASE))
         sold_by_m = re.search(r"Sold by\s+([^\n·|,]{1,50})", text, re.IGNORECASE)
@@ -1382,6 +1542,7 @@ def _append_walmart_log(name, url, status, debug, duration_minutes=None):
             "walmart_confirmed": debug.get("walmart_confirmed"),
             "price": debug.get("price"),
             "qty_left": debug.get("qty_left"),
+            "release_date": debug.get("release_date"),
             "duration_minutes": duration_minutes,
             "page_len": debug.get("page_len"),
             "url": url,
@@ -1425,19 +1586,8 @@ def check_walmart(state, seed=False, history=None):
         # Log every status/price/qty change immediately, plus an hourly heartbeat
         # even when nothing changed — keeps months of history without every
         # 5-minute check bloating the (git-committed) log file.
-        last_logged_key = f"walmart_last_logged_{url}"
-        last_logged = state.get(last_logged_key)
-        stale = not last_logged or (now - datetime.fromisoformat(last_logged)).total_seconds() >= 3300
-        changed = (
-            status != prev
-            or debug.get("price") != state.get(f"walmart_last_price_{url}")
-            or debug.get("qty_left") != state.get(f"walmart_last_qty_{url}")
-        )
-        if changed or stale:
+        if _should_log_stock(state, f"walmart_{url}", status, debug.get("price"), debug.get("qty_left")):
             _append_walmart_log(name, url, status, debug, duration_minutes=duration_minutes)
-            state[last_logged_key] = now.isoformat()
-            state[f"walmart_last_price_{url}"] = debug.get("price")
-            state[f"walmart_last_qty_{url}"] = debug.get("qty_left")
 
         if status is None:
             print(f"  [unknown] {name[:55]}")
@@ -1448,9 +1598,11 @@ def check_walmart(state, seed=False, history=None):
             time.sleep(random.uniform(1, 3))
             continue
         if not seed and status == "COMING_SOON" and prev != "COMING_SOON":
+            date_line = f"Release date spotted: **{debug['release_date']}**\n" if debug.get("release_date") else ""
             send_discord(
                 f"**Coming Soon at Walmart** 🟡\n"
                 f"**{name}**\n"
+                f"{date_line}"
                 f"Not available yet — page is live, watch for it!\n{url}"
             )
             print(f"  [COMING SOON] {name[:55]}")
@@ -1468,7 +1620,7 @@ def check_walmart(state, seed=False, history=None):
                     f"@everyone\n"
                     f"**RESTOCK at Walmart!** 🟡\n"
                     f"**{name}**\n"
-                    f"{qty_line(debug.get('qty_left'))}"
+                    f"{qty_line(debug.get('qty_left')) or NO_LOW_STOCK_WARNING}"
                     f"In stock — sold directly by Walmart at retail price!\n{url}"
                 )
             log_restock(history, "Walmart", name, qty=debug.get("qty_left"))
@@ -1520,17 +1672,18 @@ def _microcenter_name(url):
 
 
 def _microcenter_stock_status(url):
-    """Returns (online_status, store_status, inv_count) — statuses are 'IN_STOCK', 'OUT_OF_STOCK', or None; inv_count is int or None."""
+    """Returns (online_status, store_status, inv_count, price) — statuses are 'IN_STOCK', 'OUT_OF_STOCK', or None; inv_count/price are the real number or None."""
     store_url = f"{url}?storeid={MICROCENTER_STORE_ID}" if "?" not in url else f"{url}&storeid={MICROCENTER_STORE_ID}"
+    price = None
     try:
         r = cf.get(store_url, impersonate="chrome124", timeout=20, allow_redirects=True)
         if not r.ok:
-            return None, None, None
+            return None, None, None, None
         soup = BeautifulSoup(r.text, "html.parser")
         text = soup.get_text(" ", strip=True)
         if len(text) < 500:
             print(f"  [blocked] {url[-45:]}")
-            return None, None, None
+            return None, None, None, None
 
         # In-store stock from the inventory panel (reflects storeid= in URL)
         store_status = None
@@ -1562,6 +1715,11 @@ def _microcenter_stock_status(url):
                     offers = data.get("offers", {})
                     if isinstance(offers, list):
                         offers = offers[0]
+                    if offers.get("price") is not None:
+                        try:
+                            price = float(offers["price"])
+                        except (TypeError, ValueError):
+                            price = offers["price"]
                     avail = offers.get("availability", "")
                     if "InStock" in avail:
                         online_status = "IN_STOCK"
@@ -1577,9 +1735,9 @@ def _microcenter_stock_status(url):
                 elif re.search(r"\b(Out of Stock|Sold Out|Not Available)\b", text, re.IGNORECASE):
                     online_status = "OUT_OF_STOCK"
 
-        return online_status, store_status, inv_count
+        return online_status, store_status, inv_count, price
     except Exception:
-        return None, None, None
+        return None, None, None, None
 
 
 def discover_microcenter_products(state, dynamic_mc_urls):
@@ -1632,13 +1790,18 @@ def check_microcenter(state, seed=False, history=None):
     new_alerts = 0
     for url in list(MICROCENTER_WATCH):
         name = _microcenter_name(url)
-        online_status, store_status, inv_count = _microcenter_stock_status(url)
+        online_status, store_status, inv_count, price = _microcenter_stock_status(url)
         online_key = f"mc_online_{url}"
         store_key  = f"mc_store_{url}"
         inv_key    = f"mc_inv_{url}"
         prev_online = state.get(online_key)
         prev_store  = state.get(store_key)
         prev_inv    = state.get(inv_key)  # last known count (int or None)
+
+        log_status = store_status or online_status
+        if _should_log_stock(state, f"mc_{url}", log_status, price, inv_count):
+            _append_stock_log("Micro Center", name, url, log_status, store=MICROCENTER_STORE_NAME,
+                               price=price, qty=inv_count)
 
         if online_status is None and store_status is None:
             print(f"  [unknown] {name[:55]}")
@@ -1765,7 +1928,7 @@ def run_bestbuy_store_check():
     for url in BESTBUY_WATCH:
         name = _bestbuy_name(url)
         print(f"  {name[:55]}...")
-        _, sku = _bestbuy_stock_status(url)
+        _, sku, _ = _bestbuy_stock_status(url)
         if not sku:
             lines.append(f"⚠️ **{name}** — couldn't read SKU")
             time.sleep(random.uniform(1, 2))
