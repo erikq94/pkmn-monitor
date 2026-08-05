@@ -1594,7 +1594,20 @@ def check_walmart(state, seed=False, history=None):
             time.sleep(random.uniform(1, 3))
             continue
         if status == "THIRD_PARTY":
-            print(f"  [skipped 3rd party] {name[:50]}")
+            # Buy-box flip: this listing was confirmed Walmart-direct and is now
+            # showing a different seller — distinct from a normal sellout
+            # (IN_STOCK -> OUT_OF_STOCK). Quiet, informational — not a buy signal.
+            if prev == "IN_STOCK":
+                flip_seller = debug.get("seller_text") or debug.get("jsonld_seller") or "a 3rd-party seller"
+                dur_text = f" after ~{duration_minutes:.0f} min" if duration_minutes is not None else ""
+                send_discord(
+                    f"🔁 **Walmart buy-box flipped**{dur_text}\n"
+                    f"**{name}**\n"
+                    f"Was sold directly by Walmart — now showing **{flip_seller}**. Don't buy at this price!\n{url}"
+                )
+                print(f"  [BUYBOX FLIP -> {flip_seller}] {name[:45]}")
+            else:
+                print(f"  [skipped 3rd party] {name[:50]}")
             time.sleep(random.uniform(1, 3))
             continue
         if not seed and status == "COMING_SOON" and prev != "COMING_SOON":
