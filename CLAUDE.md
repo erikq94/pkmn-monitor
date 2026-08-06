@@ -46,6 +46,7 @@ A Python script (`pkmn_monitor.py`) that runs every 5 minutes via GitHub Actions
 | `dynamic_tcins.json`            | Auto-discovered Target TCINs                      |
 | `dynamic_pc_urls.json`          | Auto-discovered Pokemon Center URLs               |
 | `walmart_log.json`              | Walmart debug log (seller/availability per check) |
+| `stock_log.json`                | Price/qty/status log for Target, Best Buy, Costco, Sam's Club, Micro Center, Pokemon Center |
 | `watchlist.md`                  | Human-readable product list, shareable link       |
 | `.github/workflows/monitor.yml` | GitHub Actions cron (every 5 min)                 |
 | `requirements.txt`              | requests, beautifulsoup4, curl_cffi               |
