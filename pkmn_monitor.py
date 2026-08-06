@@ -1971,6 +1971,32 @@ def run_bestbuy_store_check():
 
 # ── Main ──────────────────────────────────────────────────────────────────────
 
+class _StateDelta(dict):
+    """A read-through view of the shared state for one retailer's thread.
+
+    Starts as a full copy so reads (state.get(...)) see everything, but only
+    *records* what this thread actually sets or deletes. Threads run in
+    parallel and finish in unpredictable order — merging each thread's full
+    returned dict back with dict.update() would silently overwrite every
+    other thread's changes with this thread's stale pre-run snapshot of
+    them. Merging only the recorded deltas makes the merge order-independent.
+    """
+    def __init__(self, base):
+        super().__init__(base)
+        self.changed = {}
+        self.deleted = set()
+
+    def __setitem__(self, key, value):
+        super().__setitem__(key, value)
+        self.changed[key] = value
+        self.deleted.discard(key)
+
+    def pop(self, key, *default):
+        self.deleted.add(key)
+        self.changed.pop(key, None)
+        return super().pop(key, *default)
+
+
 def main():
     if "--test" in sys.argv:
         print("Sending test Discord message...")
@@ -2034,17 +2060,18 @@ def main():
     save_dynamic_mc_urls(dynamic_mc_urls)
 
     # Run all retailer checks in parallel — each gets its own state copy so
-    # reads don't race; writes go to separate key namespaces so merging is safe
+    # reads don't race; writes are recorded as a delta per thread and merged
+    # back in afterward, so completion order can't clobber another thread's changes
     checks = [
-        ("Target",           lambda: check_target(state.copy(), seed=seed, history=history)),
-        ("PC Site Queue",    lambda: check_pokemoncenter_site_queue(state.copy(), seed=seed)),
-        ("Pokemon Center",   lambda: check_pokemoncenter(state.copy(), seed=seed, dynamic_pc_urls=dynamic_pc_urls)),
-        ("PC Restock",       lambda: check_pokemoncenter_restock(state.copy(), seed=seed, history=history, dynamic_pc_urls=list(dynamic_pc_urls))),
-        ("Costco",           lambda: check_costco(state.copy(), seed=seed, history=history)),
-        ("Sam's Club",       lambda: check_samsclub(state.copy(), seed=seed, history=history)),
-        ("Best Buy",         lambda: check_bestbuy(state.copy(), seed=seed, history=history)),
-        ("Walmart",          lambda: check_walmart(state.copy(), seed=seed, history=history)),
-        ("Micro Center",     lambda: check_microcenter(state.copy(), seed=seed, history=history)),
+        ("Target",           lambda: check_target(_StateDelta(state), seed=seed, history=history)),
+        ("PC Site Queue",    lambda: check_pokemoncenter_site_queue(_StateDelta(state), seed=seed)),
+        ("Pokemon Center",   lambda: check_pokemoncenter(_StateDelta(state), seed=seed, dynamic_pc_urls=dynamic_pc_urls)),
+        ("PC Restock",       lambda: check_pokemoncenter_restock(_StateDelta(state), seed=seed, history=history, dynamic_pc_urls=list(dynamic_pc_urls))),
+        ("Costco",           lambda: check_costco(_StateDelta(state), seed=seed, history=history)),
+        ("Sam's Club",       lambda: check_samsclub(_StateDelta(state), seed=seed, history=history)),
+        ("Best Buy",         lambda: check_bestbuy(_StateDelta(state), seed=seed, history=history)),
+        ("Walmart",          lambda: check_walmart(_StateDelta(state), seed=seed, history=history)),
+        ("Micro Center",     lambda: check_microcenter(_StateDelta(state), seed=seed, history=history)),
     ]
 
     with ThreadPoolExecutor(max_workers=9) as executor:
@@ -2052,7 +2079,10 @@ def main():
         for future in as_completed(futures):
             name = futures[future]
             try:
-                state.update(future.result())
+                result = future.result()
+                state.update(getattr(result, "changed", result))
+                for key in getattr(result, "deleted", ()):
+                    state.pop(key, None)
             except Exception as e:
                 print(f"  {name} check failed: {e}")
 
