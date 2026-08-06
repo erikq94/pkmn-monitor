@@ -14688,5 +14688,83 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-prismatic-evolutions-booster-bundle/JJG2TL23JK"
+  },
+  {
+    "ts": "2026-08-06T09:25:15",
+    "retailer": "Sam's Club",
+    "name": "Sam's Club item 19170800669",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.samsclub.com/ip/19170800669"
+  },
+  {
+    "ts": "2026-08-06T09:25:18",
+    "retailer": "Sam's Club",
+    "name": "Surprise Box Booster Bundle",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.samsclub.com/ip/pokemon-surprise-box-booster-bundle/18933156288"
+  },
+  {
+    "ts": "2026-08-06T09:25:19",
+    "retailer": "Sam's Club",
+    "name": "Binder Poster Collection Booster Packs",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.samsclub.com/ip/pokemon-binder-poster-collection-booster-packs/19167901990"
+  },
+  {
+    "ts": "2026-08-06T09:25:20",
+    "retailer": "Best Buy",
+    "name": "Mega Evolution Chaos Rising Booster Bundle",
+    "store": "Online",
+    "status": "None",
+    "price": 44.99,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-chaos-rising-booster-bundle/JJG2TL34H9"
+  },
+  {
+    "ts": "2026-08-06T09:25:40",
+    "retailer": "Best Buy",
+    "name": "Scarlet Violet Prismatic Evolutions Elite Trainer Box",
+    "store": "Online",
+    "status": "INVITE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-prismatic-evolutions-elite-trainer-box/JJG2TLCW3L"
+  },
+  {
+    "ts": "2026-08-06T09:25:53",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Chaos Rising Booster Display Box 36 Packs",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10407-119/pokemon-tcg-mega-evolution-chaos-rising-booster-display-box-36-packs"
   }
 ]
