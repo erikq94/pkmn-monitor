@@ -93787,5 +93787,20 @@
     "duration_minutes": null,
     "page_len": 220,
     "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Perfect-Order-Elite-Trainer-Box/19402160990"
+  },
+  {
+    "ts": "2026-08-07T18:44:34",
+    "name": "Pokemon Me2 Phantasmal Flames Booster Bundle",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": null,
+    "walmart_confirmed": false,
+    "price": null,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 2009,
+    "url": "https://www.walmart.com/ip/POKEMON-ME2-PHANTASMAL-FLAMES-BOOSTER-BUNDLE/17785924366"
   }
 ]
