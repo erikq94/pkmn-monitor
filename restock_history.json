@@ -1198,6 +1198,15 @@
       "day": "Tuesday",
       "hour": 18,
       "qty": null
+    },
+    {
+      "retailer": "Target",
+      "name": "Pok\u00e9mon Trading Card Game: Mega Evolution Chaos Rising Booster Bundle",
+      "store": "Online",
+      "timestamp": "2026-08-07T14:30:26.629994",
+      "day": "Friday",
+      "hour": 14,
+      "qty": null
     }
   ],
   "last_summary": "2026-08-04T06:36:43.947851"
