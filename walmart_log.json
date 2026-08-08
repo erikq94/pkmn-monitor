@@ -96472,5 +96472,35 @@
     "duration_minutes": null,
     "page_len": 220,
     "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Chaos-Rising-Bundle/19986002628"
+  },
+  {
+    "ts": "2026-08-08T06:45:25",
+    "name": "Scarlet Violet Black Bolt White Flare Elite Trainer Box Etb",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": null,
+    "walmart_confirmed": false,
+    "price": null,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 220,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Scarlet-Violet-Black-Bolt-White-Flare-Elite-Trainer-Box-ETB/17337259478"
+  },
+  {
+    "ts": "2026-08-08T06:45:27",
+    "name": "Scarlet Violet Destined Rivals Booster Bundle 6 Packs",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": null,
+    "walmart_confirmed": false,
+    "price": null,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 220,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Scarlet-Violet-Destined-Rivals-Booster-Bundle-6-Packs/16019713971"
   }
 ]
