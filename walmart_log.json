@@ -99997,5 +99997,20 @@
     "duration_minutes": null,
     "page_len": 220,
     "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Perfect-Order-Elite-Trainer-Box/19402160990"
+  },
+  {
+    "ts": "2026-08-08T23:35:13",
+    "name": "Mega Evolution Ascended Heroes Elite Trainer Box",
+    "status": "IN_STOCK",
+    "seller_text": "Walmart",
+    "jsonld_seller": null,
+    "jsonld_avail": "InStock",
+    "walmart_confirmed": true,
+    "price": 167.0,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 30645,
+    "url": "https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734"
   }
 ]
