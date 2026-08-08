@@ -99382,5 +99382,20 @@
     "duration_minutes": null,
     "page_len": 1974,
     "url": "https://www.walmart.com/ip/POKEMON-ME2-PHANTASMAL-FLAMES-BOOSTER-BUNDLE/17785924366"
+  },
+  {
+    "ts": "2026-08-08T20:35:13",
+    "name": "Mega Evolution Ascended Heroes Elite Trainer Box",
+    "status": "IN_STOCK",
+    "seller_text": "Walmart",
+    "jsonld_seller": null,
+    "jsonld_avail": "InStock",
+    "walmart_confirmed": true,
+    "price": 167.0,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 27601,
+    "url": "https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734"
   }
 ]
