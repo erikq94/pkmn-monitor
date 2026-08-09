@@ -100447,5 +100447,50 @@
     "duration_minutes": null,
     "page_len": 1950,
     "url": "https://www.walmart.com/ip/POKEMON-ME2-PHANTASMAL-FLAMES-ELITE-TRAINER-BOX/17780209250"
+  },
+  {
+    "ts": "2026-08-09T01:25:14",
+    "name": "Mega Evolution Ascended Heroes Elite Trainer Box",
+    "status": "IN_STOCK",
+    "seller_text": "Walmart",
+    "jsonld_seller": null,
+    "jsonld_avail": "InStock",
+    "walmart_confirmed": true,
+    "price": 167.0,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 29685,
+    "url": "https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734"
+  },
+  {
+    "ts": "2026-08-09T01:25:28",
+    "name": "Tcg Scarlet Violet Destined Rivals Booster Bundle 6 Packs",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": null,
+    "walmart_confirmed": false,
+    "price": null,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 2314,
+    "url": "https://www.walmart.com/ip/TCG-Scarlet-Violet-Destined-Rivals-Booster-Bundle-6-Packs/15700422581"
+  },
+  {
+    "ts": "2026-08-09T01:25:38",
+    "name": "Mega Evolution Perfect Order Elite Trainer Box",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": null,
+    "walmart_confirmed": false,
+    "price": null,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1581,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Perfect-Order-Elite-Trainer-Box/19402160990"
   }
 ]
