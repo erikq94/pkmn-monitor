@@ -86,4 +86,4 @@ A Python script (`pkmn_monitor.py`) that runs every 5 minutes via GitHub Actions
 
 `github.com/erikq94/pkmn-monitor`
 Watchlist (shareable): `github.com/erikq94/pkmn-monitor/blob/main/watchlist.md`
-GitHub token expires: 2026-08-11
+GitHub token expires: 2026-11-10

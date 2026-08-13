@@ -1856,7 +1856,7 @@ def check_microcenter(state, seed=False, history=None):
 
 # ── Token expiry reminder ─────────────────────────────────────────────────────
 
-GITHUB_TOKEN_EXPIRY = date(2026, 8, 11)
+GITHUB_TOKEN_EXPIRY = date(2026, 11, 10)
 
 def check_token_expiry(state):
     today = date.today()
