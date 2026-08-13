@@ -121432,5 +121432,20 @@
     "duration_minutes": null,
     "page_len": 220,
     "url": "https://www.walmart.com/ip/POKEMON-ME2-PHANTASMAL-FLAMES-BOOSTER-BUNDLE/17785924366"
+  },
+  {
+    "ts": "2026-08-13T14:20:34",
+    "name": "Mega Evolution Perfect Order Elite Trainer Box",
+    "status": "OUT_OF_STOCK",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": "OutOfStock",
+    "walmart_confirmed": false,
+    "price": 79.46,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 11838,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Perfect-Order-Elite-Trainer-Box/19402160990"
   }
 ]
