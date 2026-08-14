@@ -124852,5 +124852,20 @@
     "duration_minutes": null,
     "page_len": 1582,
     "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Chaos-Rising-Elite-Trainer-Box/19988614228"
+  },
+  {
+    "ts": "2026-08-14T08:20:20",
+    "name": "Mega Evolution Ascended Heroes Elite Trainer Box",
+    "status": "IN_STOCK",
+    "seller_text": "Walmart",
+    "jsonld_seller": null,
+    "jsonld_avail": "InStock",
+    "walmart_confirmed": true,
+    "price": 174.97,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 14534,
+    "url": "https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734"
   }
 ]
