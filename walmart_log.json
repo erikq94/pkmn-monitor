@@ -129292,5 +129292,20 @@
     "duration_minutes": null,
     "page_len": 1558,
     "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Perfect-Order-Elite-Trainer-Box/19402160990"
+  },
+  {
+    "ts": "2026-08-15T06:35:43",
+    "name": "Mega Evolution Perfect Order Elite Trainer Box",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": "InStock",
+    "walmart_confirmed": false,
+    "price": 84.9,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 12619,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Perfect-Order-Elite-Trainer-Box/19402160990"
   }
 ]
