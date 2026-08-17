@@ -50516,5 +50516,31 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10058-102/pokemon-tcg-first-partner-illustration-collection-series-2"
+  },
+  {
+    "ts": "2026-08-17T13:45:49",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Phantasmal Flames Pokemon Center Elite Traine",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10186-109/pokemon-tcg-mega-evolution-phantasmal-flames-pokemon-center-elite-trainer-box"
+  },
+  {
+    "ts": "2026-08-17T13:46:05",
+    "retailer": "Pokemon Center",
+    "name": "Cynthia S Garchomp Ex Premium Collection",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/100-10424/pokemon-tcg-cynthia-s-garchomp-ex-premium-collection"
   }
 ]
