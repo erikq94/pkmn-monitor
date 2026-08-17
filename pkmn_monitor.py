@@ -81,6 +81,10 @@ TARGET_TCINS = [
     "95267143",                          # Chaos Rising ETB
     "94860231",                          # Phantasmal Flames ETB
     "1006188619",                        # ME1 ETB 2-pack set
+    # Pitch Black (new) — verified sold & shipped by Target directly, 2026-08-16
+    "1011483406",                        # Pitch Black ETB ($59.99)
+    "1011483414",                        # Pitch Black Booster Bundle ($31.99)
+    "1011483413",                        # Pitch Black Booster Display ($179.99)
 ]
 
 
@@ -211,6 +215,38 @@ def send_discord(message):
         return False
 
 
+# ── Checker health alerting ─────────────────────────────────────────────────
+# Consecutive-failure tracking lives in `state` (persisted to seen_products.json)
+# since each run is a fresh process. Alerts fire once on crossing the failure
+# threshold and once on recovery — not on every failed run — so a retailer
+# having a bad day doesn't spam the channel every 5 minutes.
+_ERROR_ALERT_THRESHOLD = 3          # consecutive failures before alerting
+_ERROR_ALERT_COOLDOWN_SECONDS = 3600  # re-alert at most once an hour while still down
+
+def report_error(state, key, message):
+    count_key = f"_err_count_{key}"
+    alerted_key = f"_err_alerted_{key}"
+    last_alert_key = f"_err_last_alert_{key}"
+    count = state.get(count_key, 0) + 1
+    state[count_key] = count
+    if count < _ERROR_ALERT_THRESHOLD:
+        return
+    now = datetime.now()
+    last_alert = state.get(last_alert_key)
+    stale = not last_alert or (now - datetime.fromisoformat(last_alert)).total_seconds() >= _ERROR_ALERT_COOLDOWN_SECONDS
+    if not state.get(alerted_key) or stale:
+        send_discord(f"⚠️ **{key} has failed {count}x in a row**\nLatest error: {message}")
+        state[alerted_key] = True
+        state[last_alert_key] = now.isoformat()
+
+
+def report_recovery(state, key):
+    if state.get(f"_err_alerted_{key}"):
+        send_discord(f"✅ **{key} recovered** — back to normal after {state.get(f'_err_count_{key}', '?')} failed run(s)")
+    for suffix in ("_err_count_", "_err_alerted_", "_err_last_alert_"):
+        state.pop(f"{suffix}{key}", None)
+
+
 def qty_line(qty):
     """Formats a stock-quantity line for alerts. Returns '' when qty is unknown."""
     if qty is None:
@@ -294,32 +330,41 @@ STOCK_LOG_FILE = os.path.join(os.path.dirname(__file__), "stock_log.json")
 STOCK_LOG_RETENTION_DAYS = 90
 
 
+_stock_log_lock = threading.Lock()
+
 def _append_stock_log(retailer, name, url, status, store="Online", price=None, qty=None, seller=None,
-                       duration_minutes=None, release_date=None):
+                       duration_minutes=None, release_date=None, state=None):
     try:
-        log = []
-        if os.path.exists(STOCK_LOG_FILE):
-            with open(STOCK_LOG_FILE) as f:
-                log = json.load(f)
-        log.append({
-            "ts": datetime.now().isoformat(timespec="seconds"),
-            "retailer": retailer,
-            "name": name[:60],
-            "store": store,
-            "status": str(status),
-            "price": price,
-            "qty": qty,
-            "seller": seller,
-            "duration_minutes": duration_minutes,
-            "release_date": release_date,
-            "url": url,
-        })
-        cutoff = (datetime.now() - timedelta(days=STOCK_LOG_RETENTION_DAYS)).isoformat(timespec="seconds")
-        log = [e for e in log if e.get("ts", "") >= cutoff]
-        with open(STOCK_LOG_FILE, "w") as f:
-            json.dump(log, f, indent=2)
+        with _stock_log_lock:
+            log = []
+            if os.path.exists(STOCK_LOG_FILE):
+                with open(STOCK_LOG_FILE) as f:
+                    log = json.load(f)
+            log.append({
+                "ts": datetime.now().isoformat(timespec="seconds"),
+                "retailer": retailer,
+                "name": name[:60],
+                "store": store,
+                "status": str(status),
+                "price": price,
+                "qty": qty,
+                "seller": seller,
+                "duration_minutes": duration_minutes,
+                "release_date": release_date,
+                "url": url,
+            })
+            cutoff = (datetime.now() - timedelta(days=STOCK_LOG_RETENTION_DAYS)).isoformat(timespec="seconds")
+            log = [e for e in log if e.get("ts", "") >= cutoff]
+            tmp_path = STOCK_LOG_FILE + ".tmp"
+            with open(tmp_path, "w") as f:
+                json.dump(log, f, indent=2)
+            os.replace(tmp_path, STOCK_LOG_FILE)
+        if state is not None:
+            report_recovery(state, "stock_log_write")
     except Exception as e:
         print(f"  [stock log error] {e}")
+        if state is not None:
+            report_error(state, "stock_log_write", str(e))
 
 
 def notify(name, store, url, price="", is_local=False, qty=None):
@@ -507,7 +552,7 @@ def check_target(state, seed=False, history=None):
                     print(f"  [skipped 3rd party] {name[:50]}")
 
             if _should_log_stock(state, f"target_online_{tcin}", ship_status, prod.get("price"), prod.get("ship_qty")):
-                _append_stock_log("Target", name, buy_url, ship_status, price=prod.get("price"), qty=prod.get("ship_qty"))
+                _append_stock_log("Target", name, buy_url, ship_status, price=prod.get("price"), qty=prod.get("ship_qty"), state=state)
 
             # sold_out False → early restock signal (fires only on True→False transition)
             if not seed and state.get(sold_out_key) is True and sold_out is False:
@@ -554,7 +599,7 @@ def check_target(state, seed=False, history=None):
                 local_status = "IN_STOCK" if in_stock_locally else "OUT_OF_STOCK"
                 local_qty = int(store_qty) if store_qty else None
                 if _should_log_stock(state, f"target_local_{store_id}_{tcin}", local_status, None, local_qty):
-                    _append_stock_log("Target", name, buy_url, local_status, store=store_name, qty=local_qty)
+                    _append_stock_log("Target", name, buy_url, local_status, store=store_name, qty=local_qty, state=state)
 
                 state[local_key] = in_stock_locally
 
@@ -807,7 +852,7 @@ def check_pokemoncenter_restock(state, seed=False, history=None, dynamic_pc_urls
         name = _slug_to_name(url)
 
         if _should_log_stock(state, f"pc_{url}", status, debug.get("price"), debug.get("qty_left")):
-            _append_stock_log("Pokemon Center", name, url, status, price=debug.get("price"), qty=debug.get("qty_left"))
+            _append_stock_log("Pokemon Center", name, url, status, price=debug.get("price"), qty=debug.get("qty_left"), state=state)
 
         if status is None:
             time.sleep(0.5)
@@ -994,7 +1039,7 @@ def check_costco(state, seed=False, history=None):
         name = _costco_name(url)
 
         if _should_log_stock(state, f"costco_{url}", status, debug.get("price"), debug.get("qty_left")):
-            _append_stock_log("Costco", name, url, status, price=debug.get("price"), qty=debug.get("qty_left"))
+            _append_stock_log("Costco", name, url, status, price=debug.get("price"), qty=debug.get("qty_left"), state=state)
 
         if status is None:
             print(f"  [unknown] {name[:55]}")
@@ -1165,7 +1210,7 @@ def check_samsclub(state, seed=False, history=None):
 
         if _should_log_stock(state, f"samsclub_{url}", status, debug.get("price"), debug.get("qty_left")):
             _append_stock_log("Sam's Club", name, url, status, price=debug.get("price"), qty=debug.get("qty_left"),
-                               release_date=debug.get("release_date"))
+                               release_date=debug.get("release_date"), state=state)
 
         if status is None:
             print(f"  [unknown] {name[:55]}")
@@ -1358,7 +1403,7 @@ def check_bestbuy(state, seed=False, history=None):
         if _should_log_stock(state, f"bestbuy_{url}", status, debug.get("price"), debug.get("qty_left")):
             _append_stock_log("Best Buy", name, url, status, price=debug.get("price"),
                                qty=debug.get("qty_left"), seller=debug.get("seller"),
-                               release_date=debug.get("release_date"))
+                               release_date=debug.get("release_date"), state=state)
 
         if status is None:
             print(f"  [unknown] {name[:55]}")
@@ -1447,6 +1492,9 @@ WALMART_WATCH = [
     "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Ascended-Heroes-Booster-Bundle-6-Packs/18728422476",
     "https://www.walmart.com/ip/POKEMON-ME2-PHANTASMAL-FLAMES-ELITE-TRAINER-BOX/17780209250",
     "https://www.walmart.com/ip/POKEMON-ME2-PHANTASMAL-FLAMES-BOOSTER-BUNDLE/17785924366",
+    # Pitch Black (new, 2026-08-16) — seller unverified, debug mode
+    "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Elite-Trainer-Box/20161351456",
+    "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Booster-Box-ME05/20140716298",
 ]
 
 # URLs in debug mode — logged and sent as quiet messages, no @everyone alert.
@@ -1458,6 +1506,8 @@ WALMART_DEBUG = {
     "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Ascended-Heroes-Booster-Bundle-6-Packs/18728422476",
     "https://www.walmart.com/ip/POKEMON-ME2-PHANTASMAL-FLAMES-ELITE-TRAINER-BOX/17780209250",
     "https://www.walmart.com/ip/POKEMON-ME2-PHANTASMAL-FLAMES-BOOSTER-BUNDLE/17785924366",
+    "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Elite-Trainer-Box/20161351456",
+    "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Booster-Box-ME05/20140716298",
 }
 
 
@@ -1814,7 +1864,7 @@ def check_microcenter(state, seed=False, history=None):
         log_status = store_status or online_status
         if _should_log_stock(state, f"mc_{url}", log_status, price, inv_count):
             _append_stock_log("Micro Center", name, url, log_status, store=MICROCENTER_STORE_NAME,
-                               price=price, qty=inv_count)
+                               price=price, qty=inv_count, state=state)
 
         if online_status is None and store_status is None:
             print(f"  [unknown] {name[:55]}")
@@ -2083,8 +2133,10 @@ def main():
                 state.update(getattr(result, "changed", result))
                 for key in getattr(result, "deleted", ()):
                     state.pop(key, None)
+                report_recovery(state, name)
             except Exception as e:
                 print(f"  {name} check failed: {e}")
+                report_error(state, name, str(e))
 
     # Weekly restock pattern summary — fires once a week automatically
     if not seed:

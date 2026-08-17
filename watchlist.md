@@ -109,6 +109,11 @@ Only alerts when sold directly by Target (no marketplace sellers).
 - [TCIN 94860231 — Phantasmal Flames ETB](https://www.target.com/p/-/A-94860231)
 - [TCIN 1006188619 — ME1 ETB 2-pack set](https://www.target.com/p/-/A-1006188619)
 
+### Mega Evolution — Pitch Black (new)
+- [TCIN 1011483406 — Pitch Black ETB, $59.99](https://www.target.com/p/-/A-1011483406)
+- [TCIN 1011483414 — Pitch Black Booster Bundle, $31.99](https://www.target.com/p/-/A-1011483414)
+- [TCIN 1011483413 — Pitch Black Booster Display, $179.99](https://www.target.com/p/-/A-1011483413)
+
 ---
 
 ## 🎴 POKEMON CENTER
@@ -249,3 +254,5 @@ Checking online stock every 5 min. Only alerts when sold **directly by Walmart.c
 - [Ascended Heroes — Booster Bundle 6pk](https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Ascended-Heroes-Booster-Bundle-6-Packs/18728422476) *(debug)*
 - [Phantasmal Flames — Elite Trainer Box](https://www.walmart.com/ip/POKEMON-ME2-PHANTASMAL-FLAMES-ELITE-TRAINER-BOX/17780209250) *(debug)*
 - [Phantasmal Flames — Booster Bundle](https://www.walmart.com/ip/POKEMON-ME2-PHANTASMAL-FLAMES-BOOSTER-BUNDLE/17785924366) *(debug)*
+- [Pitch Black — Elite Trainer Box](https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Elite-Trainer-Box/20161351456) *(debug)*
+- [Pitch Black — Booster Display Box](https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Booster-Box-ME05/20140716298) *(debug)*
