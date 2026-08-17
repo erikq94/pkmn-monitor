@@ -37906,5 +37906,44 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10447-111/pokemon-tcg-30th-celebration-pokemon-center-elite-trainer-box"
+  },
+  {
+    "ts": "2026-08-17T02:25:31",
+    "retailer": "Sam's Club",
+    "name": "Binder Poster Collection Booster Packs",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.samsclub.com/ip/pokemon-binder-poster-collection-booster-packs/19167901990"
+  },
+  {
+    "ts": "2026-08-17T02:25:54",
+    "retailer": "Best Buy",
+    "name": "Scarlet Violet Prismatic Evolutions Elite Trainer Box",
+    "store": "Online",
+    "status": "INVITE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-prismatic-evolutions-elite-trainer-box/JJG2TLCW3L"
+  },
+  {
+    "ts": "2026-08-17T02:26:37",
+    "retailer": "Pokemon Center",
+    "name": "Mega Charizard Tin Mega Charizard Y",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10300-122/pokemon-tcg-mega-charizard-tin-mega-charizard-y"
   }
 ]
