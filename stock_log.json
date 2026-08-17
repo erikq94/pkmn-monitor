@@ -52973,5 +52973,70 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10447-111/pokemon-tcg-30th-celebration-pokemon-center-elite-trainer-box"
+  },
+  {
+    "ts": "2026-08-17T15:55:21",
+    "retailer": "Sam's Club",
+    "name": "Sam's Club item 19170800669",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.samsclub.com/ip/19170800669"
+  },
+  {
+    "ts": "2026-08-17T15:55:24",
+    "retailer": "Sam's Club",
+    "name": "Surprise Box Booster Bundle",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.samsclub.com/ip/pokemon-surprise-box-booster-bundle/18933156288"
+  },
+  {
+    "ts": "2026-08-17T15:55:27",
+    "retailer": "Sam's Club",
+    "name": "Binder Poster Collection Booster Packs",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.samsclub.com/ip/pokemon-binder-poster-collection-booster-packs/19167901990"
+  },
+  {
+    "ts": "2026-08-17T15:55:27",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Destined Rivals Sleeved Booster Pack 10 C",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/100-10623/pokemon-tcg-scarlet-and-violet-destined-rivals-sleeved-booster-pack-10-cards"
+  },
+  {
+    "ts": "2026-08-17T15:55:31",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Journey Together Enhanced Booster Display",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10125-102/pokemon-tcg-scarlet-and-violet-journey-together-enhanced-booster-display-box-36-packs-and-1-promo-card"
   }
 ]
