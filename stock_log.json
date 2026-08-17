@@ -61566,5 +61566,31 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10057-127/pokemon-tcg-mega-evolution-enhanced-booster-display-box-36-packs-and-1-promo-card"
+  },
+  {
+    "ts": "2026-08-17T23:41:07",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution 3 Booster Packs And Golduck Promo Card",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10050-114/pokemon-tcg-mega-evolution-3-booster-packs-and-golduck-promo-card"
+  },
+  {
+    "ts": "2026-08-17T23:41:17",
+    "retailer": "Pokemon Center",
+    "name": "Mega Charizard Tin Mega Charizard Y",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10300-122/pokemon-tcg-mega-charizard-tin-mega-charizard-y"
   }
 ]
