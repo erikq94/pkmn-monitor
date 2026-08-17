@@ -54000,5 +54000,31 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10447-111/pokemon-tcg-30th-celebration-pokemon-center-elite-trainer-box"
+  },
+  {
+    "ts": "2026-08-17T16:51:07",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Booster Bundle 6 Packs",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10054-108/pokemon-tcg-mega-evolution-booster-bundle-6-packs"
+  },
+  {
+    "ts": "2026-08-17T16:51:08",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Enhanced Booster Display Box 36 Packs And 1 P",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10057-127/pokemon-tcg-mega-evolution-enhanced-booster-display-box-36-packs-and-1-promo-card"
   }
 ]
