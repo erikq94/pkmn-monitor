@@ -41403,5 +41403,57 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-prismatic-evolutions-elite-trainer-box/JJG2TLCW3L"
+  },
+  {
+    "ts": "2026-08-17T05:56:24",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Pitch Black Booster Display Box 36 Packs",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10425-120/pokemon-tcg-mega-evolution-pitch-black-booster-display-box-36-packs"
+  },
+  {
+    "ts": "2026-08-17T05:56:25",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Pitch Black Pokemon Center Elite Trainer Box",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10416-112/pokemon-tcg-mega-evolution-pitch-black-pokemon-center-elite-trainer-box"
+  },
+  {
+    "ts": "2026-08-17T05:56:29",
+    "retailer": "Pokemon Center",
+    "name": "30Th Celebration Mini Tins 10 Pack",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10465-176/pokemon-tcg-30th-celebration-mini-tins-10-pack"
+  },
+  {
+    "ts": "2026-08-17T05:56:30",
+    "retailer": "Pokemon Center",
+    "name": "30Th Celebration Booster Bundle 6 Packs",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10451-115/pokemon-tcg-30th-celebration-booster-bundle-6-packs"
   }
 ]
