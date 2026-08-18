@@ -90335,5 +90335,31 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10425-120/pokemon-tcg-mega-evolution-pitch-black-booster-display-box-36-packs"
+  },
+  {
+    "ts": "2026-08-18T20:09:28",
+    "retailer": "Pokemon Center",
+    "name": "30Th Celebration Booster Bundle 6 Packs",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10451-115/pokemon-tcg-30th-celebration-booster-bundle-6-packs"
+  },
+  {
+    "ts": "2026-08-18T20:09:31",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet 151 Mini Tin Gengar And Poliwag",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10437-107/pokemon-tcg-scarlet-and-violet-151-mini-tin-gengar-and-poliwag"
   }
 ]
