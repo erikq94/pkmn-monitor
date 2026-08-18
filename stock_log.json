@@ -64517,5 +64517,44 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10187-114/pokemon-tcg-mega-evolution-phantasmal-flames-3-booster-packs-and-weavile-promo-card"
+  },
+  {
+    "ts": "2026-08-18T02:21:12",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Chaos Rising Build Battle Box",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10401-101/pokemon-tcg-mega-evolution-chaos-rising-build-battle-box"
+  },
+  {
+    "ts": "2026-08-18T02:21:12",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet 151 Pokemon Center Elite Trainer Box",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/290-85466/pokemon-tcg-scarlet-and-violet-151-pokemon-center-elite-trainer-box"
+  },
+  {
+    "ts": "2026-08-18T02:21:14",
+    "retailer": "Pokemon Center",
+    "name": "Cynthia S Garchomp Ex Premium Collection",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/100-10424/pokemon-tcg-cynthia-s-garchomp-ex-premium-collection"
   }
 ]
