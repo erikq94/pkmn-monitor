@@ -69028,5 +69028,31 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10375-108/pokemon-tcg-mega-evolution-perfect-order-3-booster-packs-and-chikorita-promo-card"
+  },
+  {
+    "ts": "2026-08-18T06:40:36",
+    "retailer": "Best Buy",
+    "name": "Scarlet Violet Journey Together Booster Bundle 6 Pk",
+    "store": "Online",
+    "status": "IN_STOCK",
+    "price": null,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-journey-together-booster-bundle-6-pk/JJG2TLCFST"
+  },
+  {
+    "ts": "2026-08-18T06:40:40",
+    "retailer": "Best Buy",
+    "name": "Scarlet Violet Prismatic Evolutions Elite Trainer Box",
+    "store": "Online",
+    "status": "INVITE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-prismatic-evolutions-elite-trainer-box/JJG2TLCW3L"
   }
 ]
