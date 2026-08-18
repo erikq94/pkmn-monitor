@@ -69691,5 +69691,57 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10394-108/pokemon-tcg-pokemon-day-2026-collection"
+  },
+  {
+    "ts": "2026-08-18T07:05:17",
+    "retailer": "Costco",
+    "name": "Pokmon Unova Heavy Hitters Premium Collection",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.costco.com/pok%C3%A9mon-unova-heavy-hitters-premium-collection.product.1943158.html"
+  },
+  {
+    "ts": "2026-08-18T07:06:09",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Chaos Rising Build Battle Box",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10401-101/pokemon-tcg-mega-evolution-chaos-rising-build-battle-box"
+  },
+  {
+    "ts": "2026-08-18T07:06:10",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet 151 Pokemon Center Elite Trainer Box",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/290-85466/pokemon-tcg-scarlet-and-violet-151-pokemon-center-elite-trainer-box"
+  },
+  {
+    "ts": "2026-08-18T07:06:12",
+    "retailer": "Pokemon Center",
+    "name": "Cynthia S Garchomp Ex Premium Collection",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/100-10424/pokemon-tcg-cynthia-s-garchomp-ex-premium-collection"
   }
 ]
