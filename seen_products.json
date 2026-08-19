@@ -1053,7 +1053,7 @@
   "target_sold_out_1011318040": false,
   "pc_https://www.pokemoncenter.com/product/10-10447-111/pokemon-tcg-30th-celebration-pokemon-center-elite-trainer-box": true,
   "pc_stock_https://www.pokemoncenter.com/product/10-10447-111/pokemon-tcg-30th-celebration-pokemon-center-elite-trainer-box": "QUEUE",
-  "walmart_https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734": "OUT_OF_STOCK",
+  "walmart_https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734": "IN_STOCK",
   "pc_https://www.pokemoncenter.com/product/10-10465-176/pokemon-tcg-30th-celebration-mini-tins-10-pack": true,
   "pc_https://www.pokemoncenter.com/product/10-10451-115/pokemon-tcg-30th-celebration-booster-bundle-6-packs": true,
   "pc_stock_https://www.pokemoncenter.com/product/10-10465-176/pokemon-tcg-30th-celebration-mini-tins-10-pack": "QUEUE",
@@ -1175,9 +1175,9 @@
   "bestbuy_https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-prismatic-evolutions-booster-bundle/JJG2TL23JK__log_ts": "2026-08-19T20:45:48.647469",
   "bestbuy_https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-prismatic-evolutions-booster-bundle/JJG2TL23JK__log_price": 113.0,
   "bestbuy_https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-prismatic-evolutions-booster-bundle/JJG2TL23JK__log_qty": null,
-  "walmart_https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734__log_status": null,
-  "walmart_https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734__log_ts": "2026-08-19T21:00:21.577750",
-  "walmart_https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734__log_price": null,
+  "walmart_https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734__log_status": "IN_STOCK",
+  "walmart_https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734__log_ts": "2026-08-19T21:20:16.261207",
+  "walmart_https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734__log_price": 167.65,
   "walmart_https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734__log_qty": null,
   "walmart_https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Perfect-Order-Booster-Bundle-6-Packs/19380764160__log_status": null,
   "walmart_https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Perfect-Order-Booster-Bundle-6-Packs/19380764160__log_ts": "2026-08-19T20:30:17.428707",
@@ -3338,5 +3338,6 @@
   "target_local_2088_1011483413__log_ts": "2026-08-18T11:30:59.420446",
   "target_local_2088_1011483413__log_price": null,
   "target_local_2088_1011483413__log_qty": null,
-  "target_local_2088_1011483413": false
+  "target_local_2088_1011483413": false,
+  "walmart_instock_since_https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734": "2026-08-19T21:20:15.868234"
 }
