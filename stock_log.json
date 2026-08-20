@@ -122107,5 +122107,18 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10416-112/pokemon-tcg-mega-evolution-pitch-black-pokemon-center-elite-trainer-box"
+  },
+  {
+    "ts": "2026-08-20T00:10:17",
+    "retailer": "Sam's Club",
+    "name": "Sam's Club item 19170800669",
+    "store": "Online",
+    "status": "OUT_OF_STOCK",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.samsclub.com/ip/19170800669"
   }
 ]
