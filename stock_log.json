@@ -128880,5 +128880,83 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-journey-together-booster-bundle-6-pk/JJG2TLCFST"
+  },
+  {
+    "ts": "2026-08-20T05:40:28",
+    "retailer": "Best Buy",
+    "name": "Mega Evolution Perfect Order Booster Bundle",
+    "store": "Online",
+    "status": "None",
+    "price": 49.99,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-perfect-order-booster-bundle/JJG2TL3QK2"
+  },
+  {
+    "ts": "2026-08-20T05:40:40",
+    "retailer": "Best Buy",
+    "name": "Scarlet Violet Prismatic Evolutions Elite Trainer Box",
+    "store": "Online",
+    "status": "INVITE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-prismatic-evolutions-elite-trainer-box/JJG2TLCW3L"
+  },
+  {
+    "ts": "2026-08-20T05:40:44",
+    "retailer": "Best Buy",
+    "name": "Scarlet Violet Prismatic Evolutions Booster Bundle",
+    "store": "Online",
+    "status": "None",
+    "price": 113.0,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-prismatic-evolutions-booster-bundle/JJG2TL23JK"
+  },
+  {
+    "ts": "2026-08-20T05:40:50",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Ascended Heroes Booster Bundle 6 Packs",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10311-114/pokemon-tcg-mega-evolution-ascended-heroes-booster-bundle-6-packs"
+  },
+  {
+    "ts": "2026-08-20T05:41:05",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Booster Bundle 6 Packs",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10054-108/pokemon-tcg-mega-evolution-booster-bundle-6-packs"
+  },
+  {
+    "ts": "2026-08-20T05:41:06",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Enhanced Booster Display Box 36 Packs And 1 P",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10057-127/pokemon-tcg-mega-evolution-enhanced-booster-display-box-36-packs-and-1-promo-card"
   }
 ]
