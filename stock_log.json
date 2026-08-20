@@ -139202,5 +139202,83 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10437-107/pokemon-tcg-scarlet-and-violet-151-mini-tin-gengar-and-poliwag"
+  },
+  {
+    "ts": "2026-08-20T14:40:21",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Journey Together Pokemon Center Elite Tra",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/100-10356/pokemon-tcg-scarlet-and-violet-journey-together-pokemon-center-elite-trainer-box"
+  },
+  {
+    "ts": "2026-08-20T14:40:54",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Phantasmal Flames 3 Booster Packs And Weavile",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10187-114/pokemon-tcg-mega-evolution-phantasmal-flames-3-booster-packs-and-weavile-promo-card"
+  },
+  {
+    "ts": "2026-08-20T14:40:55",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Pokemon Center Elite Trainer Box Mega Lucario",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10047-108/pokemon-tcg-mega-evolution-pokemon-center-elite-trainer-box-mega-lucario"
+  },
+  {
+    "ts": "2026-08-20T14:40:57",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Pokemon Center Elite Trainer Box Mega Gardevo",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10047-120/pokemon-tcg-mega-evolution-pokemon-center-elite-trainer-box-mega-gardevoir"
+  },
+  {
+    "ts": "2026-08-20T14:41:02",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution 3 Booster Packs And Psyduck Promo Card",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10050-108/pokemon-tcg-mega-evolution-3-booster-packs-and-psyduck-promo-card"
+  },
+  {
+    "ts": "2026-08-20T14:41:04",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution 3 Booster Packs And Golduck Promo Card",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10050-114/pokemon-tcg-mega-evolution-3-booster-packs-and-golduck-promo-card"
   }
 ]
