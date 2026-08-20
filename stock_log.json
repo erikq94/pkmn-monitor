@@ -145299,5 +145299,57 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10300-121/pokemon-tcg-mega-charizard-tin-mega-charizard-x"
+  },
+  {
+    "ts": "2026-08-20T20:00:20",
+    "retailer": "Best Buy",
+    "name": "Mega Evolution Chaos Rising Elite Trainer Box",
+    "store": "Online",
+    "status": "None",
+    "price": 87.99,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-chaos-rising-elite-trainer-box/JJG2TL34RT"
+  },
+  {
+    "ts": "2026-08-20T20:00:24",
+    "retailer": "Best Buy",
+    "name": "Mega Evolution Chaos Rising Booster Bundle",
+    "store": "Online",
+    "status": "None",
+    "price": 45.99,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-chaos-rising-booster-bundle/JJG2TL34H9"
+  },
+  {
+    "ts": "2026-08-20T20:00:28",
+    "retailer": "Best Buy",
+    "name": "Mega Evolution Perfect Order Elite Trainer Box",
+    "store": "Online",
+    "status": "None",
+    "price": 94.99,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-perfect-order-elite-trainer-box/JJG2TL3W86"
+  },
+  {
+    "ts": "2026-08-20T20:00:50",
+    "retailer": "Best Buy",
+    "name": "Scarlet Violet Prismatic Evolutions Booster Bundle",
+    "store": "Online",
+    "status": "None",
+    "price": 113.0,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-prismatic-evolutions-booster-bundle/JJG2TL23JK"
   }
 ]
