@@ -126878,5 +126878,83 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10425-120/pokemon-tcg-mega-evolution-pitch-black-booster-display-box-36-packs"
+  },
+  {
+    "ts": "2026-08-20T04:05:21",
+    "retailer": "Sam's Club",
+    "name": "Surprise Box Booster Bundle",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.samsclub.com/ip/pokemon-surprise-box-booster-bundle/18933156288"
+  },
+  {
+    "ts": "2026-08-20T04:05:32",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Prismatic Evolutions Tech Sticker Collect",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10022-102/pokemon-tcg-scarlet-and-violet-prismatic-evolutions-tech-sticker-collection-leafeon"
+  },
+  {
+    "ts": "2026-08-20T04:05:32",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Prismatic Evolutions Tech Sticker Collect",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10022-103/pokemon-tcg-scarlet-and-violet-prismatic-evolutions-tech-sticker-collection-glaceon"
+  },
+  {
+    "ts": "2026-08-20T04:05:42",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Black Bolt Tech Sticker Collection",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10128-114/pokemon-tcg-scarlet-and-violet-black-bolt-tech-sticker-collection"
+  },
+  {
+    "ts": "2026-08-20T04:05:43",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Chaos Rising Booster Display Box 36 Packs",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10407-119/pokemon-tcg-mega-evolution-chaos-rising-booster-display-box-36-packs"
+  },
+  {
+    "ts": "2026-08-20T04:05:45",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Chaos Rising Pokemon Center Elite Trainer Box",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10399-112/pokemon-tcg-mega-evolution-chaos-rising-pokemon-center-elite-trainer-box"
   }
 ]
