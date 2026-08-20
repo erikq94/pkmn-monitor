@@ -129881,5 +129881,31 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/bundle1196/pokemon-tcg-scarlet-and-violet-destined-rivals-pokemon-center-elite-trainer-box-and-premium-binder-bundle"
+  },
+  {
+    "ts": "2026-08-20T06:30:17",
+    "retailer": "Best Buy",
+    "name": "Mega Evolution Chaos Rising Elite Trainer Box",
+    "store": "Online",
+    "status": "None",
+    "price": 87.99,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-chaos-rising-elite-trainer-box/JJG2TL34RT"
+  },
+  {
+    "ts": "2026-08-20T06:30:20",
+    "retailer": "Best Buy",
+    "name": "Mega Evolution Chaos Rising Booster Bundle",
+    "store": "Online",
+    "status": "None",
+    "price": 45.99,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-chaos-rising-booster-bundle/JJG2TL34H9"
   }
 ]
