@@ -156982,5 +156982,20 @@
     "duration_minutes": null,
     "page_len": 220,
     "url": "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Booster-Box-ME05/20140716298"
+  },
+  {
+    "ts": "2026-08-20T13:40:49",
+    "name": "Mega Evolution Pitch Black Elite Trainer Box",
+    "status": "None",
+    "seller_text": "TNT NORTH NJ 5 out of 5 stars 5 out of 5 stars rev",
+    "jsonld_seller": null,
+    "jsonld_avail": "InStock",
+    "walmart_confirmed": false,
+    "price": 86.77,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 11683,
+    "url": "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Elite-Trainer-Box/20161351456"
   }
 ]
