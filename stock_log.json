@@ -181465,5 +181465,44 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/100-10623/pokemon-tcg-scarlet-and-violet-destined-rivals-sleeved-booster-pack-10-cards"
+  },
+  {
+    "ts": "2026-08-21T17:40:23",
+    "retailer": "Costco",
+    "name": "Pokmon Tcg Charizard Ex Super Premium Collection",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.costco.com/pok%C3%A9mon-tcg:-charizard-ex-super-premium-collection.product.4000313298.html"
+  },
+  {
+    "ts": "2026-08-21T17:40:34",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Prismatic Evolutions Tech Sticker Collect",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10022-104/pokemon-tcg-scarlet-and-violet-prismatic-evolutions-tech-sticker-collection-sylveon"
+  },
+  {
+    "ts": "2026-08-21T17:40:41",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Black Bolt Tech Sticker Collection",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10128-114/pokemon-tcg-scarlet-and-violet-black-bolt-tech-sticker-collection"
   }
 ]
