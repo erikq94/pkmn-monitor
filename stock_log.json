@@ -225652,5 +225652,57 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10401-101/pokemon-tcg-mega-evolution-chaos-rising-build-battle-box"
+  },
+  {
+    "ts": "2026-08-22T22:20:39",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Black Bolt Booster Bundle 6 Packs",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10115-113/pokemon-tcg-scarlet-and-violet-black-bolt-booster-bundle-6-packs"
+  },
+  {
+    "ts": "2026-08-22T22:20:39",
+    "retailer": "Best Buy",
+    "name": "Scarlet Violet Journey Together Booster Bundle 6 Pk",
+    "store": "Online",
+    "status": "None",
+    "price": 149.0,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-journey-together-booster-bundle-6-pk/JJG2TLCFST"
+  },
+  {
+    "ts": "2026-08-22T22:20:48",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Ascended Heroes Pokemon Center Elite Trainer ",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10315-108/pokemon-tcg-mega-evolution-ascended-heroes-pokemon-center-elite-trainer-box"
+  },
+  {
+    "ts": "2026-08-22T22:20:51",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Ascended Heroes Tech Sticker Collection Gastl",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10314-122/pokemon-tcg-mega-evolution-ascended-heroes-tech-sticker-collection-gastly"
   }
 ]
