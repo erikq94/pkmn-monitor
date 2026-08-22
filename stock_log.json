@@ -197377,5 +197377,57 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-ascended-heroes-booster-bundle/JJG2TL3JP8"
+  },
+  {
+    "ts": "2026-08-22T07:30:25",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Destined Rivals 3 Booster Packs And Zebst",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/100-10636/pokemon-tcg-scarlet-and-violet-destined-rivals-3-booster-packs-and-zebstrika-promo-card"
+  },
+  {
+    "ts": "2026-08-22T07:30:25",
+    "retailer": "Micro Center",
+    "name": "Day 2026 Collection",
+    "store": "Santa Clara",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.microcenter.com/product/706781/nintendo-pokemon-day-2026-collection"
+  },
+  {
+    "ts": "2026-08-22T07:30:26",
+    "retailer": "Sam's Club",
+    "name": "Binder Poster Collection Booster Packs",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.samsclub.com/ip/pokemon-binder-poster-collection-booster-packs/19167901990"
+  },
+  {
+    "ts": "2026-08-22T07:30:40",
+    "retailer": "Best Buy",
+    "name": "Mega Evolution Pitch Black Elite Trainer Box",
+    "store": "Online",
+    "status": "None",
+    "price": 99.95,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-pitch-black-elite-trainer-box/JJG2TL8J45"
   }
 ]
