@@ -223442,5 +223442,57 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.microcenter.com/product/706781/nintendo-pokemon-day-2026-collection"
+  },
+  {
+    "ts": "2026-08-22T20:10:43",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Chaos Rising Booster Bundle",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10403-109/pokemon-tcg-mega-evolution-chaos-rising-booster-bundle"
+  },
+  {
+    "ts": "2026-08-22T20:10:46",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Perfect Order Pokemon Center Elite Trainer Bo",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10372-109/pokemon-tcg-mega-evolution-perfect-order-pokemon-center-elite-trainer-box"
+  },
+  {
+    "ts": "2026-08-22T20:11:09",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Chaos Rising Build Battle Box",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10401-101/pokemon-tcg-mega-evolution-chaos-rising-build-battle-box"
+  },
+  {
+    "ts": "2026-08-22T20:11:13",
+    "retailer": "Pokemon Center",
+    "name": "Iono S Bellibolt Ex Premium Collection",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/100-10431/pokemon-tcg-iono-s-bellibolt-ex-premium-collection"
   }
 ]
