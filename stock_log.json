@@ -192944,5 +192944,44 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10437-107/pokemon-tcg-scarlet-and-violet-151-mini-tin-gengar-and-poliwag"
+  },
+  {
+    "ts": "2026-08-22T03:35:20",
+    "retailer": "Micro Center",
+    "name": "Day 2026 Collection",
+    "store": "Santa Clara",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.microcenter.com/product/706781/nintendo-pokemon-day-2026-collection"
+  },
+  {
+    "ts": "2026-08-22T03:35:21",
+    "retailer": "Costco",
+    "name": "Pokmon Tcg Mega Charizard X Ex Ultra Premium Collection 2 Pa",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.costco.com/pok%C3%A9mon-tcg-mega-charizard-x-ex-ultra-premium-collection-2-pack.product.1997714.html"
+  },
+  {
+    "ts": "2026-08-22T03:35:21",
+    "retailer": "Sam's Club",
+    "name": "Binder Poster Collection Booster Packs",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.samsclub.com/ip/pokemon-binder-poster-collection-booster-packs/19167901990"
   }
 ]
