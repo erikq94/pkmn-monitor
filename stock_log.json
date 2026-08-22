@@ -222363,5 +222363,31 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.costco.com/pok%C3%A9mon-tcg-mega-charizard-x-ex-ultra-premium-collection-2-pack.product.1997714.html"
+  },
+  {
+    "ts": "2026-08-22T19:10:50",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Chaos Rising Booster Bundle",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10403-109/pokemon-tcg-mega-evolution-chaos-rising-booster-bundle"
+  },
+  {
+    "ts": "2026-08-22T19:10:52",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Perfect Order Pokemon Center Elite Trainer Bo",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10372-109/pokemon-tcg-mega-evolution-perfect-order-pokemon-center-elite-trainer-box"
   }
 ]
