@@ -217748,5 +217748,31 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10416-112/pokemon-tcg-mega-evolution-pitch-black-pokemon-center-elite-trainer-box"
+  },
+  {
+    "ts": "2026-08-22T15:10:20",
+    "retailer": "Costco",
+    "name": "Pokmon Tcg Mega Charizard X Ex Ultra Premium Collection 2 Pa",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.costco.com/pok%C3%A9mon-tcg-mega-charizard-x-ex-ultra-premium-collection-2-pack.product.1997714.html"
+  },
+  {
+    "ts": "2026-08-22T15:10:48",
+    "retailer": "Best Buy",
+    "name": "Mega Evolution Ascended Heroes Booster Bundle",
+    "store": "Online",
+    "status": "None",
+    "price": 115.0,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-ascended-heroes-booster-bundle/JJG2TL3JP8"
   }
 ]
