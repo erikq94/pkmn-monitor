@@ -225119,5 +225119,44 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/bundle1191/pokemon-tcg-scarlet-and-violet-journey-together-booster-display-box-and-accessories-bundle"
+  },
+  {
+    "ts": "2026-08-22T21:30:19",
+    "retailer": "Costco",
+    "name": "Pokmon Unova Heavy Hitters Premium Collection",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.costco.com/pok%C3%A9mon-unova-heavy-hitters-premium-collection.product.1943158.html"
+  },
+  {
+    "ts": "2026-08-22T21:30:24",
+    "retailer": "Best Buy",
+    "name": "Mega Evolution Perfect Order Elite Trainer Box",
+    "store": "Online",
+    "status": "None",
+    "price": 94.99,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-perfect-order-elite-trainer-box/JJG2TL3W86"
+  },
+  {
+    "ts": "2026-08-22T21:30:35",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet White Flare Booster Bundle 6 Packs",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10035-115/pokemon-tcg-scarlet-and-violet-white-flare-booster-bundle-6-packs"
   }
 ]
