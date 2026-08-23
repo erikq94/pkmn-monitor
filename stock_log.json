@@ -227836,5 +227836,18 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/100-10431/pokemon-tcg-iono-s-bellibolt-ex-premium-collection"
+  },
+  {
+    "ts": "2026-08-23T00:00:50",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Perfect Order Pokemon Center Elite Trainer Bo",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10372-109/pokemon-tcg-mega-evolution-perfect-order-pokemon-center-elite-trainer-box"
   }
 ]
