@@ -340234,5 +340234,44 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10451-115/pokemon-tcg-30th-celebration-booster-bundle-6-packs"
+  },
+  {
+    "ts": "2026-08-25T19:50:32",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Black Bolt Pokemon Center Elite Trainer B",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10037-118/pokemon-tcg-scarlet-and-violet-black-bolt-pokemon-center-elite-trainer-box"
+  },
+  {
+    "ts": "2026-08-25T19:50:49",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Phantasmal Flames Booster Display Box 36 Pack",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10190-119/pokemon-tcg-mega-evolution-phantasmal-flames-booster-display-box-36-packs"
+  },
+  {
+    "ts": "2026-08-25T19:50:53",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Phantasmal Flames 3 Booster Packs And Weavile",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10187-114/pokemon-tcg-mega-evolution-phantasmal-flames-3-booster-packs-and-weavile-promo-card"
   }
 ]
