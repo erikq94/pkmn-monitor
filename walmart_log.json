@@ -186397,5 +186397,20 @@
     "duration_minutes": null,
     "page_len": 220,
     "url": "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Booster-Box-ME05/20140716298"
+  },
+  {
+    "ts": "2026-08-25T23:55:46",
+    "name": "Mega Evolution Pitch Black Elite Trainer Box",
+    "status": "OUT_OF_STOCK",
+    "seller_text": ": 528 Collectibles LLC Helpful? (5) (1) Report 18E",
+    "jsonld_seller": null,
+    "jsonld_avail": "OutOfStock",
+    "walmart_confirmed": false,
+    "price": 72.94,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 10646,
+    "url": "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Elite-Trainer-Box/20161351456"
   }
 ]

@@ -1264,7 +1264,7 @@
   "pc_https://www.pokemoncenter.com/product/100-10326/pokemon-tcg-scarlet-and-violet-journey-together-sleeved-booster-pack-10-cards__log_price": null,
   "pc_https://www.pokemoncenter.com/product/100-10326/pokemon-tcg-scarlet-and-violet-journey-together-sleeved-booster-pack-10-cards__log_qty": null,
   "pc_https://www.pokemoncenter.com/product/10-10025-101/pokemon-tcg-scarlet-and-violet-prismatic-evolutions-booster-bundle-6-packs__log_status": "QUEUE",
-  "pc_https://www.pokemoncenter.com/product/10-10025-101/pokemon-tcg-scarlet-and-violet-prismatic-evolutions-booster-bundle-6-packs__log_ts": "2026-08-25T23:00:31.088956",
+  "pc_https://www.pokemoncenter.com/product/10-10025-101/pokemon-tcg-scarlet-and-violet-prismatic-evolutions-booster-bundle-6-packs__log_ts": "2026-08-25T23:55:32.070326",
   "pc_https://www.pokemoncenter.com/product/10-10025-101/pokemon-tcg-scarlet-and-violet-prismatic-evolutions-booster-bundle-6-packs__log_price": null,
   "pc_https://www.pokemoncenter.com/product/10-10025-101/pokemon-tcg-scarlet-and-violet-prismatic-evolutions-booster-bundle-6-packs__log_qty": null,
   "pc_https://www.pokemoncenter.com/product/10-10022-102/pokemon-tcg-scarlet-and-violet-prismatic-evolutions-tech-sticker-collection-leafeon__log_status": "QUEUE",
@@ -3220,9 +3220,9 @@
   "target_local_2088_1009871732__log_ts": "2026-08-25T21:47:33.584376",
   "target_local_2088_1009871732__log_price": null,
   "target_local_2088_1009871732__log_qty": null,
-  "walmart_https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Elite-Trainer-Box/20161351456__log_status": null,
-  "walmart_https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Elite-Trainer-Box/20161351456__log_ts": "2026-08-25T23:09:37.225547",
-  "walmart_https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Elite-Trainer-Box/20161351456__log_price": null,
+  "walmart_https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Elite-Trainer-Box/20161351456__log_status": "OUT_OF_STOCK",
+  "walmart_https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Elite-Trainer-Box/20161351456__log_ts": "2026-08-25T23:55:46.850226",
+  "walmart_https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Elite-Trainer-Box/20161351456__log_price": 72.94,
   "walmart_https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Elite-Trainer-Box/20161351456__log_qty": null,
   "walmart_https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Booster-Box-ME05/20140716298__log_status": null,
   "walmart_https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Booster-Box-ME05/20140716298__log_ts": "2026-08-25T23:45:43.868592",
@@ -3338,5 +3338,6 @@
   "target_local_2088_1011483413__log_ts": "2026-08-25T21:47:36.083286",
   "target_local_2088_1011483413__log_price": null,
   "target_local_2088_1011483413__log_qty": null,
-  "target_local_2088_1011483413": false
+  "target_local_2088_1011483413": false,
+  "walmart_https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Elite-Trainer-Box/20161351456": "OUT_OF_STOCK"
 }
