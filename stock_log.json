@@ -340949,5 +340949,44 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/100-10424/pokemon-tcg-cynthia-s-garchomp-ex-premium-collection"
+  },
+  {
+    "ts": "2026-08-25T20:35:23",
+    "retailer": "Micro Center",
+    "name": "Mega Evolution Ascended Heroes Elite Trainer Box",
+    "store": "Santa Clara",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.microcenter.com/product/706055/nintendo-pokemon-mega-evolution-ascended-heroes-elite-trainer-box"
+  },
+  {
+    "ts": "2026-08-25T20:35:25",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Destined Rivals Booster Display Box 36 Pa",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10157-101/pokemon-tcg-scarlet-and-violet-destined-rivals-booster-display-box-36-packs"
+  },
+  {
+    "ts": "2026-08-25T20:35:30",
+    "retailer": "Costco",
+    "name": "Pokmon Tcg Charizard Ex Super Premium Collection",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.costco.com/pok%C3%A9mon-tcg:-charizard-ex-super-premium-collection.product.4000313298.html"
   }
 ]
