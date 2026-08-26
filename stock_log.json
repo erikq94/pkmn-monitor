@@ -358148,5 +358148,70 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/100-10637/pokemon-tcg-scarlet-and-violet-destined-rivals-3-booster-packs-and-kangaskhan-promo-card"
+  },
+  {
+    "ts": "2026-08-26T06:35:21",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Destined Rivals 3 Booster Packs And Zebst",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/100-10636/pokemon-tcg-scarlet-and-violet-destined-rivals-3-booster-packs-and-zebstrika-promo-card"
+  },
+  {
+    "ts": "2026-08-26T06:35:21",
+    "retailer": "Micro Center",
+    "name": "Mega Evolution Perfect Order Booster Display Box",
+    "store": "Santa Clara",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.microcenter.com/product/709059/nintendo-pokemon-mega-evolution-perfect-order-booster-display-box"
+  },
+  {
+    "ts": "2026-08-26T06:35:25",
+    "retailer": "Micro Center",
+    "name": "Day 2026 Collection",
+    "store": "Santa Clara",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.microcenter.com/product/706781/nintendo-pokemon-day-2026-collection"
+  },
+  {
+    "ts": "2026-08-26T06:35:30",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Prismatic Evolutions Booster Bundle 6 Pac",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10025-101/pokemon-tcg-scarlet-and-violet-prismatic-evolutions-booster-bundle-6-packs"
+  },
+  {
+    "ts": "2026-08-26T06:35:35",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Black Bolt Pokemon Center Elite Trainer B",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10037-118/pokemon-tcg-scarlet-and-violet-black-bolt-pokemon-center-elite-trainer-box"
   }
 ]
