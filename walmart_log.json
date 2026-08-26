@@ -189292,5 +189292,35 @@
     "duration_minutes": null,
     "page_len": 1582,
     "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Chaos-Rising-Elite-Trainer-Box/19988614228"
+  },
+  {
+    "ts": "2026-08-26T12:25:15",
+    "name": "Mega Evolution Ascended Heroes Elite Trainer Box",
+    "status": "OUT_OF_STOCK",
+    "seller_text": "Expedition Gaming Corp 5 out of 5 stars 5 out of 5",
+    "jsonld_seller": null,
+    "jsonld_avail": "OutOfStock",
+    "walmart_confirmed": true,
+    "price": 178.0,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 24145,
+    "url": "https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734"
+  },
+  {
+    "ts": "2026-08-26T12:25:21",
+    "name": "Scarlet Violet Black Bolt White Flare Booster Bundles",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": null,
+    "walmart_confirmed": false,
+    "price": null,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 220,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Scarlet-Violet-Black-Bolt-White-Flare-Booster-Bundles/17752173132"
   }
 ]
