@@ -1243,6 +1243,15 @@
       "day": "Friday",
       "hour": 9,
       "qty": null
+    },
+    {
+      "retailer": "Walmart",
+      "name": "Mega Evolution Ascended Heroes Elite Trainer Box",
+      "store": "Online",
+      "timestamp": "2026-08-26T23:10:15.415714",
+      "day": "Wednesday",
+      "hour": 23,
+      "qty": null
     }
   ],
   "last_summary": "2026-08-25T06:46:45.966917"
