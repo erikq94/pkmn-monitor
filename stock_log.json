@@ -366039,5 +366039,31 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10451-115/pokemon-tcg-30th-celebration-booster-bundle-6-packs"
+  },
+  {
+    "ts": "2026-08-26T13:10:40",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Black Bolt Tech Sticker Collection",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10128-114/pokemon-tcg-scarlet-and-violet-black-bolt-tech-sticker-collection"
+  },
+  {
+    "ts": "2026-08-26T13:10:42",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Chaos Rising Booster Display Box 36 Packs",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10407-119/pokemon-tcg-mega-evolution-chaos-rising-booster-display-box-36-packs"
   }
 ]
