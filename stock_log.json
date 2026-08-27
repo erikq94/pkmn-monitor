@@ -396173,5 +396173,44 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.samsclub.com/ip/pokemon-binder-poster-collection-booster-packs/19167901990"
+  },
+  {
+    "ts": "2026-08-27T06:05:29",
+    "retailer": "Best Buy",
+    "name": "Mega Evolution Perfect Order Elite Trainer Box",
+    "store": "Online",
+    "status": "None",
+    "price": 104.99,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-perfect-order-elite-trainer-box/JJG2TL3W86"
+  },
+  {
+    "ts": "2026-08-27T06:05:39",
+    "retailer": "Best Buy",
+    "name": "Mega Evolution Pitch Black Elite Trainer Box",
+    "store": "Online",
+    "status": "None",
+    "price": 77.06,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-pitch-black-elite-trainer-box/JJG2TL8J45"
+  },
+  {
+    "ts": "2026-08-27T06:05:50",
+    "retailer": "Best Buy",
+    "name": "Scarlet Violet Prismatic Evolutions Booster Bundle",
+    "store": "Online",
+    "status": "None",
+    "price": 109.99,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-prismatic-evolutions-booster-bundle/JJG2TL23JK"
   }
 ]
