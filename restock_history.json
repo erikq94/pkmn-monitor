@@ -1252,6 +1252,51 @@
       "day": "Wednesday",
       "hour": 23,
       "qty": null
+    },
+    {
+      "retailer": "Best Buy",
+      "name": "Mega Evolution Chaos Rising Elite Trainer Box",
+      "store": "Online",
+      "timestamp": "2026-08-27T06:15:15.369370",
+      "day": "Thursday",
+      "hour": 6,
+      "qty": null
+    },
+    {
+      "retailer": "Best Buy",
+      "name": "Mega Evolution Chaos Rising Booster Bundle",
+      "store": "Online",
+      "timestamp": "2026-08-27T06:15:18.807699",
+      "day": "Thursday",
+      "hour": 6,
+      "qty": null
+    },
+    {
+      "retailer": "Best Buy",
+      "name": "Mega Evolution Pitch Black Elite Trainer Box",
+      "store": "Online",
+      "timestamp": "2026-08-27T06:15:35.333319",
+      "day": "Thursday",
+      "hour": 6,
+      "qty": null
+    },
+    {
+      "retailer": "Best Buy",
+      "name": "Scarlet Violet Journey Together Booster Bundle 6 Pk",
+      "store": "Online",
+      "timestamp": "2026-08-27T06:15:39.368229",
+      "day": "Thursday",
+      "hour": 6,
+      "qty": null
+    },
+    {
+      "retailer": "Best Buy",
+      "name": "Scarlet Violet Prismatic Evolutions Booster Bundle",
+      "store": "Online",
+      "timestamp": "2026-08-27T06:15:47.701908",
+      "day": "Thursday",
+      "hour": 6,
+      "qty": null
     }
   ],
   "last_summary": "2026-08-25T06:46:45.966917"
