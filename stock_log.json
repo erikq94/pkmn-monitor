@@ -397434,5 +397434,70 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10057-127/pokemon-tcg-mega-evolution-enhanced-booster-display-box-36-packs-and-1-promo-card"
+  },
+  {
+    "ts": "2026-08-27T07:00:33",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Prismatic Evolutions Tech Sticker Collect",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10022-102/pokemon-tcg-scarlet-and-violet-prismatic-evolutions-tech-sticker-collection-leafeon"
+  },
+  {
+    "ts": "2026-08-27T07:01:01",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Phantasmal Flames Pokemon Center Elite Traine",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10186-109/pokemon-tcg-mega-evolution-phantasmal-flames-pokemon-center-elite-trainer-box"
+  },
+  {
+    "ts": "2026-08-27T07:01:02",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Phantasmal Flames Booster Bundle 6 Packs",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10191-109/pokemon-tcg-mega-evolution-phantasmal-flames-booster-bundle-6-packs"
+  },
+  {
+    "ts": "2026-08-27T07:01:04",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Phantasmal Flames 3 Booster Packs And Sneasel",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10187-108/pokemon-tcg-mega-evolution-phantasmal-flames-3-booster-packs-and-sneasel-promo-card"
+  },
+  {
+    "ts": "2026-08-27T07:01:12",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Enhanced Booster Display Box 36 Packs And 1 P",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10057-127/pokemon-tcg-mega-evolution-enhanced-booster-display-box-36-packs-and-1-promo-card"
   }
 ]
