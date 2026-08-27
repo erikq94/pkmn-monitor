@@ -1353,18 +1353,27 @@ def _bestbuy_stock_status(url):
                         debug["price"] = float(price)
                     except (TypeError, ValueError):
                         debug["price"] = price
-                # Seller check — Best Buy direct listings say "Best Buy"
-                seller = offers.get("seller", {}).get("name", "Best Buy")
-                debug["seller"] = seller
+                # Seller check — Best Buy direct listings say "Best Buy" explicitly
+                # in the offer's seller.name. No default here: defaulting a missing
+                # key to "Best Buy" would silently trust an offer that never actually
+                # said who's selling it.
+                seller = offers.get("seller", {}).get("name")
+                if seller:
+                    debug["seller"] = seller
                 if seller and "best buy" not in seller.lower():
                     return "THIRD_PARTY", sku, debug
                 avail = offers.get("availability", "")
                 if "InStock" in avail:
-                    # Best Buy's own pages always render a "Sold by" section in
-                    # server HTML (even just "Sold by Loading..."). Marketplace
-                    # listings skip it entirely — JSON-LD seller field is
-                    # unreliable for those, so don't trust InStock without it.
-                    if re.search(r"\bsold by\b", text, re.IGNORECASE):
+                    if seller and "best buy" in seller.lower():
+                        # JSON-LD explicitly named Best Buy as the seller — trust it.
+                        return "IN_STOCK", sku, debug
+                    # Seller key was missing from this offer entirely (not just
+                    # non-Best-Buy) — Best Buy's server HTML used to always render
+                    # a "Sold by" section confirming this either way, but that's no
+                    # longer reliably present since their pages went client-rendered.
+                    # Fall back to a text search as a secondary check; if that also
+                    # can't confirm it, stay unresolved rather than assume Best Buy.
+                    if re.search(r"\bsold by\s+best buy\b", text, re.IGNORECASE):
                         return "IN_STOCK", sku, debug
                     return None, sku, debug
                 if "OutOfStock" in avail or "SoldOut" in avail or "Discontinued" in avail:
