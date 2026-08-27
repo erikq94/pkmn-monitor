@@ -1511,6 +1511,50 @@ WALMART_DEBUG = {
 }
 
 
+def _walmart_next_data_status(soup, debug):
+    """Walmart's product pages are Next.js-rendered — real seller/availability/price
+    data lives in the __NEXT_DATA__ JSON blob, not in static HTML text. BeautifulSoup's
+    get_text() only sees ~1-2KB of nav/shell text on these pages regardless of whether
+    the page loaded fine, which used to get misclassified as 'blocked' by a page-length
+    check. Read the structured data directly instead — more reliable and immune to that.
+    Returns (status, debug) with status set, or (None, debug) if NEXT_DATA is missing/
+    unparseable so the caller can fall back to text-based heuristics.
+    """
+    tag = soup.find("script", id="__NEXT_DATA__")
+    if not tag or not tag.string:
+        return None, debug
+    try:
+        product = (
+            json.loads(tag.string)
+            .get("props", {}).get("pageProps", {}).get("initialData", {})
+            .get("data", {}).get("product", {})
+        )
+    except (json.JSONDecodeError, AttributeError, TypeError):
+        return None, debug
+    if not product:
+        return None, debug
+
+    seller = product.get("sellerName") or ""
+    avail = ((product.get("availabilityStatusV2") or {}).get("value")
+             or product.get("availabilityStatus") or "").upper()
+    price = (product.get("priceInfo", {}).get("currentPrice") or {}).get("price")
+
+    debug["jsonld_seller"] = seller or None
+    debug["jsonld_avail"] = avail or None
+    if price is not None:
+        debug["price"] = price
+    walmart_seller = bool(seller) and "walmart" in seller.lower()
+    debug["walmart_confirmed"] = walmart_seller
+
+    if seller and not walmart_seller:
+        return "THIRD_PARTY", debug
+    if "OUT_OF_STOCK" in avail or "SOLDOUT" in avail or "SOLD_OUT" in avail:
+        return "OUT_OF_STOCK", debug
+    if "IN_STOCK" in avail:
+        return ("IN_STOCK" if walmart_seller else None), debug
+    return None, debug
+
+
 def _walmart_stock_status(url):
     """Returns (status, debug) where status is 'IN_STOCK', 'OUT_OF_STOCK', 'COMING_SOON', 'THIRD_PARTY', or None."""
     debug = {"seller_text": None, "jsonld_seller": None, "jsonld_avail": None, "walmart_confirmed": False, "page_len": 0, "qty_left": None, "price": None, "release_date": None}
@@ -1522,6 +1566,11 @@ def _walmart_stock_status(url):
         text = soup.get_text(" ", strip=True)
         debug["page_len"] = len(text)
         debug["qty_left"] = _qty_left(text)
+
+        next_data_status, debug = _walmart_next_data_status(soup, debug)
+        if next_data_status is not None:
+            return next_data_status, debug
+
         if len(text) < 5000:
             print(f"  [blocked] {url.split('/')[-1][:45]}")
             return None, debug
