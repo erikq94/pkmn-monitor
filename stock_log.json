@@ -442323,5 +442323,70 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10054-108/pokemon-tcg-mega-evolution-booster-bundle-6-packs"
+  },
+  {
+    "ts": "2026-08-28T12:36:07",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution 3 Booster Packs And Psyduck Promo Card",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10050-108/pokemon-tcg-mega-evolution-3-booster-packs-and-psyduck-promo-card"
+  },
+  {
+    "ts": "2026-08-28T12:36:09",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution 3 Booster Packs And Golduck Promo Card",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10050-114/pokemon-tcg-mega-evolution-3-booster-packs-and-golduck-promo-card"
+  },
+  {
+    "ts": "2026-08-28T12:36:12",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet 151 Pokemon Center Elite Trainer Box",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/290-85466/pokemon-tcg-scarlet-and-violet-151-pokemon-center-elite-trainer-box"
+  },
+  {
+    "ts": "2026-08-28T12:36:14",
+    "retailer": "Pokemon Center",
+    "name": "Cynthia S Garchomp Ex Premium Collection",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/100-10424/pokemon-tcg-cynthia-s-garchomp-ex-premium-collection"
+  },
+  {
+    "ts": "2026-08-28T12:36:18",
+    "retailer": "Pokemon Center",
+    "name": "Mega Lucario Ex League Battle Deck",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10360-101/pokemon-tcg-mega-lucario-ex-league-battle-deck"
   }
 ]
