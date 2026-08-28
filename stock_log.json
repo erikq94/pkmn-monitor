@@ -433015,5 +433015,18 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-prismatic-evolutions-booster-bundle/JJG2TL23JK"
+  },
+  {
+    "ts": "2026-08-28T04:05:27",
+    "retailer": "Best Buy",
+    "name": "Mega Evolution Perfect Order Booster Bundle",
+    "store": "Online",
+    "status": "IN_STOCK",
+    "price": 49.99,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-perfect-order-booster-bundle/JJG2TL3QK2"
   }
 ]
