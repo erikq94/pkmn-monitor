@@ -434640,5 +434640,70 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10054-108/pokemon-tcg-mega-evolution-booster-bundle-6-packs"
+  },
+  {
+    "ts": "2026-08-28T05:46:06",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution 3 Booster Packs And Psyduck Promo Card",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10050-108/pokemon-tcg-mega-evolution-3-booster-packs-and-psyduck-promo-card"
+  },
+  {
+    "ts": "2026-08-28T05:46:08",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution 3 Booster Packs And Golduck Promo Card",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10050-114/pokemon-tcg-mega-evolution-3-booster-packs-and-golduck-promo-card"
+  },
+  {
+    "ts": "2026-08-28T05:46:12",
+    "retailer": "Pokemon Center",
+    "name": "Cynthia S Garchomp Ex Premium Collection",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/100-10424/pokemon-tcg-cynthia-s-garchomp-ex-premium-collection"
+  },
+  {
+    "ts": "2026-08-28T05:46:14",
+    "retailer": "Pokemon Center",
+    "name": "Iono S Bellibolt Ex Premium Collection",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/100-10431/pokemon-tcg-iono-s-bellibolt-ex-premium-collection"
+  },
+  {
+    "ts": "2026-08-28T05:46:15",
+    "retailer": "Pokemon Center",
+    "name": "Mega Zygarde Ex Premium Collection",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10408-101/pokemon-tcg-mega-zygarde-ex-premium-collection"
   }
 ]
