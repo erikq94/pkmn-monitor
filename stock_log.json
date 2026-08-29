@@ -477878,5 +477878,70 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-ascended-heroes-booster-bundle/JJG2TL3JP8"
+  },
+  {
+    "ts": "2026-08-29T19:55:26",
+    "retailer": "Sam's Club",
+    "name": "Surprise Box Booster Bundle",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.samsclub.com/ip/pokemon-surprise-box-booster-bundle/18933156288"
+  },
+  {
+    "ts": "2026-08-29T19:55:29",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Destined Rivals Sleeved Booster Pack 10 C",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/100-10623/pokemon-tcg-scarlet-and-violet-destined-rivals-sleeved-booster-pack-10-cards"
+  },
+  {
+    "ts": "2026-08-29T19:55:46",
+    "retailer": "Best Buy",
+    "name": "Scarlet Violet Prismatic Evolutions Elite Trainer Box",
+    "store": "Online",
+    "status": "INVITE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-prismatic-evolutions-elite-trainer-box/JJG2TLCW3L"
+  },
+  {
+    "ts": "2026-08-29T19:55:49",
+    "retailer": "Best Buy",
+    "name": "Scarlet Violet Prismatic Evolutions Booster Bundle",
+    "store": "Online",
+    "status": "IN_STOCK",
+    "price": 109.99,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-prismatic-evolutions-booster-bundle/JJG2TL23JK"
+  },
+  {
+    "ts": "2026-08-29T19:56:23",
+    "retailer": "Pokemon Center",
+    "name": "Mega Zygarde Ex Premium Collection",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10408-101/pokemon-tcg-mega-zygarde-ex-premium-collection"
   }
 ]
