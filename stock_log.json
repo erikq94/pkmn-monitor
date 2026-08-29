@@ -478138,5 +478138,18 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10437-102/pokemon-tcg-scarlet-and-violet-151-mini-tin-arcanine-and-omanyte"
+  },
+  {
+    "ts": "2026-08-29T20:30:18",
+    "retailer": "Best Buy",
+    "name": "Mega Evolution Chaos Rising Elite Trainer Box",
+    "store": "Online",
+    "status": "IN_STOCK",
+    "price": 87.99,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-chaos-rising-elite-trainer-box/JJG2TL34RT"
   }
 ]
