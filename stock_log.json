@@ -462603,5 +462603,57 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/100-10424/pokemon-tcg-cynthia-s-garchomp-ex-premium-collection"
+  },
+  {
+    "ts": "2026-08-29T06:15:43",
+    "retailer": "Best Buy",
+    "name": "Scarlet Violet Journey Together Booster Bundle 6 Pk",
+    "store": "Online",
+    "status": "IN_STOCK",
+    "price": 56.25,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-journey-together-booster-bundle-6-pk/JJG2TLCFST"
+  },
+  {
+    "ts": "2026-08-29T06:15:47",
+    "retailer": "Best Buy",
+    "name": "Scarlet Violet Prismatic Evolutions Elite Trainer Box",
+    "store": "Online",
+    "status": "INVITE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-prismatic-evolutions-elite-trainer-box/JJG2TLCW3L"
+  },
+  {
+    "ts": "2026-08-29T06:15:53",
+    "retailer": "Best Buy",
+    "name": "Scarlet Violet Prismatic Evolutions Booster Bundle",
+    "store": "Online",
+    "status": "IN_STOCK",
+    "price": 109.99,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-prismatic-evolutions-booster-bundle/JJG2TL23JK"
+  },
+  {
+    "ts": "2026-08-29T06:16:25",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Pitch Black Booster Display Box 36 Packs",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10425-120/pokemon-tcg-mega-evolution-pitch-black-booster-display-box-36-packs"
   }
 ]
