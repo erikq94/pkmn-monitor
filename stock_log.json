@@ -457169,5 +457169,31 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/bundle1194/pokemon-tcg-sword-and-shield-brilliant-stars-elite-trainer-box-and-pokemon-legends-arceus-poke-ball-replica-bundle"
+  },
+  {
+    "ts": "2026-08-29T01:50:21",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Destined Rivals 3 Booster Packs And Zebst",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/100-10636/pokemon-tcg-scarlet-and-violet-destined-rivals-3-booster-packs-and-zebstrika-promo-card"
+  },
+  {
+    "ts": "2026-08-29T01:50:22",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Destined Rivals 3 Booster Packs And Kanga",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/100-10637/pokemon-tcg-scarlet-and-violet-destined-rivals-3-booster-packs-and-kangaskhan-promo-card"
   }
 ]
