@@ -473796,5 +473796,44 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/290-85466/pokemon-tcg-scarlet-and-violet-151-pokemon-center-elite-trainer-box"
+  },
+  {
+    "ts": "2026-08-29T16:45:18",
+    "retailer": "Best Buy",
+    "name": "Mega Evolution Chaos Rising Elite Trainer Box",
+    "store": "Online",
+    "status": "IN_STOCK",
+    "price": 87.99,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-chaos-rising-elite-trainer-box/JJG2TL34RT"
+  },
+  {
+    "ts": "2026-08-29T16:45:35",
+    "retailer": "Best Buy",
+    "name": "Mega Evolution Pitch Black Elite Trainer Box",
+    "store": "Online",
+    "status": "IN_STOCK",
+    "price": 76.46,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-pitch-black-elite-trainer-box/JJG2TL8J45"
+  },
+  {
+    "ts": "2026-08-29T16:46:08",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet 151 Pokemon Center Elite Trainer Box",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/290-85466/pokemon-tcg-scarlet-and-violet-151-pokemon-center-elite-trainer-box"
   }
 ]
