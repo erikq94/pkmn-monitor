@@ -464839,5 +464839,57 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10425-120/pokemon-tcg-mega-evolution-pitch-black-booster-display-box-36-packs"
+  },
+  {
+    "ts": "2026-08-29T08:21:10",
+    "retailer": "Pokemon Center",
+    "name": "Mega Zygarde Ex Premium Collection",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10408-101/pokemon-tcg-mega-zygarde-ex-premium-collection"
+  },
+  {
+    "ts": "2026-08-29T08:21:13",
+    "retailer": "Pokemon Center",
+    "name": "Pokemon Day 2026 Collection",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10394-108/pokemon-tcg-pokemon-day-2026-collection"
+  },
+  {
+    "ts": "2026-08-29T08:21:30",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Journey Together Booster Display Box And ",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/bundle1191/pokemon-tcg-scarlet-and-violet-journey-together-booster-display-box-and-accessories-bundle"
+  },
+  {
+    "ts": "2026-08-29T08:21:32",
+    "retailer": "Pokemon Center",
+    "name": "Sword And Shield Brilliant Stars Elite Trainer Box And Pokem",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/bundle1194/pokemon-tcg-sword-and-shield-brilliant-stars-elite-trainer-box-and-pokemon-legends-arceus-poke-ball-replica-bundle"
   }
 ]
