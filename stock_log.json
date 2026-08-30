@@ -516306,5 +516306,18 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-prismatic-evolutions-booster-bundle/JJG2TL23JK"
+  },
+  {
+    "ts": "2026-08-30T20:15:29",
+    "retailer": "Best Buy",
+    "name": "Mega Evolution Ascended Heroes Booster Bundle",
+    "store": "Online",
+    "status": "IN_STOCK",
+    "price": 121.0,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-ascended-heroes-booster-bundle/JJG2TL3JP8"
   }
 ]
