@@ -513225,5 +513225,31 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/100-10341/pokemon-tcg-scarlet-and-violet-journey-together-booster-bundle-6-packs"
+  },
+  {
+    "ts": "2026-08-30T18:05:18",
+    "retailer": "Micro Center",
+    "name": "Mega Evolution Perfect Order Booster Display Box",
+    "store": "Santa Clara",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.microcenter.com/product/709059/nintendo-pokemon-mega-evolution-perfect-order-booster-display-box"
+  },
+  {
+    "ts": "2026-08-30T18:05:21",
+    "retailer": "Micro Center",
+    "name": "Day 2026 Collection",
+    "store": "Santa Clara",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.microcenter.com/product/706781/nintendo-pokemon-day-2026-collection"
   }
 ]
