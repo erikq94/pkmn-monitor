@@ -498873,5 +498873,57 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10375-108/pokemon-tcg-mega-evolution-perfect-order-3-booster-packs-and-chikorita-promo-card"
+  },
+  {
+    "ts": "2026-08-30T10:15:14",
+    "retailer": "Micro Center",
+    "name": "Mega Evolution Ascended Heroes Elite Trainer Box",
+    "store": "Santa Clara",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.microcenter.com/product/706055/nintendo-pokemon-mega-evolution-ascended-heroes-elite-trainer-box"
+  },
+  {
+    "ts": "2026-08-30T10:15:15",
+    "retailer": "Costco",
+    "name": "Pokmon 6 Pack Poke Balls",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.costco.com/pok%C3%A9mon-6-pack-poke-balls.product.4000449856.html"
+  },
+  {
+    "ts": "2026-08-30T10:15:15",
+    "retailer": "Sam's Club",
+    "name": "Sam's Club item 19170800669",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.samsclub.com/ip/19170800669"
+  },
+  {
+    "ts": "2026-08-30T10:15:23",
+    "retailer": "Best Buy",
+    "name": "Mega Evolution Perfect Order Elite Trainer Box",
+    "store": "Online",
+    "status": "IN_STOCK",
+    "price": 94.99,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-perfect-order-elite-trainer-box/JJG2TL3W86"
   }
 ]
