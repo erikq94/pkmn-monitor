@@ -513992,5 +513992,31 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.costco.com/pok%C3%A9mon-tcg:-charizard-ex-super-premium-collection.product.4000313298.html"
+  },
+  {
+    "ts": "2026-08-30T18:35:17",
+    "retailer": "Best Buy",
+    "name": "Mega Evolution Chaos Rising Booster Bundle",
+    "store": "Online",
+    "status": "IN_STOCK",
+    "price": 44.99,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-chaos-rising-booster-bundle/JJG2TL34H9"
+  },
+  {
+    "ts": "2026-08-30T18:35:28",
+    "retailer": "Best Buy",
+    "name": "Mega Evolution Pitch Black Elite Trainer Box",
+    "store": "Online",
+    "status": "IN_STOCK",
+    "price": 76.46,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-pitch-black-elite-trainer-box/JJG2TL8J45"
   }
 ]
