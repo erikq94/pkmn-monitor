@@ -236917,5 +236917,50 @@
     "duration_minutes": null,
     "page_len": 2005,
     "url": "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Elite-Trainer-Box/20161351456"
+  },
+  {
+    "ts": "2026-08-30T16:55:36",
+    "name": "Mega Evolution Chaos Rising Elite Trainer Box",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "ETERNITY DISTRIBUTORS LLC",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 73.99,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1891,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Chaos-Rising-Elite-Trainer-Box/19988614228"
+  },
+  {
+    "ts": "2026-08-30T16:55:49",
+    "name": "Mega Evolution Pitch Black Elite Trainer Box",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "PopFindr",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 84.95,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 2005,
+    "url": "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Elite-Trainer-Box/20161351456"
+  },
+  {
+    "ts": "2026-08-30T16:55:52",
+    "name": "Mega Evolution Pitch Black Booster Box Me05",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": null,
+    "walmart_confirmed": false,
+    "price": null,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 220,
+    "url": "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Booster-Box-ME05/20140716298"
   }
 ]
