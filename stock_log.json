@@ -516657,5 +516657,70 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-pitch-black-elite-trainer-box/JJG2TL8J45"
+  },
+  {
+    "ts": "2026-08-30T20:50:21",
+    "retailer": "Costco",
+    "name": "Pokmon Unova Heavy Hitters Premium Collection",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.costco.com/pok%C3%A9mon-unova-heavy-hitters-premium-collection.product.1943158.html"
+  },
+  {
+    "ts": "2026-08-30T20:50:36",
+    "retailer": "Best Buy",
+    "name": "Mega Evolution Pitch Black Elite Trainer Box",
+    "store": "Online",
+    "status": "IN_STOCK",
+    "price": 80.99,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-pitch-black-elite-trainer-box/JJG2TL8J45"
+  },
+  {
+    "ts": "2026-08-30T20:51:06",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Phantasmal Flames 3 Booster Packs And Weavile",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10187-114/pokemon-tcg-mega-evolution-phantasmal-flames-3-booster-packs-and-weavile-promo-card"
+  },
+  {
+    "ts": "2026-08-30T20:51:08",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Pokemon Center Elite Trainer Box Mega Lucario",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10047-108/pokemon-tcg-mega-evolution-pokemon-center-elite-trainer-box-mega-lucario"
+  },
+  {
+    "ts": "2026-08-30T20:51:43",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet 151 Mini Tin Arcanine And Omanyte",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10437-102/pokemon-tcg-scarlet-and-violet-151-mini-tin-arcanine-and-omanyte"
   }
 ]
