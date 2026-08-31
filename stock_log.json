@@ -549352,5 +549352,44 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/bundle1191/pokemon-tcg-scarlet-and-violet-journey-together-booster-display-box-and-accessories-bundle"
+  },
+  {
+    "ts": "2026-08-31T15:36:29",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet 151 Mini Tin Gengar And Poliwag",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10437-107/pokemon-tcg-scarlet-and-violet-151-mini-tin-gengar-and-poliwag"
+  },
+  {
+    "ts": "2026-08-31T15:36:32",
+    "retailer": "Pokemon Center",
+    "name": "Sword And Shield Brilliant Stars Elite Trainer Box And Pokem",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/bundle1194/pokemon-tcg-sword-and-shield-brilliant-stars-elite-trainer-box-and-pokemon-legends-arceus-poke-ball-replica-bundle"
+  },
+  {
+    "ts": "2026-08-31T15:36:34",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Destined Rivals Pokemon Center Elite Trai",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/bundle1196/pokemon-tcg-scarlet-and-violet-destined-rivals-pokemon-center-elite-trainer-box-and-premium-binder-bundle"
   }
 ]
