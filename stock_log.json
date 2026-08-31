@@ -547441,5 +547441,18 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10058-102/pokemon-tcg-first-partner-illustration-collection-series-2"
+  },
+  {
+    "ts": "2026-08-31T14:11:24",
+    "retailer": "Pokemon Center",
+    "name": "Mega Charizard Tin Mega Charizard X",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10300-121/pokemon-tcg-mega-charizard-tin-mega-charizard-x"
   }
 ]
