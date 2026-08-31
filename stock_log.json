@@ -556580,5 +556580,31 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.costco.com/pok%C3%A9mon-tcg:-charizard-ex-super-premium-collection.product.4000313298.html"
+  },
+  {
+    "ts": "2026-08-31T22:21:24",
+    "retailer": "Pokemon Center",
+    "name": "Mega Charizard Tin Mega Charizard Y",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10300-122/pokemon-tcg-mega-charizard-tin-mega-charizard-y"
+  },
+  {
+    "ts": "2026-08-31T22:21:25",
+    "retailer": "Pokemon Center",
+    "name": "Mega Charizard Tin Mega Charizard X",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10300-121/pokemon-tcg-mega-charizard-tin-mega-charizard-x"
   }
 ]
