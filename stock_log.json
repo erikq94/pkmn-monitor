@@ -549404,5 +549404,31 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10422-109/pokemon-tcg-mega-evolution-pitch-black-booster-bundle-6-packs"
+  },
+  {
+    "ts": "2026-08-31T15:45:29",
+    "retailer": "Costco",
+    "name": "Pokmon Tcg Charizard Ex Super Premium Collection",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.costco.com/pok%C3%A9mon-tcg:-charizard-ex-super-premium-collection.product.4000313298.html"
+  },
+  {
+    "ts": "2026-08-31T15:46:01",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Ascended Heroes Tech Sticker Collection Charm",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10314-121/pokemon-tcg-mega-evolution-ascended-heroes-tech-sticker-collection-charmander"
   }
 ]
