@@ -540733,5 +540733,31 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-prismatic-evolutions-booster-bundle/JJG2TL23JK"
+  },
+  {
+    "ts": "2026-08-31T08:06:13",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Chaos Rising Build Battle Box",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10401-101/pokemon-tcg-mega-evolution-chaos-rising-build-battle-box"
+  },
+  {
+    "ts": "2026-08-31T08:06:24",
+    "retailer": "Pokemon Center",
+    "name": "First Partner Illustration Collection Series 2",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10058-102/pokemon-tcg-first-partner-illustration-collection-series-2"
   }
 ]
