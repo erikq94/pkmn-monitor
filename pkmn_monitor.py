@@ -85,6 +85,9 @@ TARGET_TCINS = [
     "1011483406",                        # Pitch Black ETB ($59.99)
     "1011483414",                        # Pitch Black Booster Bundle ($31.99)
     "1011483413",                        # Pitch Black Booster Display ($179.99)
+    # 30th Celebration (new, 2026-08-30) — verified sold & shipped by Target directly,
+    # $69.99, releases 2026-09-16. Preorder window already opened/closed once Aug 18.
+    "1010892076",                        # 30th Celebration ETB
 ]
 
 
@@ -1279,6 +1282,8 @@ BESTBUY_WATCH = [
     "https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-journey-together-booster-bundle-6-pk/JJG2TLCFST",
     "https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-prismatic-evolutions-elite-trainer-box/JJG2TLCW3L",
     "https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-prismatic-evolutions-booster-bundle/JJG2TL23JK",
+    # ── 30th Celebration (new, 2026-08-30) — releases 2026-09-16 ────────────────
+    "https://www.bestbuy.com/product/pokemon-trading-card-game-30th-celebration-elite-trainer-box/JJG2TL8XCJ",
 ]
 
 
@@ -1504,6 +1509,10 @@ WALMART_WATCH = [
     # Pitch Black (new, 2026-08-16) — seller unverified, debug mode
     "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Elite-Trainer-Box/20161351456",
     "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Booster-Box-ME05/20140716298",
+    # 30th Celebration (new, 2026-08-30) — both current listings confirmed
+    # marketplace-marked-up ($174-190 vs $49.99 MSRP), debug mode
+    "https://www.walmart.com/ip/Pokemon-TCG-30th-Celebration-Elite-Trainer-Box-ETB/20754418655",
+    "https://www.walmart.com/ip/Pokemon-TCG-30th-Celebration-Elite-Trainer-Box/20640569221",
 ]
 
 # URLs in debug mode — logged and sent as quiet messages, no @everyone alert.
@@ -1517,6 +1526,8 @@ WALMART_DEBUG = {
     "https://www.walmart.com/ip/POKEMON-ME2-PHANTASMAL-FLAMES-BOOSTER-BUNDLE/17785924366",
     "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Elite-Trainer-Box/20161351456",
     "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Booster-Box-ME05/20140716298",
+    "https://www.walmart.com/ip/Pokemon-TCG-30th-Celebration-Elite-Trainer-Box-ETB/20754418655",
+    "https://www.walmart.com/ip/Pokemon-TCG-30th-Celebration-Elite-Trainer-Box/20640569221",
 }
 
 

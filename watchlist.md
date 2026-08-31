@@ -114,6 +114,9 @@ Only alerts when sold directly by Target (no marketplace sellers).
 - [TCIN 1011483414 — Pitch Black Booster Bundle, $31.99](https://www.target.com/p/-/A-1011483414)
 - [TCIN 1011483413 — Pitch Black Booster Display, $179.99](https://www.target.com/p/-/A-1011483413)
 
+### 30th Celebration (new) — releases 2026-09-16
+- [TCIN 1010892076 — 30th Celebration ETB, $69.99](https://www.target.com/p/-/A-1010892076)
+
 ---
 
 ## 🎴 POKEMON CENTER
@@ -236,6 +239,9 @@ Also detects **invite-only / drop** events. Only alerts for items sold directly 
 - [Prismatic Evolutions — Elite Trainer Box](https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-prismatic-evolutions-elite-trainer-box/JJG2TLCW3L)
 - [Prismatic Evolutions — Booster Bundle](https://www.bestbuy.com/product/pokemon-trading-card-game-scarlet-violet-prismatic-evolutions-booster-bundle/JJG2TL23JK)
 
+### 30th Celebration (new) — releases 2026-09-16
+- [30th Celebration — Elite Trainer Box](https://www.bestbuy.com/product/pokemon-trading-card-game-30th-celebration-elite-trainer-box/JJG2TL8XCJ)
+
 ---
 
 ## 🟡 WALMART
@@ -256,3 +262,5 @@ Checking online stock every 5 min. Only alerts when sold **directly by Walmart.c
 - [Phantasmal Flames — Booster Bundle](https://www.walmart.com/ip/POKEMON-ME2-PHANTASMAL-FLAMES-BOOSTER-BUNDLE/17785924366) *(debug)*
 - [Pitch Black — Elite Trainer Box](https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Elite-Trainer-Box/20161351456) *(debug)*
 - [Pitch Black — Booster Display Box](https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Booster-Box-ME05/20140716298) *(debug)*
+- [30th Celebration — Elite Trainer Box](https://www.walmart.com/ip/Pokemon-TCG-30th-Celebration-Elite-Trainer-Box-ETB/20754418655) *(debug)*
+- [30th Celebration — Elite Trainer Box (alt listing)](https://www.walmart.com/ip/Pokemon-TCG-30th-Celebration-Elite-Trainer-Box/20640569221) *(debug)*
