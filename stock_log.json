@@ -551601,5 +551601,31 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/bundle1196/pokemon-tcg-scarlet-and-violet-destined-rivals-pokemon-center-elite-trainer-box-and-premium-binder-bundle"
+  },
+  {
+    "ts": "2026-08-31T17:40:23",
+    "retailer": "Costco",
+    "name": "Pokmon Tcg Charizard Ex Super Premium Collection",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.costco.com/pok%C3%A9mon-tcg:-charizard-ex-super-premium-collection.product.4000313298.html"
+  },
+  {
+    "ts": "2026-08-31T17:41:21",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Pitch Black Booster Bundle 6 Packs",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10422-109/pokemon-tcg-mega-evolution-pitch-black-booster-bundle-6-packs"
   }
 ]
