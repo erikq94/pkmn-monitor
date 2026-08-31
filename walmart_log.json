@@ -246787,5 +246787,20 @@
     "duration_minutes": null,
     "page_len": 220,
     "url": "https://www.walmart.com/ip/POKEMON-ME2-PHANTASMAL-FLAMES-ELITE-TRAINER-BOX/17780209250"
+  },
+  {
+    "ts": "2026-08-31T12:05:32",
+    "name": "Mega Evolution Chaos Rising Elite Trainer Box",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "LAMEGOCOLLECTIBLES LLC",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 71.99,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1581,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Chaos-Rising-Elite-Trainer-Box/19988614228"
   }
 ]
