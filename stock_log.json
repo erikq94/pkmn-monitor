@@ -550990,5 +550990,31 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10191-109/pokemon-tcg-mega-evolution-phantasmal-flames-booster-bundle-6-packs"
+  },
+  {
+    "ts": "2026-08-31T17:15:32",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Prismatic Evolutions Booster Bundle 6 Pac",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10025-101/pokemon-tcg-scarlet-and-violet-prismatic-evolutions-booster-bundle-6-packs"
+  },
+  {
+    "ts": "2026-08-31T17:15:34",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Prismatic Evolutions Tech Sticker Collect",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10022-102/pokemon-tcg-scarlet-and-violet-prismatic-evolutions-tech-sticker-collection-leafeon"
   }
 ]
