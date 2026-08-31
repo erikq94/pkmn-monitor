@@ -555124,5 +555124,18 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-perfect-order-booster-bundle/JJG2TL3QK2"
+  },
+  {
+    "ts": "2026-08-31T20:55:20",
+    "retailer": "Sam's Club",
+    "name": "Surprise Box Booster Bundle",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.samsclub.com/ip/pokemon-surprise-box-booster-bundle/18933156288"
   }
 ]
