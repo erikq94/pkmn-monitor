@@ -549560,5 +549560,83 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10058-101/pokemon-tcg-first-partner-illustration-collection-series-1"
+  },
+  {
+    "ts": "2026-08-31T16:00:27",
+    "retailer": "Sam's Club",
+    "name": "Surprise Box Booster Bundle",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.samsclub.com/ip/pokemon-surprise-box-booster-bundle/18933156288"
+  },
+  {
+    "ts": "2026-08-31T16:00:29",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Destined Rivals 3 Booster Packs And Kanga",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/100-10637/pokemon-tcg-scarlet-and-violet-destined-rivals-3-booster-packs-and-kangaskhan-promo-card"
+  },
+  {
+    "ts": "2026-08-31T16:00:33",
+    "retailer": "Best Buy",
+    "name": "Mega Evolution Perfect Order Booster Bundle",
+    "store": "Online",
+    "status": "IN_STOCK",
+    "price": 49.99,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-perfect-order-booster-bundle/JJG2TL3QK2"
+  },
+  {
+    "ts": "2026-08-31T16:00:38",
+    "retailer": "Best Buy",
+    "name": "Mega Evolution Ascended Heroes Booster Bundle",
+    "store": "Online",
+    "status": "IN_STOCK",
+    "price": 121.99,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-ascended-heroes-booster-bundle/JJG2TL3JP8"
+  },
+  {
+    "ts": "2026-08-31T16:01:33",
+    "retailer": "Pokemon Center",
+    "name": "First Partner Illustration Collection Series 2",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10058-102/pokemon-tcg-first-partner-illustration-collection-series-2"
+  },
+  {
+    "ts": "2026-08-31T16:01:36",
+    "retailer": "Pokemon Center",
+    "name": "Mega Charizard Tin Mega Charizard X",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10300-121/pokemon-tcg-mega-charizard-tin-mega-charizard-x"
   }
 ]
