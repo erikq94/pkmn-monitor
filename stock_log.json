@@ -585492,5 +585492,57 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10035-115/pokemon-tcg-scarlet-and-violet-white-flare-booster-bundle-6-packs"
+  },
+  {
+    "ts": "2026-09-01T18:00:31",
+    "retailer": "Best Buy",
+    "name": "Mega Evolution Chaos Rising Booster Bundle",
+    "store": "Online",
+    "status": "IN_STOCK",
+    "price": 48.99,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-chaos-rising-booster-bundle/JJG2TL34H9"
+  },
+  {
+    "ts": "2026-09-01T18:00:32",
+    "retailer": "Costco",
+    "name": "Pokmon Tcg Charizard Ex Super Premium Collection",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.costco.com/pok%C3%A9mon-tcg:-charizard-ex-super-premium-collection.product.4000313298.html"
+  },
+  {
+    "ts": "2026-09-01T18:00:41",
+    "retailer": "Best Buy",
+    "name": "Mega Evolution Ascended Heroes Booster Bundle",
+    "store": "Online",
+    "status": "IN_STOCK",
+    "price": 94.99,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-ascended-heroes-booster-bundle/JJG2TL3JP8"
+  },
+  {
+    "ts": "2026-09-01T18:00:45",
+    "retailer": "Best Buy",
+    "name": "Mega Evolution Pitch Black Elite Trainer Box",
+    "store": "Online",
+    "status": "IN_STOCK",
+    "price": 99.94,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-pitch-black-elite-trainer-box/JJG2TL8J45"
   }
 ]
