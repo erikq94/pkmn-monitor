@@ -567773,5 +567773,31 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10437-107/pokemon-tcg-scarlet-and-violet-151-mini-tin-gengar-and-poliwag"
+  },
+  {
+    "ts": "2026-09-01T07:35:50",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Ascended Heroes Pokemon Center Elite Trainer ",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10315-108/pokemon-tcg-mega-evolution-ascended-heroes-pokemon-center-elite-trainer-box"
+  },
+  {
+    "ts": "2026-09-01T07:36:03",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Pokemon Center Elite Trainer Box Mega Gardevo",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10047-120/pokemon-tcg-mega-evolution-pokemon-center-elite-trainer-box-mega-gardevoir"
   }
 ]
