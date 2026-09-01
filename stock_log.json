@@ -561065,5 +561065,70 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10300-121/pokemon-tcg-mega-charizard-tin-mega-charizard-x"
+  },
+  {
+    "ts": "2026-09-01T02:15:16",
+    "retailer": "Ace Hardware",
+    "name": "Pokemon Pitch Black Elite Trainer Box Trading Cards",
+    "store": "Online",
+    "status": "IN_STOCK",
+    "price": 79.99,
+    "qty": 1,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.acehardware.com/pokemon-pitch-black-elite-trainer-box-trading-cards/p/9128019"
+  },
+  {
+    "ts": "2026-09-01T02:15:19",
+    "retailer": "Ace Hardware",
+    "name": "Pokemon Pitch Black Booster Bundle Trading Cards",
+    "store": "Online",
+    "status": "IN_STOCK",
+    "price": 34.99,
+    "qty": 1,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.acehardware.com/pokemon-pitch-black-booster-bundle-trading-cards/p/9128020"
+  },
+  {
+    "ts": "2026-09-01T02:15:22",
+    "retailer": "Ace Hardware",
+    "name": "Pokemon Chaos Rising Elite Trainer Box Trading Cards",
+    "store": "Online",
+    "status": "IN_STOCK",
+    "price": 59.99,
+    "qty": 1,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.acehardware.com/pokemon-chaos-rising-elite-trainer-box-trading-cards/p/9126575"
+  },
+  {
+    "ts": "2026-09-01T02:15:26",
+    "retailer": "Ace Hardware",
+    "name": "Pokemon Chaos Rising Booster Bundle Trading Cards",
+    "store": "Online",
+    "status": "IN_STOCK",
+    "price": 44.99,
+    "qty": 1,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.acehardware.com/pokemon-chaos-rising-booster-bundle-trading-cards/p/9126574"
+  },
+  {
+    "ts": "2026-09-01T02:15:29",
+    "retailer": "Ace Hardware",
+    "name": "Pokemon Prismatic Evolutions Elite Trainer Box Trading Cards",
+    "store": "Online",
+    "status": "IN_STOCK",
+    "price": 139.99,
+    "qty": 1,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.acehardware.com/pokemon-prismatic-evolutions-elite-trainer-box-trading-cards/p/9108372"
   }
 ]
