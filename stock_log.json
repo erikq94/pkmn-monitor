@@ -561039,5 +561039,31 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10191-109/pokemon-tcg-mega-evolution-phantasmal-flames-booster-bundle-6-packs"
+  },
+  {
+    "ts": "2026-09-01T02:11:22",
+    "retailer": "Pokemon Center",
+    "name": "Mega Charizard Tin Mega Charizard Y",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10300-122/pokemon-tcg-mega-charizard-tin-mega-charizard-y"
+  },
+  {
+    "ts": "2026-09-01T02:11:24",
+    "retailer": "Pokemon Center",
+    "name": "Mega Charizard Tin Mega Charizard X",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10300-121/pokemon-tcg-mega-charizard-tin-mega-charizard-x"
   }
 ]
