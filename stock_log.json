@@ -574741,5 +574741,18 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.samsclub.com/ip/19170800669"
+  },
+  {
+    "ts": "2026-09-01T13:25:51",
+    "retailer": "Pokemon Center",
+    "name": "Mega Evolution Ascended Heroes Pokemon Center Elite Trainer ",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10315-108/pokemon-tcg-mega-evolution-ascended-heroes-pokemon-center-elite-trainer-box"
   }
 ]
