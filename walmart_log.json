@@ -263062,5 +263062,50 @@
     "duration_minutes": null,
     "page_len": 1581,
     "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Chaos-Rising-Elite-Trainer-Box/19988614228"
+  },
+  {
+    "ts": "2026-09-01T21:00:28",
+    "name": "Mega Evolution Perfect Order Booster Bundle 6 Packs",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "1000607114.ontario.inc",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 42.47,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 2013,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Perfect-Order-Booster-Bundle-6-Packs/19380764160"
+  },
+  {
+    "ts": "2026-09-01T21:00:37",
+    "name": "Tcg Scarlet Violet Destined Rivals Booster Bundle 6 Packs",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": null,
+    "walmart_confirmed": false,
+    "price": null,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 220,
+    "url": "https://www.walmart.com/ip/TCG-Scarlet-Violet-Destined-Rivals-Booster-Bundle-6-Packs/15700422581"
+  },
+  {
+    "ts": "2026-09-01T21:01:01",
+    "name": "30Th Celebration Elite Trainer Box",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": null,
+    "walmart_confirmed": false,
+    "price": null,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 220,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-30th-Celebration-Elite-Trainer-Box/20640569221"
   }
 ]
