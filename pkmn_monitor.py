@@ -1773,6 +1773,66 @@ def check_walmart(state, seed=False, history=None):
 
 # ── Micro Center ─────────────────────────────────────────────────────────────
 
+# ── Ace Hardware (data collection only — no alerts) ─────────────────────────
+# User wants to see whether Ace Hardware sells at/above retail before deciding
+# whether it's worth building out as a fully-alerting retailer. This just logs
+# price/stock to stock_log.json every cycle; no notify(), no restock alerts.
+ACE_WATCH = [
+    "https://www.acehardware.com/pokemon-pitch-black-elite-trainer-box-trading-cards/p/9128019",
+    "https://www.acehardware.com/pokemon-pitch-black-booster-bundle-trading-cards/p/9128020",
+    "https://www.acehardware.com/pokemon-chaos-rising-elite-trainer-box-trading-cards/p/9126575",
+    "https://www.acehardware.com/pokemon-chaos-rising-booster-bundle-trading-cards/p/9126574",
+    "https://www.acehardware.com/pokemon-prismatic-evolutions-elite-trainer-box-trading-cards/p/9108372",
+]
+
+
+def _ace_stock_status(url):
+    """Data-collection only. Returns (status, name, debug) — status is 'IN_STOCK',
+    'OUT_OF_STOCK', or None. Product data lives in a preloaded JSON blob (Mozu/Kibo
+    commerce platform), same style as Walmart's __NEXT_DATA__ — no text scraping."""
+    debug = {"price": None, "msrp": None, "qty_left": None}
+    try:
+        r = cf.get(url, impersonate="chrome124", timeout=20, allow_redirects=True)
+        if not r.ok:
+            return None, None, debug
+        soup = BeautifulSoup(r.text, "html.parser")
+        tag = soup.find("script", id="data-mz-preload-product")
+        if not tag or not tag.string:
+            return None, None, debug
+        data = json.loads(tag.string)
+        name = data.get("content", {}).get("productName")
+        price_info = data.get("price", {}) or {}
+        debug["price"] = price_info.get("price")
+        debug["msrp"] = price_info.get("msrp")
+        inv = data.get("inventoryInfo", {}) or {}
+        debug["qty_left"] = inv.get("onlineStockAvailable")
+        purchasable = (data.get("purchasableState") or {}).get("isPurchasable")
+        status = "IN_STOCK" if purchasable else "OUT_OF_STOCK"
+        return status, name, debug
+    except Exception:
+        return None, None, debug
+
+
+def check_acehardware(state):
+    """Data collection only — no alerts, no @everyone, no restock notifications.
+    Logs price/stock every cycle so we can see the retail-vs-marked-up pattern
+    over time before deciding whether this is worth full monitoring."""
+    print("Checking Ace Hardware (data only, no alerts)...")
+    for url in ACE_WATCH:
+        status, name, debug = _ace_stock_status(url)
+        if name is None:
+            print(f"  [unknown] {url[-45:]}")
+            time.sleep(random.uniform(1, 3))
+            continue
+        if _should_log_stock(state, f"ace_{url}", status, debug.get("price"), debug.get("qty_left")):
+            _append_stock_log("Ace Hardware", name, url, status,
+                               price=debug.get("price"), qty=debug.get("qty_left"), state=state)
+        print(f"  [{status or '?'}] {name[:45]} — ${debug.get('price')} (msrp ${debug.get('msrp')})")
+        time.sleep(random.uniform(1, 3))
+    print(f"  {len(ACE_WATCH)} products checked (data only)")
+    return state
+
+
 MICROCENTER_STORE_ID   = "045"
 MICROCENTER_STORE_NAME = "Santa Clara"
 
@@ -2195,6 +2255,7 @@ def main():
         ("Best Buy",         lambda: check_bestbuy(_StateDelta(state), seed=seed, history=history)),
         ("Walmart",          lambda: check_walmart(_StateDelta(state), seed=seed, history=history)),
         ("Micro Center",     lambda: check_microcenter(_StateDelta(state), seed=seed, history=history)),
+        ("Ace Hardware",     lambda: check_acehardware(_StateDelta(state))),
     ]
 
     with ThreadPoolExecutor(max_workers=9) as executor:
