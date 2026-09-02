@@ -605187,5 +605187,44 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.costco.com/pok%C3%A9mon-tcg:-charizard-ex-super-premium-collection.product.4000313298.html"
+  },
+  {
+    "ts": "2026-09-02T05:40:22",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Journey Together Pokemon Center Elite Tra",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/100-10356/pokemon-tcg-scarlet-and-violet-journey-together-pokemon-center-elite-trainer-box"
+  },
+  {
+    "ts": "2026-09-02T05:40:27",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Prismatic Evolutions Booster Bundle 6 Pac",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10025-101/pokemon-tcg-scarlet-and-violet-prismatic-evolutions-booster-bundle-6-packs"
+  },
+  {
+    "ts": "2026-09-02T05:40:29",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Prismatic Evolutions Tech Sticker Collect",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10022-102/pokemon-tcg-scarlet-and-violet-prismatic-evolutions-tech-sticker-collection-leafeon"
   }
 ]
