@@ -626754,5 +626754,44 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/bundle1196/pokemon-tcg-scarlet-and-violet-destined-rivals-pokemon-center-elite-trainer-box-and-premium-binder-bundle"
+  },
+  {
+    "ts": "2026-09-02T14:05:23",
+    "retailer": "Ace Hardware",
+    "name": "Pokemon Chaos Rising Elite Trainer Box Trading Cards",
+    "store": "Online",
+    "status": "IN_STOCK",
+    "price": 59.99,
+    "qty": 1,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.acehardware.com/pokemon-chaos-rising-elite-trainer-box-trading-cards/p/9126575"
+  },
+  {
+    "ts": "2026-09-02T14:05:26",
+    "retailer": "Ace Hardware",
+    "name": "Pokemon Chaos Rising Booster Bundle Trading Cards",
+    "store": "Online",
+    "status": "IN_STOCK",
+    "price": 44.99,
+    "qty": 1,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.acehardware.com/pokemon-chaos-rising-booster-bundle-trading-cards/p/9126574"
+  },
+  {
+    "ts": "2026-09-02T14:05:31",
+    "retailer": "Ace Hardware",
+    "name": "Pokemon Prismatic Evolutions Elite Trainer Box Trading Cards",
+    "store": "Online",
+    "status": "IN_STOCK",
+    "price": 139.99,
+    "qty": 1,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.acehardware.com/pokemon-prismatic-evolutions-elite-trainer-box-trading-cards/p/9108372"
   }
 ]
