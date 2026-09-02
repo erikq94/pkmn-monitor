@@ -1784,19 +1784,31 @@ def check_walmart(state, seed=False, history=None):
 ACE_WATCH = [
     "https://www.acehardware.com/pokemon-pitch-black-elite-trainer-box-trading-cards/p/9128019",
     "https://www.acehardware.com/pokemon-pitch-black-booster-bundle-trading-cards/p/9128020",
+    "https://www.acehardware.com/pokemon-pitch-black-sleeved-booster-trading-cards/p/9127809",
     "https://www.acehardware.com/pokemon-chaos-rising-elite-trainer-box-trading-cards/p/9126575",
     "https://www.acehardware.com/pokemon-chaos-rising-booster-bundle-trading-cards/p/9126574",
     "https://www.acehardware.com/pokemon-prismatic-evolutions-elite-trainer-box-trading-cards/p/9108372",
 ]
 
+# 3 nearest stores to 95122 — confirmed real franchise locations, willing-to-travel range
+ACE_STORES = {
+    "19264": "Payless Ace (95122)",
+    "16939": "Diridon Station (95126)",
+    "18860": "Ace Hardware of San Jose (95123)",
+}
 
-def _ace_stock_status(url):
+ACE_GRAPHQL_URL = "https://www.acehardware.com/graphql"
+
+
+def _ace_stock_status(session, url):
     """Data-collection only. Returns (status, name, debug) — status is 'IN_STOCK',
     'OUT_OF_STOCK', or None. Product data lives in a preloaded JSON blob (Mozu/Kibo
-    commerce platform), same style as Walmart's __NEXT_DATA__ — no text scraping."""
+    commerce platform), same style as Walmart's __NEXT_DATA__ — no text scraping.
+    Takes a shared session so the sb-sf-at-prod storefront token cookie it sets
+    carries over to the GraphQL location-inventory call below."""
     debug = {"price": None, "msrp": None, "qty_left": None}
     try:
-        r = cf.get(url, impersonate="chrome124", timeout=20, allow_redirects=True)
+        r = session.get(url, impersonate="chrome124", timeout=20, allow_redirects=True)
         if not r.ok:
             return None, None, debug
         soup = BeautifulSoup(r.text, "html.parser")
@@ -1817,22 +1829,69 @@ def _ace_stock_status(url):
         return None, None, debug
 
 
+def _ace_location_inventory(session, product_codes):
+    """Batches one GraphQL request covering every product code across all of
+    ACE_STORES. Their storefront exposes a real per-location stock count via
+    productLocationInventory(productCode, locationCodes) — found via schema
+    introspection on their public /graphql endpoint. Returns
+    {product_code: {location_code: stockAvailable}}."""
+    location_codes = ",".join(ACE_STORES.keys())
+    fields = " ".join(
+        f'p{i}: productLocationInventory(productCode: "{code}", locationCodes: "{location_codes}") '
+        f'{{ items {{ locationCode stockAvailable }} }}'
+        for i, code in enumerate(product_codes)
+    )
+    try:
+        r = session.post(ACE_GRAPHQL_URL, json={"query": "{ " + fields + " }"},
+                          impersonate="chrome124", timeout=15)
+        if not r.ok:
+            return {}
+        data = r.json().get("data") or {}
+        result = {}
+        for i, code in enumerate(product_codes):
+            items = (data.get(f"p{i}") or {}).get("items") or []
+            result[code] = {it["locationCode"]: it.get("stockAvailable") for it in items}
+        return result
+    except Exception:
+        return {}
+
+
 def check_acehardware(state):
     """Data collection only — no alerts, no @everyone, no restock notifications.
-    Logs price/stock every cycle so we can see the retail-vs-marked-up pattern
-    over time before deciding whether this is worth full monitoring."""
+    Logs price/stock every cycle (online + per-store at the 3 nearest locations)
+    so we can see the retail-vs-marked-up pattern over time before deciding
+    whether this is worth full monitoring."""
     print("Checking Ace Hardware (data only, no alerts)...")
-    for url in ACE_WATCH:
-        status, name, debug = _ace_stock_status(url)
+    session = cf.Session()
+    product_codes = [url.rstrip("/").split("/")[-1] for url in ACE_WATCH]
+    names_by_code = {}
+
+    for url, code in zip(ACE_WATCH, product_codes):
+        status, name, debug = _ace_stock_status(session, url)
         if name is None:
             print(f"  [unknown] {url[-45:]}")
             time.sleep(random.uniform(1, 3))
             continue
+        names_by_code[code] = name
         if _should_log_stock(state, f"ace_{url}", status, debug.get("price"), debug.get("qty_left")):
             _append_stock_log("Ace Hardware", name, url, status,
                                price=debug.get("price"), qty=debug.get("qty_left"), state=state)
         print(f"  [{status or '?'}] {name[:45]} — ${debug.get('price')} (msrp ${debug.get('msrp')})")
         time.sleep(random.uniform(1, 3))
+
+    inventory = _ace_location_inventory(session, product_codes)
+    for url, code in zip(ACE_WATCH, product_codes):
+        by_store = inventory.get(code, {})
+        name = names_by_code.get(code, code)
+        for store_code, store_name in ACE_STORES.items():
+            stock = by_store.get(store_code)
+            if stock is None:
+                continue
+            local_status = "IN_STOCK" if stock > 0 else "OUT_OF_STOCK"
+            if _should_log_stock(state, f"ace_local_{store_code}_{code}", local_status, None, stock):
+                _append_stock_log("Ace Hardware", name, url, local_status,
+                                   store=store_name, qty=stock, state=state)
+            print(f"  [{local_status}] {store_name} — {name[:40]} qty={stock}")
     print(f"  {len(ACE_WATCH)} products checked (data only)")
     return state
 
