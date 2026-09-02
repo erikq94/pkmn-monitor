@@ -588,7 +588,11 @@ def check_target(state, seed=False, history=None):
                     continue
 
                 local_key = f"target_local_{store_id}_{tcin}"
-                in_stock_locally = store_qty > 0 or pickup == "AVAILABLE"
+                # RedSky's real enum value here is "IN_STOCK" — this used to check
+                # for "AVAILABLE", which Target's API never actually returns, so this
+                # half of the condition was silently dead and detection relied on
+                # store_qty alone.
+                in_stock_locally = store_qty > 0 or pickup == "IN_STOCK"
 
                 if not seed and in_stock_locally and not state.get(local_key):
                     time.sleep(random.uniform(0.5, 2))
@@ -925,7 +929,7 @@ def run_status():
             opts = p.get("fulfillment", {}).get("store_options", [])
             qty = opts[0].get("location_available_to_promise_quantity", 0) if opts else 0
             pickup = opts[0].get("order_pickup", {}).get("availability_status", "") if opts else ""
-            if qty > 0 or pickup == "AVAILABLE":
+            if qty > 0 or pickup == "IN_STOCK":
                 name = html.unescape(p.get("item", {}).get("product_description", {}).get("title", ""))
                 if not is_card_product(name):
                     continue
