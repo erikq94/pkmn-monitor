@@ -626000,5 +626000,57 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.costco.com/pok%C3%A9mon-tcg:-charizard-ex-super-premium-collection.product.4000313298.html"
+  },
+  {
+    "ts": "2026-09-02T13:30:24",
+    "retailer": "Best Buy",
+    "name": "Mega Evolution Chaos Rising Elite Trainer Box",
+    "store": "Online",
+    "status": "IN_STOCK",
+    "price": 84.99,
+    "qty": null,
+    "seller": "Best Buy",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-chaos-rising-elite-trainer-box/JJG2TL34RT"
+  },
+  {
+    "ts": "2026-09-02T13:30:30",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Journey Together Sleeved Booster Pack 10 ",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/100-10326/pokemon-tcg-scarlet-and-violet-journey-together-sleeved-booster-pack-10-cards"
+  },
+  {
+    "ts": "2026-09-02T13:30:31",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Prismatic Evolutions Booster Bundle 6 Pac",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10025-101/pokemon-tcg-scarlet-and-violet-prismatic-evolutions-booster-bundle-6-packs"
+  },
+  {
+    "ts": "2026-09-02T13:30:33",
+    "retailer": "Pokemon Center",
+    "name": "Scarlet And Violet Prismatic Evolutions Tech Sticker Collect",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.pokemoncenter.com/product/10-10022-102/pokemon-tcg-scarlet-and-violet-prismatic-evolutions-tech-sticker-collection-leafeon"
   }
 ]
