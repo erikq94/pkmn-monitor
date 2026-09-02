@@ -1297,6 +1297,15 @@
       "day": "Thursday",
       "hour": 6,
       "qty": null
+    },
+    {
+      "retailer": "Target",
+      "name": "Pok\u00e9mon Trading Card Game: Mega Evolution Chaos Rising Elite Trainer Box",
+      "store": "Online",
+      "timestamp": "2026-09-02T10:01:08.126820",
+      "day": "Wednesday",
+      "hour": 10,
+      "qty": null
     }
   ],
   "last_summary": "2026-09-01T06:51:37.162885"
