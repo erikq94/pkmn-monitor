@@ -631642,5 +631642,31 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/bundle1196/pokemon-tcg-scarlet-and-violet-destined-rivals-pokemon-center-elite-trainer-box-and-premium-binder-bundle"
+  },
+  {
+    "ts": "2026-09-02T17:55:22",
+    "retailer": "Sam's Club",
+    "name": "Surprise Box Booster Bundle",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.samsclub.com/ip/pokemon-surprise-box-booster-bundle/18933156288"
+  },
+  {
+    "ts": "2026-09-02T17:55:32",
+    "retailer": "Ace Hardware",
+    "name": "Pokemon Chaos Rising Elite Trainer Box Trading Cards",
+    "store": "Online",
+    "status": "IN_STOCK",
+    "price": 59.99,
+    "qty": 1,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.acehardware.com/pokemon-chaos-rising-elite-trainer-box-trading-cards/p/9126575"
   }
 ]
