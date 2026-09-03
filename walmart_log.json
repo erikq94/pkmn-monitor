@@ -290707,5 +290707,35 @@
     "duration_minutes": null,
     "page_len": 220,
     "url": "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Elite-Trainer-Box/20161351456"
+  },
+  {
+    "ts": "2026-09-03T20:20:30",
+    "name": "Mega Evolution Perfect Order Booster Bundle 6 Packs",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "1000607114.ontario.inc",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 42.47,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1933,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Perfect-Order-Booster-Bundle-6-Packs/19380764160"
+  },
+  {
+    "ts": "2026-09-03T20:20:58",
+    "name": "Mega Evolution Pitch Black Elite Trainer Box",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "Squeaks Game World LLC",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 84,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 2005,
+    "url": "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Elite-Trainer-Box/20161351456"
   }
 ]
