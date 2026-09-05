@@ -308512,5 +308512,20 @@
     "duration_minutes": null,
     "page_len": 2020,
     "url": "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Elite-Trainer-Box/20161351456"
+  },
+  {
+    "ts": "2026-09-05T02:45:44",
+    "name": "Mega Evolution Pitch Black Elite Trainer Box",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": null,
+    "walmart_confirmed": false,
+    "price": null,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 220,
+    "url": "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Elite-Trainer-Box/20161351456"
   }
 ]
