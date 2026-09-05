@@ -309817,5 +309817,35 @@
     "duration_minutes": null,
     "page_len": 1642,
     "url": "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Elite-Trainer-Box/20161351456"
+  },
+  {
+    "ts": "2026-09-05T05:10:19",
+    "name": "Mega Evolution Ascended Heroes Elite Trainer Box",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "Rares Market L.L.C.",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 168.9,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1638,
+    "url": "https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734"
+  },
+  {
+    "ts": "2026-09-05T05:10:45",
+    "name": "Mega Evolution Pitch Black Elite Trainer Box",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "Shopville",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 79.97,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 2007,
+    "url": "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Elite-Trainer-Box/20161351456"
   }
 ]
