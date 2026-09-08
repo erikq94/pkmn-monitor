@@ -349387,5 +349387,35 @@
     "duration_minutes": null,
     "page_len": 220,
     "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Chaos-Rising-Elite-Trainer-Box/19988614228"
+  },
+  {
+    "ts": "2026-09-08T02:25:20",
+    "name": "Scarlet Violet Black Bolt White Flare Booster Bundles",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "Five Digits Ltd",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 299.99,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1853,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Scarlet-Violet-Black-Bolt-White-Flare-Booster-Bundles/17752173132"
+  },
+  {
+    "ts": "2026-09-08T02:25:45",
+    "name": "Mega Evolution Pitch Black Elite Trainer Box",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "TNT NORTH NJ",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 87.77,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1644,
+    "url": "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Elite-Trainer-Box/20161351456"
   }
 ]
