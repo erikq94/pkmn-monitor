@@ -371167,5 +371167,20 @@
     "duration_minutes": null,
     "page_len": 1875,
     "url": "https://www.walmart.com/ip/POKEMON-ME2-PHANTASMAL-FLAMES-ELITE-TRAINER-BOX/17780209250"
+  },
+  {
+    "ts": "2026-09-09T17:05:15",
+    "name": "Mega Evolution Ascended Heroes Elite Trainer Box",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "Moore Media LLC",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 159.99,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1638,
+    "url": "https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734"
   }
 ]
