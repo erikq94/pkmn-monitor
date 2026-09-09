@@ -366457,5 +366457,50 @@
     "duration_minutes": null,
     "page_len": 220,
     "url": "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Elite-Trainer-Box/20161351456"
+  },
+  {
+    "ts": "2026-09-09T09:50:31",
+    "name": "Mega Evolution Ascended Heroes Elite Trainer Box",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "Rares Market L.L.C.",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 166.5,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1640,
+    "url": "https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734"
+  },
+  {
+    "ts": "2026-09-09T09:50:34",
+    "name": "Mega Evolution Perfect Order Booster Bundle 6 Packs",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "Rares Market L.L.C.",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 42.46,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1652,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Perfect-Order-Booster-Bundle-6-Packs/19380764160"
+  },
+  {
+    "ts": "2026-09-09T09:50:46",
+    "name": "Mega Evolution Chaos Rising Elite Trainer Box",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "1000607114.ontario.inc",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 74.74,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1580,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Chaos-Rising-Elite-Trainer-Box/19988614228"
   }
 ]
