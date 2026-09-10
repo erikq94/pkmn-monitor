@@ -386032,5 +386032,35 @@
     "duration_minutes": null,
     "page_len": 1556,
     "url": "https://www.walmart.com/ip/POKEMON-ME2-PHANTASMAL-FLAMES-BOOSTER-BUNDLE/17785924366"
+  },
+  {
+    "ts": "2026-09-10T03:00:38",
+    "name": "Scarlet Violet Destined Rivals Booster Bundle 6 Packs",
+    "status": "OUT_OF_STOCK",
+    "seller_text": null,
+    "jsonld_seller": "Walmart.com",
+    "jsonld_avail": "OUT_OF_STOCK",
+    "walmart_confirmed": true,
+    "price": 34.97,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1713,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Scarlet-Violet-Destined-Rivals-Booster-Bundle-6-Packs/16019713971"
+  },
+  {
+    "ts": "2026-09-10T03:00:54",
+    "name": "Mega Evolution Ascended Heroes Booster Bundle 6 Packs",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "Rares Market L.L.C.",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 83.44,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1633,
+    "url": "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Ascended-Heroes-Booster-Bundle-6-Packs/18728422476"
   }
 ]
