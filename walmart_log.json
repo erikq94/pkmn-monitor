@@ -402112,5 +402112,50 @@
     "duration_minutes": null,
     "page_len": 1821,
     "url": "https://www.walmart.com/ip/Pokemon-TCG-30th-Celebration-Elite-Trainer-Box-ETB/20754418655"
+  },
+  {
+    "ts": "2026-09-10T14:10:56",
+    "name": "Mega Evolution Chaos Rising Elite Trainer Box",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "DapStore LLC",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 74.69,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1578,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Chaos-Rising-Elite-Trainer-Box/19988614228"
+  },
+  {
+    "ts": "2026-09-10T14:11:01",
+    "name": "Mega Evolution Chaos Rising Bundle",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "REALGOODEAL LLC",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 38.95,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1941,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Chaos-Rising-Bundle/19986002628"
+  },
+  {
+    "ts": "2026-09-10T14:11:22",
+    "name": "30Th Celebration Elite Trainer Box Etb",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "Torrential Gaming L.L.C.",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 178.99,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1830,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-30th-Celebration-Elite-Trainer-Box-ETB/20754418655"
   }
 ]
