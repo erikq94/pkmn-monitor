@@ -387382,5 +387382,20 @@
     "duration_minutes": null,
     "page_len": 1640,
     "url": "https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734"
+  },
+  {
+    "ts": "2026-09-10T03:55:27",
+    "name": "Scarlet Violet Destined Rivals Booster Bundle 6 Packs",
+    "status": "OUT_OF_STOCK",
+    "seller_text": null,
+    "jsonld_seller": "Walmart.com",
+    "jsonld_avail": "OUT_OF_STOCK",
+    "walmart_confirmed": true,
+    "price": 34.97,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1713,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Scarlet-Violet-Destined-Rivals-Booster-Bundle-6-Packs/16019713971"
   }
 ]
