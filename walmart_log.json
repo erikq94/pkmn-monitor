@@ -397942,5 +397942,20 @@
     "duration_minutes": null,
     "page_len": 15856,
     "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Chaos-Rising-Elite-Trainer-Box/19988614228"
+  },
+  {
+    "ts": "2026-09-10T11:30:38",
+    "name": "Mega Evolution Chaos Rising Elite Trainer Box",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "DapStore LLC",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 74.69,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1578,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Chaos-Rising-Elite-Trainer-Box/19988614228"
   }
 ]
