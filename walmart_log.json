@@ -451417,5 +451417,20 @@
     "duration_minutes": null,
     "page_len": 1758,
     "url": "https://www.walmart.com/ip/Pokemon-TCG-30th-Celebration-Elite-Trainer-Box-ETB/20754418655"
+  },
+  {
+    "ts": "2026-09-11T21:50:52",
+    "name": "Pokemon Me2 Phantasmal Flames Elite Trainer Box",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "Rajmahal Retail LLC",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 178,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1870,
+    "url": "https://www.walmart.com/ip/POKEMON-ME2-PHANTASMAL-FLAMES-ELITE-TRAINER-BOX/17780209250"
   }
 ]
