@@ -444217,5 +444217,50 @@
     "duration_minutes": null,
     "page_len": 1849,
     "url": "https://www.walmart.com/ip/Pokemon-TCG-30th-Celebration-Elite-Trainer-Box/20640569221"
+  },
+  {
+    "ts": "2026-09-11T16:40:34",
+    "name": "Scarlet Violet Destined Rivals Booster Bundle 6 Packs",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "Mascot Technologies LLC",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 76.66,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1961,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Scarlet-Violet-Destined-Rivals-Booster-Bundle-6-Packs/16019713971"
+  },
+  {
+    "ts": "2026-09-11T16:40:43",
+    "name": "Mega Evolution Chaos Rising Bundle",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "Cash Cards Unlimited",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 38.9,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1924,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Chaos-Rising-Bundle/19986002628"
+  },
+  {
+    "ts": "2026-09-11T16:40:50",
+    "name": "Mega Evolution Ascended Heroes Booster Bundle 6 Packs",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "Speks Collectibles LLC",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 82.2,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1968,
+    "url": "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Ascended-Heroes-Booster-Bundle-6-Packs/18728422476"
   }
 ]
