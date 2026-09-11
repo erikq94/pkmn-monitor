@@ -442417,5 +442417,20 @@
     "duration_minutes": null,
     "page_len": 1821,
     "url": "https://www.walmart.com/ip/Pokemon-TCG-30th-Celebration-Elite-Trainer-Box-ETB/20754418655"
+  },
+  {
+    "ts": "2026-09-11T15:41:08",
+    "name": "30Th Celebration Elite Trainer Box Etb",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "Torrential Gaming L.L.C.",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 178.99,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1804,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-30th-Celebration-Elite-Trainer-Box-ETB/20754418655"
   }
 ]
