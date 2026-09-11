@@ -422242,5 +422242,50 @@
     "duration_minutes": null,
     "page_len": 1617,
     "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Perfect-Order-Booster-Bundle-6-Packs/19380764160"
+  },
+  {
+    "ts": "2026-09-11T02:45:16",
+    "name": "Mega Evolution Ascended Heroes Elite Trainer Box",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "Moore Media LLC",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 159.99,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1638,
+    "url": "https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734"
+  },
+  {
+    "ts": "2026-09-11T02:45:19",
+    "name": "Mega Evolution Perfect Order Booster Bundle 6 Packs",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "GT Collectibles and Toys",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 39.99,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1654,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Perfect-Order-Booster-Bundle-6-Packs/19380764160"
+  },
+  {
+    "ts": "2026-09-11T02:45:42",
+    "name": "Mega Evolution Ascended Heroes Booster Bundle 6 Packs",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "Challenger Sales Group LLC",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 83.37,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 2023,
+    "url": "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Ascended-Heroes-Booster-Bundle-6-Packs/18728422476"
   }
 ]
