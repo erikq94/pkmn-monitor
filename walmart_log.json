@@ -444997,5 +444997,50 @@
     "duration_minutes": null,
     "page_len": 1821,
     "url": "https://www.walmart.com/ip/Pokemon-TCG-30th-Celebration-Elite-Trainer-Box-ETB/20754418655"
+  },
+  {
+    "ts": "2026-09-11T17:20:20",
+    "name": "Mega Evolution Ascended Heroes Elite Trainer Box",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "Moore Media LLC",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 159.99,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1638,
+    "url": "https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734"
+  },
+  {
+    "ts": "2026-09-11T17:21:10",
+    "name": "Mega Evolution Pitch Black Booster Box Me05",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "Cash Cards Unlimited",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 179.75,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1598,
+    "url": "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Booster-Box-ME05/20140716298"
+  },
+  {
+    "ts": "2026-09-11T17:21:14",
+    "name": "30Th Celebration Elite Trainer Box Etb",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "Torrential Gaming L.L.C.",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 178.99,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1802,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-30th-Celebration-Elite-Trainer-Box-ETB/20754418655"
   }
 ]
