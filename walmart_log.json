@@ -481597,5 +481597,35 @@
     "duration_minutes": null,
     "page_len": 1882,
     "url": "https://www.walmart.com/ip/POKEMON-ME2-PHANTASMAL-FLAMES-ELITE-TRAINER-BOX/17780209250"
+  },
+  {
+    "ts": "2026-09-12T16:00:24",
+    "name": "Mega Evolution Perfect Order Booster Bundle 6 Packs",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "REALGOODEAL LLC",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 38.95,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1653,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Perfect-Order-Booster-Bundle-6-Packs/19380764160"
+  },
+  {
+    "ts": "2026-09-12T16:00:58",
+    "name": "Mega Evolution Pitch Black Elite Trainer Box",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "REALGOODEAL LLC",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 72.95,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1645,
+    "url": "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Elite-Trainer-Box/20161351456"
   }
 ]
