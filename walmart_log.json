@@ -615217,5 +615217,20 @@
     "duration_minutes": null,
     "page_len": 1601,
     "url": "https://www.walmart.com/ip/Pokemon-TCG-30th-Celebration-Elite-Trainer-Box/20640569221"
+  },
+  {
+    "ts": "2026-09-21T18:20:48",
+    "name": "Mega Evolution Perfect Order Elite Trainer Box",
+    "status": "OUT_OF_STOCK",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": "OUT_OF_STOCK",
+    "walmart_confirmed": false,
+    "price": null,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1522,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Perfect-Order-Elite-Trainer-Box/19402160990"
   }
 ]
