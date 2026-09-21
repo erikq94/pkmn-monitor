@@ -1360,6 +1360,15 @@
       "day": "Monday",
       "hour": 11,
       "qty": null
+    },
+    {
+      "retailer": "Best Buy",
+      "name": "Scarlet Violet Prismatic Evolutions Booster Bundle",
+      "store": "Online",
+      "timestamp": "2026-09-21T12:45:46.911680",
+      "day": "Monday",
+      "hour": 12,
+      "qty": null
     }
   ],
   "last_summary": "2026-09-15T06:56:36.394278"
