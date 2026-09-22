@@ -635407,5 +635407,50 @@
     "duration_minutes": null,
     "page_len": 1944,
     "url": "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Booster-Box-ME05/20140716298"
+  },
+  {
+    "ts": "2026-09-22T08:20:30",
+    "name": "Scarlet Violet Black Bolt White Flare Elite Trainer Box Etb",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "Florida Box Breakers",
+    "jsonld_avail": "OUT_OF_STOCK",
+    "walmart_confirmed": false,
+    "price": 254.98,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 2915,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Scarlet-Violet-Black-Bolt-White-Flare-Elite-Trainer-Box-ETB/17337259478"
+  },
+  {
+    "ts": "2026-09-22T08:21:02",
+    "name": "Mega Evolution Pitch Black Booster Box Me05",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "Flipside Gaming",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 184.99,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1943,
+    "url": "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Booster-Box-ME05/20140716298"
+  },
+  {
+    "ts": "2026-09-22T08:21:09",
+    "name": "30Th Celebration Elite Trainer Box",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "J & M Collectibles",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 229.99,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1545,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-30th-Celebration-Elite-Trainer-Box/20640569221"
   }
 ]
