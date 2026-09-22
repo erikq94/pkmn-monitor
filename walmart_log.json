@@ -641887,5 +641887,35 @@
     "duration_minutes": null,
     "page_len": 1546,
     "url": "https://www.walmart.com/ip/Pokemon-TCG-30th-Celebration-Elite-Trainer-Box/20640569221"
+  },
+  {
+    "ts": "2026-09-22T12:05:54",
+    "name": "Mega Evolution Pitch Black Booster Box Me05",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "Lou Brown Cards, Inc",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 185,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1945,
+    "url": "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Booster-Box-ME05/20140716298"
+  },
+  {
+    "ts": "2026-09-22T12:06:01",
+    "name": "30Th Celebration Elite Trainer Box",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": null,
+    "walmart_confirmed": false,
+    "price": null,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 220,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-30th-Celebration-Elite-Trainer-Box/20640569221"
   }
 ]
