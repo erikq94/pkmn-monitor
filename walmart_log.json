@@ -624847,5 +624847,50 @@
     "duration_minutes": null,
     "page_len": 1744,
     "url": "https://www.walmart.com/ip/Pokemon-TCG-30th-Celebration-Elite-Trainer-Box-ETB/20754418655"
+  },
+  {
+    "ts": "2026-09-22T01:30:49",
+    "name": "Mega Evolution Chaos Rising Bundle",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "LAMEGOCOLLECTIBLES LLC",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 41.99,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1918,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-Mega-Evolution-Chaos-Rising-Bundle/19986002628"
+  },
+  {
+    "ts": "2026-09-22T01:31:08",
+    "name": "Mega Evolution Pitch Black Booster Box Me05",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "Lou Brown Cards, Inc",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 185,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1595,
+    "url": "https://www.walmart.com/ip/Pok-mon-TCG-Mega-Evolution-Pitch-Black-Booster-Box-ME05/20140716298"
+  },
+  {
+    "ts": "2026-09-22T01:31:14",
+    "name": "30Th Celebration Elite Trainer Box",
+    "status": "THIRD_PARTY",
+    "seller_text": null,
+    "jsonld_seller": "MTR Kicks LLC",
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 219.49,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1601,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-30th-Celebration-Elite-Trainer-Box/20640569221"
   }
 ]
