@@ -1414,6 +1414,15 @@
       "day": "Friday",
       "hour": 9,
       "qty": null
+    },
+    {
+      "retailer": "Best Buy",
+      "name": "Scarlet Violet Prismatic Evolutions Elite Trainer Box",
+      "store": "Online",
+      "timestamp": "2026-09-25T09:25:46.425401",
+      "day": "Friday",
+      "hour": 9,
+      "qty": null
     }
   ],
   "last_summary": "2026-09-22T07:02:22.605653"
