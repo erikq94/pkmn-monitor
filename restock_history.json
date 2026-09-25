@@ -1405,6 +1405,15 @@
       "day": "Friday",
       "hour": 9,
       "qty": null
+    },
+    {
+      "retailer": "Target",
+      "name": "Pok\u00e9mon Trading Card Game: Mega Evolution Pitch Black Booster Bundle",
+      "store": "Online",
+      "timestamp": "2026-09-25T09:20:24.310029",
+      "day": "Friday",
+      "hour": 9,
+      "qty": null
     }
   ],
   "last_summary": "2026-09-22T07:02:22.605653"
