@@ -1378,6 +1378,24 @@
       "day": "Thursday",
       "hour": 13,
       "qty": null
+    },
+    {
+      "retailer": "Target",
+      "name": "Pok\u00e9mon Trading Card Game: 30th Celebration Elite Trainer Box",
+      "store": "Online",
+      "timestamp": "2026-09-25T08:36:02.726052",
+      "day": "Friday",
+      "hour": 8,
+      "qty": null
+    },
+    {
+      "retailer": "Best Buy",
+      "name": "Scarlet Violet Prismatic Evolutions Elite Trainer Box",
+      "store": "Online",
+      "timestamp": "2026-09-25T08:36:16.844582",
+      "day": "Friday",
+      "hour": 8,
+      "qty": null
     }
   ],
   "last_summary": "2026-09-22T07:02:22.605653"
