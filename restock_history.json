@@ -1459,6 +1459,15 @@
       "day": "Saturday",
       "hour": 7,
       "qty": null
+    },
+    {
+      "retailer": "Best Buy",
+      "name": "Mega Evolution Perfect Order Booster Bundle",
+      "store": "Online",
+      "timestamp": "2026-09-27T00:45:31.675302",
+      "day": "Sunday",
+      "hour": 0,
+      "qty": null
     }
   ],
   "last_summary": "2026-09-22T07:02:22.605653"
