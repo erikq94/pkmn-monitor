@@ -1477,6 +1477,15 @@
       "day": "Wednesday",
       "hour": 8,
       "qty": null
+    },
+    {
+      "retailer": "Best Buy",
+      "name": "30Th Celebration Elite Trainer Box",
+      "store": "Online",
+      "timestamp": "2026-09-30T20:11:01.244446",
+      "day": "Wednesday",
+      "hour": 20,
+      "qty": null
     }
   ],
   "last_summary": "2026-09-29T07:06:37.534951"
