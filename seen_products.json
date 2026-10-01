@@ -3468,5 +3468,8 @@
   "target_local_2088_1001193702__log_status": "OUT_OF_STOCK",
   "target_local_2088_1001193702__log_ts": "2026-10-01T07:40:15.467177",
   "target_local_2088_1001193702__log_price": null,
-  "target_local_2088_1001193702__log_qty": null
+  "target_local_2088_1001193702__log_qty": null,
+  "pc_https://www.pokemoncenter.com/product/10-10446-120/pokemon-tcg-mega-evolution-delta-reign-booster-display-box-36-packs": true,
+  "pc_https://www.pokemoncenter.com/product/10-10438-112/pokemon-tcg-mega-evolution-delta-reign-pokemon-center-elite-trainer-box": true,
+  "pc_https://www.pokemoncenter.com/product/10-10439-109/pokemon-tcg-mega-evolution-delta-reign-booster-bundle-6-packs": true
 }
