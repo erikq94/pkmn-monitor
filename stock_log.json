@@ -1,44 +1,5 @@
 [
   {
-    "ts": "2026-08-06T05:10:16",
-    "retailer": "Sam's Club",
-    "name": "Sam's Club item 19170800669",
-    "store": "Online",
-    "status": "None",
-    "price": null,
-    "qty": null,
-    "seller": null,
-    "duration_minutes": null,
-    "release_date": null,
-    "url": "https://www.samsclub.com/ip/19170800669"
-  },
-  {
-    "ts": "2026-08-06T05:10:20",
-    "retailer": "Sam's Club",
-    "name": "Surprise Box Booster Bundle",
-    "store": "Online",
-    "status": "None",
-    "price": null,
-    "qty": null,
-    "seller": null,
-    "duration_minutes": null,
-    "release_date": null,
-    "url": "https://www.samsclub.com/ip/pokemon-surprise-box-booster-bundle/18933156288"
-  },
-  {
-    "ts": "2026-08-06T05:10:21",
-    "retailer": "Sam's Club",
-    "name": "Binder Poster Collection Booster Packs",
-    "store": "Online",
-    "status": "None",
-    "price": null,
-    "qty": null,
-    "seller": null,
-    "duration_minutes": null,
-    "release_date": null,
-    "url": "https://www.samsclub.com/ip/pokemon-binder-poster-collection-booster-packs/19167901990"
-  },
-  {
     "ts": "2026-08-06T05:16:09",
     "retailer": "Pokemon Center",
     "name": "Mega Evolution 3 Booster Packs And Psyduck Promo Card",
@@ -3153694,5 +3153655,31 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.target.com/p/pokemon-sv10-5-black-bolt-booster-bundle-2-pack/-/A-1004842209"
+  },
+  {
+    "ts": "2026-11-04T05:10:25",
+    "retailer": "Costco",
+    "name": "Pokmon Tcg Charizard Ex Super Premium Collection",
+    "store": "Online",
+    "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.costco.com/pok%C3%A9mon-tcg:-charizard-ex-super-premium-collection.product.4000313298.html"
+  },
+  {
+    "ts": "2026-11-04T05:10:53",
+    "retailer": "Best Buy",
+    "name": "30Th Celebration Elite Trainer Box",
+    "store": "Online",
+    "status": "THIRD_PARTY",
+    "price": 161.41,
+    "qty": null,
+    "seller": "Extreme TCG",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-30th-celebration-elite-trainer-box/JJG2TL8XCJ"
   }
 ]
