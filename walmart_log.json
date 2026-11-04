@@ -883573,5 +883573,20 @@
     "duration_minutes": null,
     "page_len": 1718,
     "url": "https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734"
+  },
+  {
+    "ts": "2026-11-04T19:15:18",
+    "name": "Mega Evolution Ascended Heroes Elite Trainer Box",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 126.96,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1668,
+    "url": "https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734"
   }
 ]
