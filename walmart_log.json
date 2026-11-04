@@ -881683,5 +881683,50 @@
     "duration_minutes": null,
     "page_len": 26748,
     "url": "https://www.walmart.com/ip/Pokemon-TCG-30th-Celebration-Elite-Trainer-Box/20640569221"
+  },
+  {
+    "ts": "2026-11-04T17:27:38",
+    "name": "Mega Evolution Ascended Heroes Elite Trainer Box",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 127.84,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1856,
+    "url": "https://www.walmart.com/ip/Pokemon-Trading-Card-Game-Mega-Evolution-Ascended-Heroes-Elite-Trainer-Box/18710966734"
+  },
+  {
+    "ts": "2026-11-04T17:28:17",
+    "name": "Pokemon Me2 Phantasmal Flames Booster Bundle",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 81.48,
+    "qty_left": 1,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 2099,
+    "url": "https://www.walmart.com/ip/POKEMON-ME2-PHANTASMAL-FLAMES-BOOSTER-BUNDLE/17785924366"
+  },
+  {
+    "ts": "2026-11-04T17:28:32",
+    "name": "30Th Celebration Elite Trainer Box",
+    "status": "None",
+    "seller_text": null,
+    "jsonld_seller": null,
+    "jsonld_avail": "IN_STOCK",
+    "walmart_confirmed": false,
+    "price": 126.61,
+    "qty_left": null,
+    "release_date": null,
+    "duration_minutes": null,
+    "page_len": 1992,
+    "url": "https://www.walmart.com/ip/Pokemon-TCG-30th-Celebration-Elite-Trainer-Box/20640569221"
   }
 ]
