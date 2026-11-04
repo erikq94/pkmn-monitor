@@ -1,18 +1,5 @@
 [
   {
-    "ts": "2026-08-06T13:46:31",
-    "retailer": "Pokemon Center",
-    "name": "Mega Evolution Perfect Order 3 Booster Packs And Chikorita P",
-    "store": "Online",
-    "status": "QUEUE",
-    "price": null,
-    "qty": null,
-    "seller": null,
-    "duration_minutes": null,
-    "release_date": null,
-    "url": "https://www.pokemoncenter.com/product/10-10375-108/pokemon-tcg-mega-evolution-perfect-order-3-booster-packs-and-chikorita-promo-card"
-  },
-  {
     "ts": "2026-08-06T13:55:54",
     "retailer": "Pokemon Center",
     "name": "Mega Evolution Perfect Order Booster Display Box 36 Packs",
@@ -3151647,6 +3151634,19 @@
     "name": "Pokmon Tcg Charizard Ex Super Premium Collection",
     "store": "Online",
     "status": "None",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.costco.com/pok%C3%A9mon-tcg:-charizard-ex-super-premium-collection.product.4000313298.html"
+  },
+  {
+    "ts": "2026-11-04T13:50:29",
+    "retailer": "Costco",
+    "name": "Pokmon Tcg Charizard Ex Super Premium Collection",
+    "store": "Online",
+    "status": "QUEUE",
     "price": null,
     "qty": null,
     "seller": null,
