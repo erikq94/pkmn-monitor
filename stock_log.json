@@ -3151874,5 +3151874,31 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.samsclub.com/ip/pokemon-surprise-box-booster-bundle/18933156288"
+  },
+  {
+    "ts": "2026-11-04T16:00:34",
+    "retailer": "Costco",
+    "name": "Pokmon Tcg Charizard Ex Super Premium Collection",
+    "store": "Online",
+    "status": "QUEUE",
+    "price": null,
+    "qty": null,
+    "seller": null,
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.costco.com/pok%C3%A9mon-tcg:-charizard-ex-super-premium-collection.product.4000313298.html"
+  },
+  {
+    "ts": "2026-11-04T16:00:57",
+    "retailer": "Best Buy",
+    "name": "30Th Celebration Elite Trainer Box",
+    "store": "Online",
+    "status": "THIRD_PARTY",
+    "price": 220.0,
+    "qty": null,
+    "seller": "JG Collectors Vault LLC",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-30th-celebration-elite-trainer-box/JJG2TL8XCJ"
   }
 ]
