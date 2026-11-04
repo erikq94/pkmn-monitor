@@ -3151822,5 +3151822,18 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.pokemoncenter.com/product/10-10465-166/pokemon-tcg-30th-celebration-mini-tin-mew-day"
+  },
+  {
+    "ts": "2026-11-04T20:33:35",
+    "retailer": "Best Buy",
+    "name": "30Th Celebration Elite Trainer Box",
+    "store": "Online",
+    "status": "THIRD_PARTY",
+    "price": 152.79,
+    "qty": null,
+    "seller": "Extreme TCG",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-30th-celebration-elite-trainer-box/JJG2TL8XCJ"
   }
 ]
