@@ -3152004,5 +3152004,31 @@
     "duration_minutes": null,
     "release_date": null,
     "url": "https://www.costco.com/pok%C3%A9mon-unova-heavy-hitters-premium-collection.product.1943158.html"
+  },
+  {
+    "ts": "2026-11-04T21:15:23",
+    "retailer": "Best Buy",
+    "name": "Mega Evolution Chaos Rising Booster Bundle",
+    "store": "Online",
+    "status": "THIRD_PARTY",
+    "price": 49.99,
+    "qty": null,
+    "seller": "Collectors Emporium",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-mega-evolution-chaos-rising-booster-bundle/JJG2TL34H9"
+  },
+  {
+    "ts": "2026-11-04T21:15:44",
+    "retailer": "Best Buy",
+    "name": "30Th Celebration Elite Trainer Box",
+    "store": "Online",
+    "status": "THIRD_PARTY",
+    "price": 149.99,
+    "qty": null,
+    "seller": "Collectors Emporium",
+    "duration_minutes": null,
+    "release_date": null,
+    "url": "https://www.bestbuy.com/product/pokemon-trading-card-game-30th-celebration-elite-trainer-box/JJG2TL8XCJ"
   }
 ]
